@@ -6,6 +6,7 @@ For people interested in maintaining a healthy lifestyle who need a helping tool
 ### Project Requirements
 
 GoFit project requirements to be edited:
-    * requirement 1
-    * requrement 2
-    * requirement 3
+* requirement 1
+* requrement 2
+* requirement 3
+    * sub requirement
