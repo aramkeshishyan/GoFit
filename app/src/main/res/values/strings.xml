@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">GoFit</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="signup">SignUp</string>
+    <string name="fullname">Fullname</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="already_have_an_account_login">Already have an account? Login</string>
 </resources>
