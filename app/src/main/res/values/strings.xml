@@ -7,4 +7,9 @@
     <string name="email">Email</string>
     <string name="login">Login</string>
     <string name="already_have_an_account_login">Already have an account? Login</string>
+    <string name="email_address">Email Address</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="register">Register</string>
+    <string name="gofit">GoFit</string>
+    <string name="register_user">Register User</string>
 </resources>
