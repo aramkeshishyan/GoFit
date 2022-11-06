@@ -20,8 +20,5 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnClick(View view){
 
-        TextView txtHello = findViewById(R.id.txtMessage);
-        EditText edtTxtName = findViewById(R.id.edtTxtName);
-        txtHello.setText("Hello " + edtTxtName.getText().toString());
     }
 }
