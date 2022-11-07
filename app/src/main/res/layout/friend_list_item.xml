@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/friendListItemParent"
+    android:layout_width="wrap_content"
+    android:layout_height="80dp"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="30dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/friendListImgV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher_background"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/friendListNameTxtV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name L"
+        android:layout_gravity="center|bottom"/>
+
+</LinearLayout>
