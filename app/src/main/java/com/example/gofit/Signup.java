@@ -47,6 +47,8 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
+    //First case goes to the main page when clicking on the banner "GoFit"
+    //When clicking "REGISTER USER" calls the registerUser function
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -60,11 +62,15 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+
+    //The function takes input and pushes it to the database
     private void registerUser() {
 
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String fullName = editTextFullName.getText().toString().trim();
+
+        //The function takes Fullname, Email, Password inputs and does error checking, empty filed checking
 
         if(fullName.isEmpty()){
             editTextFullName.setError("Full name is required!");
@@ -97,6 +103,8 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             return;
         }
 
+        //If all the fields are filled in correct, pushes the data to the database and checks if it was received successfully or not.
+        //Displays toast messages if push was success or failed
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

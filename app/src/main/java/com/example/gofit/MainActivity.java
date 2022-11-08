@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
+    //First case: Changes the activity to the Signup page when clicked on "Register"
     @Override
     public void onClick(View v) {
         switch (v.getId()){
