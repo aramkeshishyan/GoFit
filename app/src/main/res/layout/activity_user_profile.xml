@@ -38,10 +38,22 @@
                 android:minWidth="48dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:layout_toStartOf="@+id/logOutBtn"
                 android:src="@drawable/ic_baseline_settings_24"
                 android:background="?android:selectableItemBackground"
                 android:contentDescription="@string/settings"/>
+
+            <ImageButton
+                android:id="@+id/logOutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="48dp"
+                android:layout_alignParentEnd="true"
+
+                android:src="@drawable/ic_baseline_logout_24"
+                android:background="?android:selectableItemBackground" />
+
 
         </RelativeLayout>
 
