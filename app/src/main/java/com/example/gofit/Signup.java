@@ -23,7 +23,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
 
-    private TextView banner, registerUser;
+    private TextView banner, registerUser, loginText;
     private EditText editTextFullName, editTextEmail, editTextPassword;
     private ProgressBar progressBar;
 
@@ -40,6 +40,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         registerUser = (Button) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
 
+        loginText = (TextView) findViewById(R.id.loginText);
+        loginText.setOnClickListener(this);
+
         editTextFullName = (EditText) findViewById(R.id.fullname);
         editTextEmail = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.password);
@@ -53,6 +56,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.banner:
+            case R.id.loginText:
                 startActivity(new Intent(this,MainActivity.class));
                 break;
             case R.id.registerUser:
