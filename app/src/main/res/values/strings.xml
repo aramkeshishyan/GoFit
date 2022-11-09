@@ -31,4 +31,6 @@
     <string name="profile_picture">Profile Picture</string>
     <string name="edit_about">Edit About</string>
     <string name="back">Back</string>
+    <string name="enter_your_email">Enter your Email</string>
+    <string name="reset_password">Reset Password</string>
 </resources>
