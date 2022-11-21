@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     if(user.isEmailVerified()){
                         //redirect to User Profile page
-                        startActivity(new Intent(MainActivity.this, UserProfile.class));
+                        startActivity(new Intent(MainActivity.this, HomePage.class));
                     }
                     else{
                         user.sendEmailVerification();
