@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
-public class UserProfile extends AppCompatActivity {
+public class UserProfile extends AppCompatActivity implements View.OnClickListener {
 
     private ImageButton logout;
 
@@ -29,27 +29,33 @@ public class UserProfile extends AppCompatActivity {
     private DatabaseReference reference; //example, reference the "Users" collection
     private String userID;
 
+    private ImageButton backBtn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+        backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(this);
+
+
         //logout button functionality
         logout = (ImageButton) findViewById(R.id.logOutBtn);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(UserProfile.this, MainActivity.class));
-                Toast.makeText(UserProfile.this, "Logged out successfully!", Toast.LENGTH_SHORT).show();
-            }
-        });
+        logout.setOnClickListener(this);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
         userID = user.getUid();
 
-        //get users fullname to display under the avatar
+
+
+
+
+
+
+        //get users fullname to display under the avatar//////////////
         final TextView fullNameTextView = (TextView) findViewById(R.id.userFullName);
 
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -71,5 +77,20 @@ public class UserProfile extends AppCompatActivity {
             }
         });
         //////////////////////////////////////////////////////////
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.backBtn:
+                startActivity(new Intent(this, HomePage.class));
+                break;
+            case R.id.logOutBtn:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(UserProfile.this, MainActivity.class));
+                Toast.makeText(UserProfile.this, "Logged out successfully!", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
     }
 }
