@@ -60,7 +60,7 @@
                         android:layout_width="400dp"
                         android:id="@+id/lemonPasta"
                         android:layout_height="350dp"
-                        android:background="@drawable/LemonChickenPasta"
+
                         android:padding="12dp"/>
 
 

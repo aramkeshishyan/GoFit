@@ -50,7 +50,7 @@
                         android:layout_width="100dp"
                         android:id="@+id/whitebeen"
                         android:layout_height="100dp"
-                        android:src="@drawable/WhiteBeanVeggieSalad"
+
                         android:padding="12dp"/>
 
                     <TextView
@@ -80,7 +80,7 @@
                         android:layout_width="100dp"
                         android:id="@+id/lemonpasta"
                         android:layout_height="100dp"
-                        android:src="@drawable/LemonGarlicPastawithSalmon"
+
                         android:padding="12dp"/>
 
                     <TextView
@@ -110,7 +110,7 @@
                         android:layout_width="100dp"
                         android:id="@+id/spinachfeta"
                         android:layout_height="100dp"
-                        android:src="@drawable/SpinachFetaScrambledEggPitas"
+
                         android:padding="12dp"/>
 
                     <TextView
@@ -140,7 +140,7 @@
                         android:layout_width="100dp"
                         android:id="@+id/salmonsushi"
                         android:layout_height="100dp"
-                        android:src="@drawable/SalmonSushiGrainBowl"
+
                         android:padding="12dp"/>
 
                     <TextView
@@ -170,7 +170,7 @@
                         android:layout_width="100dp"
                         android:id="@+id/mediterranean"
                         android:layout_height="100dp"
-                        android:src="@drawable/MediterraneanTunaSpinachSalad"
+
                         android:padding="12dp"/>
 
                     <TextView
@@ -200,7 +200,7 @@
                         android:layout_width="100dp"
                         android:id="@+id/lemonchicken"
                         android:layout_height="100dp"
-                        android:src="@drawable/LemonChickenPasta"
+
                         android:padding="12dp"/>
 
                     <TextView
