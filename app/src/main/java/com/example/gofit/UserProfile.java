@@ -86,7 +86,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
         ArrayList<Friend> friends = new ArrayList<>();  //Fake friends list for testing purposes
         //For loop to multiply fake friends to test scrolling
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2; i++) {
             friends.add(new Friend("John Smith", "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg"));
             friends.add(new Friend("Jane Doe", "https://image.shutterstock.com/image-photo/indoor-portrait-beautiful-brunette-young-260nw-640005220.jpg"));
             friends.add(new Friend("Margot Robbie", "https://assets.vogue.com/photos/5cf7ed4504f90a017a26d60f/master/pass/5-things-to-know-about-margot-robbie.jpg"));
