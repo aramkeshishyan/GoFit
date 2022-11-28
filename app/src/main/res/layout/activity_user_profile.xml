@@ -171,24 +171,12 @@
                 android:layout_alignParentEnd="true"
                 android:text="@string/view_all" />
 
-            <GridLayout
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/friendsViewAllBtn"
-                android:layout_centerHorizontal="true"
-                android:columnCount="4"
-                android:rowCount="1"
-                android:useDefaultMargins="true">
-
-                <include layout="@layout/friend_list_item" />
-
-                <include layout="@layout/friend_list_item" />
-
-                <include layout="@layout/friend_list_item" />
-
-                <include layout="@layout/friend_list_item" />
-
-            </GridLayout>
+                android:id="@+id/friendsRecyclerView"
+                android:padding="20dp"/>
 
         </RelativeLayout>
 

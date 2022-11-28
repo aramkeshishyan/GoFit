@@ -2,10 +2,12 @@ package com.example.gofit;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,10 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     private String userID;
 
     private ImageButton backBtn;
+
+    //Horizontal scrolling friends list
+    private RecyclerView friendsRecView;
+    private Button friendsViewAllBtn;
 
 
     @Override
