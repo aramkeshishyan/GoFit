@@ -11,6 +11,42 @@
 
 
 
+    <ImageView
+        android:id="@+id/friends_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/search_button"
+        app:layout_constraintEnd_toStartOf="@+id/search_button"
+        app:layout_constraintTop_toTopOf="@+id/search_button"
+        app:srcCompat="@drawable/ic_friends" />
+
+    <ImageView
+        android:id="@+id/search_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_pic_card"
+        app:layout_constraintEnd_toStartOf="@+id/profile_pic_card"
+        app:layout_constraintTop_toTopOf="@+id/profile_pic_card"
+        app:srcCompat="@drawable/ic_search" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profile_pic_card"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="15dp"
+        app:cardCornerRadius="30dp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            tools:srcCompat="@tools:sample/avatars" />
+    </androidx.cardview.widget.CardView>
     <FrameLayout
         android:id="@+id/Fragment"
         android:layout_width="0dp"
