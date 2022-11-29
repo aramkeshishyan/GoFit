@@ -28,6 +28,7 @@ public class First_Fragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        /*
         ImageView profilePic = (ImageView) view.findViewById(R.id.profile_pic);
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +37,8 @@ public class First_Fragment extends Fragment{
 
             }
         });
+
+         */
 
     }
 }

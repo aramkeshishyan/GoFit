@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class HomePage extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
+public class HomePage extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
 
-    //private ImageView profile_pic;
+    private ImageView profile_pic;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -21,8 +21,8 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
 
-        //profile_pic = (ImageView) findViewById(R.id.profile_pic);
-        //profile_pic.setOnClickListener(this);
+        profile_pic = (ImageView) findViewById(R.id.profile_pic);
+        profile_pic.setOnClickListener(this);
 
         //bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -53,12 +53,12 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
         }
         return false;
     }
-//    @Override
-//    public void onClick(View view) {
-//        switch (view.getId()){
-//            case R.id.profile_pic:
-//                startActivity(new Intent(this, UserProfile.class));
-//                break;
-//        }
-//    }
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.profile_pic:
+                startActivity(new Intent(this, UserProfile.class));
+                break;
+        }
+    }
 }
