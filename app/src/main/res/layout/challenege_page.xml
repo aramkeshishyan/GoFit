@@ -43,7 +43,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:background="@drawable/round_button"
-        android:text="Rounties"
+        android:text="Routines"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/All_button"
         app:layout_constraintEnd_toEndOf="parent"
