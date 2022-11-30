@@ -7,6 +7,66 @@
     android:layout_height="match_parent"
     tools:context=".HomePage">
 
+    <RelativeLayout
+        android:id="@+id/layout_topNavProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinsbold"
+            android:layout_centerVertical="true"
+            android:text="Home"
+            android:textSize="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"/>
+        <ImageView
+            android:id="@+id/friends_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toStartOf="@+id/search_button"
+
+            app:srcCompat="@drawable/ic_friends" />
+
+        <ImageView
+            android:id="@+id/search_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toStartOf="@+id/profile_pic_card"
+
+            app:srcCompat="@drawable/ic_search" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/profile_pic_card"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="30dp"
+            app:cardPreventCornerOverlap="false">
+
+            <ImageView
+                android:id="@+id/profile_pic"
+                android:layout_width="60dp"
+                android:layout_height="61dp"
+                tools:srcCompat="@tools:sample/avatars" />
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+
     <FrameLayout
         android:id="@+id/Fragment"
         android:layout_width="0dp"
@@ -14,7 +74,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/layout_topNavProfile" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

@@ -24,6 +24,7 @@ public class challenge extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.challenege_page);
+
         Toolbar tool_bar = findViewById(R.id.my_tool_bar);
         setSupportActionBar(tool_bar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
