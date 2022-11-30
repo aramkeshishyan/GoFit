@@ -33,18 +33,18 @@
             android:src="@drawable/ic_baseline_person_add_24"
             android:layout_alignParentEnd="true"
             android:background="?android:selectableItemBackground"
-            android:contentDescription="Add Friend" />
+            android:contentDescription="@string/add_friend"/>
 
     </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Friends"
+        android:text="@string/friends"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textAlignment="center"
-        android:contentDescription="Friends"/>
+        android:contentDescription="@string/friends"/>
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchViewFriendsList"
@@ -52,7 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         app:queryHint="Search Friends"
-        app:iconifiedByDefault="false"/>
+        app:iconifiedByDefault="false"
+        android:contentDescription="@string/search_friends"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friendsListPageRecView"
