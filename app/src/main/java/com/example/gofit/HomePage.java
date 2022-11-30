@@ -15,6 +15,7 @@ import com.google.android.material.navigation.NavigationBarView;
 public class HomePage extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
 
     private ImageView profile_pic;
+    private ImageView friends_button;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -23,6 +24,9 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
         setContentView(R.layout.home_page);
         profile_pic = (ImageView) findViewById(R.id.profile_pic);
         profile_pic.setOnClickListener(this);
+
+        friends_button = (ImageView) findViewById(R.id.friends_button);
+        friends_button.setOnClickListener(this);
 
         //bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -64,6 +68,8 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
             case R.id.profile_pic:
                 startActivity(new Intent(this, UserProfile.class));
                 break;
+            case R.id.friends_button:
+                startActivity(new Intent(this, FriendsListPage.class));
         }
     }
 }

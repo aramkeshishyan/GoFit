@@ -28,13 +28,12 @@ import java.util.ArrayList;
 public class UserProfile extends AppCompatActivity implements View.OnClickListener {
 
     private ImageButton logout;
+    private ImageButton backBtn;
 
     //to reference user info from database
     private FirebaseUser user;
     private DatabaseReference reference; //example, reference the "Users" collection
     private String userID;
-
-    private ImageButton backBtn;
 
     //Horizontal scrolling friends list
     private RecyclerView friendsRecView;
@@ -49,6 +48,9 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(this);
 
+        //opens friends list page activity
+        friendsViewAllBtn = findViewById(R.id.friendsViewAllBtn);
+        friendsViewAllBtn.setOnClickListener(this);
 
         //logout button functionality
         logout = (ImageButton) findViewById(R.id.logOutBtn);
@@ -118,7 +120,9 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 startActivity(new Intent(UserProfile.this, MainActivity.class));
                 Toast.makeText(UserProfile.this, "Logged out successfully!", Toast.LENGTH_SHORT).show();
                 break;
-
+            case R.id.friendsViewAllBtn:
+                startActivity(new Intent(this, FriendsListPage.class));
+                break;
         }
     }
 }
