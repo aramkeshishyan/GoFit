@@ -1,24 +1,298 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePage">
+    tools:context=".HomePage"
+    android:scrollbars="none">
 
-    <TextView
-        android:id="@+id/firstFragment"
+
+
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fourth Fragment"
-        android:textColor="#43a047"
-        android:textSize="40sp"
-        android:textStyle="italic|bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/my_tool_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/toolbar_bg"
+                android:elevation="2dp"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                tools:ignore="MissingConstraints" />
+
+
+            <Button
+                android:id="@+id/All_button"
+                android:layout_width="110dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/round_button"
+
+                android:text="All"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/my_tool_bar" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="110dp"
+                android:layout_height="50dp"
+                android:background="@drawable/round_button"
+                android:text="Routines"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/All_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.058"
+                app:layout_constraintStart_toEndOf="@+id/All_button"
+                />
+
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="This month's Challenges"
+                app:flow_horizontalAlign="center"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/button2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/All_button" />
+
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/borderss"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/input_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:clickable="true"
+                    android:contentDescription="click the button to add activities"
+                    android:minWidth="48dp"
+                    app:backgroundTint="#3489eb"
+                    app:fabSize="mini"
+                    app:srcCompat="@drawable/ic_baseline_add_24" />
+
+                <TextView
+                    android:id="@+id/text_run_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/input_action"
+                    android:text="Run if you can"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/description_id"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_run_title"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="11dp"
+                    android:text="Description......"
+                    android:textColor="@color/black"
+                    android:textSize="10sp">
+
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout2"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/borderss"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout1">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/input_action2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#3489eb"
+                    android:clickable="true"
+                    android:contentDescription="click the button to add activities"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    app:fabSize="mini"
+                    app:srcCompat="@drawable/ic_baseline_add_24" />
+
+                <TextView
+                    android:id="@+id/heavy_trail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/input_action2"
+                    android:text="Heavy Trail"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/description_id2"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/heavy_trail"
+                    android:layout_marginLeft="60dp"
+
+                    android:layout_marginTop="10dp"
+                    android:text="description......"
+                    android:textColor="@color/black"
+                    android:textSize="10sp">
+
+                </TextView>
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/my_own_challege"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:text="My own challenges"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintTop_toTopOf="@+id/relativeLayout2"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout3"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="152dp"
+                android:layout_marginRight="48dp"
+                android:background="@drawable/borderss"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/relativeLayout2">
+
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/input_action3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:contentDescription="click the button to add activities"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    app:backgroundTint="#3489eb"
+                    app:fabSize="mini"
+                    app:srcCompat="@drawable/ic_baseline_add_24"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/Create_new_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/input_action3"
+                    android:text="Create New"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/Icreate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="96dp"
+                android:layout_marginRight="24dp"
+                android:text="Recently Created"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/relativeLayout3" />
+
+            <RelativeLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/borderss"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.262"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Icreate">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/input_action4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#3489eb"
+                    android:clickable="true"
+                    android:contentDescription="click the button to add activities"
+                    app:fabSize="mini"
+                    app:srcCompat="@drawable/ic_baseline_add_24" />
+
+                <TextView
+                    android:id="@+id/my_challege"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/input_action4"
+                    android:text="My First Challenge"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/description_id3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/my_challege"
+                    android:layout_marginLeft="80dp"
+                    android:layout_marginTop="6dp"
+                    android:text="description......."
+                    android:textColor="@color/black"
+                    android:textSize="15sp">
+
+                </TextView>
+
+            </RelativeLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+
+</ScrollView>
+
+
+
