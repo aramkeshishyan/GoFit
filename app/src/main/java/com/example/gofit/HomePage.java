@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -24,6 +25,13 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
         setContentView(R.layout.home_page);
         profile_pic = (ImageView) findViewById(R.id.profile_pic);
         profile_pic.setOnClickListener(this);
+
+        //Temporary image for user profile pic
+        Glide.with(this)
+                .asBitmap()
+                .load("https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg")
+                .centerCrop()
+                .into(profile_pic);
 
         friends_button = (ImageView) findViewById(R.id.friends_button);
         friends_button.setOnClickListener(this);

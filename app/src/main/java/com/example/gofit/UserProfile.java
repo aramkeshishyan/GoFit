@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +32,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     private ImageButton logout;
     private ImageButton backBtn;
     private ImageButton settingsBtn;
+    private ImageView userProfileImgV;
 
     //to reference user info from database
     private FirebaseUser user;
@@ -63,6 +66,15 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
         userID = user.getUid();
+
+
+        //Temporary user profile placeholder
+        userProfileImgV = findViewById(R.id.userProfileImgV);
+        Glide.with(this)
+                .asBitmap()
+                .load("https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg")
+                .centerCrop()
+                .into(userProfileImgV);
 
 
 

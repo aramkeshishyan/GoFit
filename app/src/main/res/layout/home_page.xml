@@ -49,19 +49,20 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/profile_pic_card"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            app:cardCornerRadius="25dp"
             android:layout_margin="10dp"
-            app:cardCornerRadius="30dp"
             app:cardPreventCornerOverlap="false">
 
             <ImageView
                 android:id="@+id/profile_pic"
-                android:layout_width="60dp"
-                android:layout_height="61dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 tools:srcCompat="@tools:sample/avatars" />
+
         </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
