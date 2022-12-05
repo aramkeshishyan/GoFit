@@ -29,6 +29,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
     private ImageButton logout;
     private ImageButton backBtn;
+    private ImageButton settingsBtn;
 
     //to reference user info from database
     private FirebaseUser user;
@@ -47,6 +48,9 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
         backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(this);
+
+        settingsBtn = findViewById(R.id.settingsBtn);
+        settingsBtn.setOnClickListener(this);
 
         //opens friends list page activity
         friendsViewAllBtn = findViewById(R.id.friendsViewAllBtn);
@@ -113,7 +117,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.backBtn:
-                startActivity(new Intent(this, HomePage.class));
+                super.finish();
                 break;
             case R.id.logOutBtn:
                 FirebaseAuth.getInstance().signOut();
@@ -123,6 +127,8 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             case R.id.friendsViewAllBtn:
                 startActivity(new Intent(this, FriendsListPage.class));
                 break;
+            case R.id.settingsBtn:
+                startActivity(new Intent(this, Settings.class));
         }
     }
 }

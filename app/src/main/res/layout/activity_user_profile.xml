@@ -20,7 +20,6 @@
             android:id="@+id/layout_topNavProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:padding="10dp">
 
             <ImageButton
@@ -123,19 +122,6 @@
                     android:hint="@string/about_me"
                     android:padding="15dp"
                     android:textSize="20sp" />
-
-                <!-- Button to edit the "About Me" text -->
-                <ImageButton
-                    android:id="@+id/editAboutBtn"
-                    android:minHeight="48dp"
-                    android:minWidth="48dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:background="?android:selectableItemBackground"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_baseline_edit_24"
-                    android:contentDescription="@string/edit_about"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -390,20 +376,6 @@
             </GridLayout>
 
         </RelativeLayout>
-
-
-        <!-- Log out button -->
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/log_out"
-            android:id="@+id/profileLogoutBtn"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/statComponent"
-            android:layout_margin="10dp"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:textAllCaps="false"/>
-
 
     </RelativeLayout>
 
