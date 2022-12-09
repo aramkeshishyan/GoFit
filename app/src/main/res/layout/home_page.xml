@@ -32,19 +32,10 @@
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
-            android:layout_toStartOf="@+id/search_button"
+            android:layout_toStartOf="@+id/profile_pic_card"
 
             app:srcCompat="@drawable/ic_friends" />
 
-        <ImageView
-            android:id="@+id/search_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:layout_toStartOf="@+id/profile_pic_card"
-
-            app:srcCompat="@drawable/ic_search" />
 
 
         <androidx.cardview.widget.CardView
