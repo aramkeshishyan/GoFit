@@ -11,7 +11,6 @@
         android:id="@+id/layout_topNavFriendsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:padding="10dp">
 
         <ImageButton
@@ -23,6 +22,17 @@
             android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
             android:background="?android:selectableItemBackground"
             android:contentDescription="@string/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/friends"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/friends"/>
+
 
         <ImageButton
             android:id="@+id/btnAddFriend"
@@ -36,15 +46,6 @@
             android:contentDescription="@string/add_friend"/>
 
     </RelativeLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/friends"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:contentDescription="@string/friends"/>
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchViewFriendsList"

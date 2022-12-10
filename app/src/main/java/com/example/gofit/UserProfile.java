@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +31,8 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
     private ImageButton logout;
     private ImageButton backBtn;
+    private ImageButton settingsBtn;
+    private ImageView userProfileImgV;
 
     //to reference user info from database
     private FirebaseUser user;
@@ -48,6 +52,9 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(this);
 
+        settingsBtn = findViewById(R.id.settingsBtn);
+        settingsBtn.setOnClickListener(this);
+
         //opens friends list page activity
         friendsViewAllBtn = findViewById(R.id.friendsViewAllBtn);
         friendsViewAllBtn.setOnClickListener(this);
@@ -59,6 +66,15 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
         userID = user.getUid();
+
+
+        //Temporary user profile placeholder
+        userProfileImgV = findViewById(R.id.userProfileImgV);
+        Glide.with(this)
+                .asBitmap()
+                .load("https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg")
+                .centerCrop()
+                .into(userProfileImgV);
 
 
 
@@ -113,7 +129,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.backBtn:
-                startActivity(new Intent(this, HomePage.class));
+                super.finish();
                 break;
             case R.id.logOutBtn:
                 FirebaseAuth.getInstance().signOut();
@@ -123,6 +139,8 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             case R.id.friendsViewAllBtn:
                 startActivity(new Intent(this, FriendsListPage.class));
                 break;
+            case R.id.settingsBtn:
+                startActivity(new Intent(this, Settings.class));
         }
     }
 }
