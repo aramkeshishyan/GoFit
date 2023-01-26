@@ -23,8 +23,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class UserProfile extends AppCompatActivity implements View.OnClickListener {
@@ -36,7 +34,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
     //to reference user info from database
     private FirebaseUser user;
-    private DatabaseReference reference; //example, reference the "Users" collection
+    private DatabaseReference dbReference; //example, reference the "Users" collection
     private String userID;
 
     //Horizontal scrolling friends list
@@ -64,7 +62,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         logout.setOnClickListener(this);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users");
+        dbReference = FirebaseDatabase.getInstance().getReference("Users");
         userID = user.getUid();
 
 
@@ -81,7 +79,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         //get users fullname to display under the avatar//////////////
         final TextView fullNameTextView = (TextView) findViewById(R.id.userFullName);
 
-        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //Creating a User.java object
