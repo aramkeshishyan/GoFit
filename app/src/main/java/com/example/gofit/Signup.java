@@ -1,10 +1,13 @@
 package com.example.gofit;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -13,11 +16,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gofit.data.remote.ApiInterface;
+import com.example.gofit.data.remote.RetrofitService;
+import com.example.gofit.data.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Signup extends AppCompatActivity implements View.OnClickListener {
 
@@ -107,10 +117,37 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             return;
         }
 
+
         //If all the fields are filled in correct, pushes the data to the database and checks if it was received successfully or not.
         //Displays toast messages if push was success or failed
-        progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(email, password)
+
+
+        //progressBar.setVisibility(View.VISIBLE);
+
+        ApiInterface apiInterface = RetrofitService.getRetrofitInstance().create(ApiInterface.class);
+        Call<User> call = apiInterface.getUserInformation("fullName", "email", "password");
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.e(TAG, "Successfully Registered");
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.getMessage());
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+        /*mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -139,12 +176,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             progressBar.setVisibility(View.GONE);
                         }
                     }
-                });
-
-
-
-
-
+                });*/
 
     }
 }
