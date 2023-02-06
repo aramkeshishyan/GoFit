@@ -1,4 +1,4 @@
-package com.example.gofit.data.model;
+package com.example.gofit.data.model.responses;
 
 public class UserRegister {
 
