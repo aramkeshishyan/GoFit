@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gofit.data.model.UserRegister;
 import com.example.gofit.data.remote.ApiInterface;
 import com.example.gofit.data.remote.RetrofitService;
 import com.example.gofit.data.model.User;
@@ -120,20 +121,32 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
         //If all the fields are filled in correct, pushes the data to the database and checks if it was received successfully or not.
         //Displays toast messages if push was success or failed
-
-
         //progressBar.setVisibility(View.VISIBLE);
 
+
+
+
+
+
+
+
+
+
+
         ApiInterface apiInterface = RetrofitService.getRetrofitInstance().create(ApiInterface.class);
-        Call<User> call = apiInterface.getUserInformation("fullName", "email", "password");
-        call.enqueue(new Callback<User>() {
+        Call<UserRegister> call = apiInterface.getUserInformation("testingName", "testingEmailgotfit@yahoo.com", "testpassword");
+        call.enqueue(new Callback<UserRegister>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Log.e(TAG, "Successfully Registered");
+            public void onResponse(Call<UserRegister> call, Response<UserRegister> response) {
+                Log.e(TAG, "OnResponse: " + response.code());
+                //Log.e(TAG, "OnResponse: success : " + response.body().isSuccess());
+                //Log.e(TAG, "OnResponse: data : " + response.body().getData());
+                //Log.e(TAG, "OnResponse: message : " + response.body().getMessage());
+
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<UserRegister> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.getMessage());
 
             }
@@ -147,7 +160,8 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
 
 
-        /*mAuth.createUserWithEmailAndPassword(email, password)
+        /*            FIREBASE REGISTRATION
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
