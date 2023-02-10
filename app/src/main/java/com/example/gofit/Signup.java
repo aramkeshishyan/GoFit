@@ -126,6 +126,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                                             responseUser.getMessage()),
                                     Toast.LENGTH_LONG)
                             .show();
+                    startActivity(new Intent(Signup.this,MainActivity.class));
                 } else {
                     Toast.makeText(Signup.this,
                             String.format("Response is %s", String.valueOf(response.code()))
