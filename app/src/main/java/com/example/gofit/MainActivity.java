@@ -2,7 +2,9 @@ package com.example.gofit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         forgotPassword = (TextView) findViewById(R.id.forgotPassword);
         forgotPassword.setOnClickListener(this);
 
+        sp = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
 
 
     }
@@ -120,6 +124,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String.format("User Login was Successful"),
                             Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
+
+                    //storing the token in shared preferences
+                    SharedPreferences.Editor spEditor = sp.edit();
+                    spEditor.putString("token", responseToken.getAccess_token());
+                    spEditor.apply();
+
+
 
                     startActivity(new Intent(MainActivity.this, HomePage.class));
                     //String ResponseGson = response.body().toString();
