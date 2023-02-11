@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gofit.data.model.responses.UserRegister;
+import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.requests.User;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -114,10 +114,10 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
 
         User user = new User(email, fullName, password);
-        MainApplication.apiManager.createUser(user, new Callback<UserRegister>() {
+        MainApplication.apiManager.createUser(user, new Callback<defaultResponse>() {
             @Override
-            public void onResponse(Call<UserRegister> call, Response<UserRegister> response) {
-                UserRegister responseUser = response.body();
+            public void onResponse(Call<defaultResponse> call, Response<defaultResponse> response) {
+                defaultResponse responseUser = response.body();
                 if (response.isSuccessful() && responseUser != null) {
                     Toast.makeText(Signup.this,
                                     String.format("User Registration was Successful",
@@ -134,7 +134,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             }
 
             @Override
-            public void onFailure(Call<UserRegister> call, Throwable t) {
+            public void onFailure(Call<defaultResponse> call, Throwable t) {
                 Toast.makeText(Signup.this,
                         "Error: " + t.getMessage()
                         , Toast.LENGTH_LONG).show();
