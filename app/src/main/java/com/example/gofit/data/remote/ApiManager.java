@@ -2,6 +2,7 @@ package com.example.gofit.data.remote;
 
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.responses.UserRegister;
+import com.example.gofit.data.model.responses.tokenResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +36,12 @@ public class ApiManager {
     public void createUser(User user, Callback<UserRegister> callback){
         Call<UserRegister> userCall = service.createUser(user);
         userCall.enqueue(callback);
+    }
+
+    public void loginUser(User user, Callback<tokenResponse> callback){
+        Call<tokenResponse> userLog = service. loginUser(user);
+        userLog.enqueue(callback);
+
     }
 
 }

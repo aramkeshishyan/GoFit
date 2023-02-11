@@ -13,13 +13,21 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gofit.data.model.requests.User;
+import com.example.gofit.data.model.responses.UserRegister;
+import com.example.gofit.data.model.responses.tokenResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -108,7 +116,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         progressBar.setVisibility(View.VISIBLE);
 
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        User user = new User(email, "current user", password);
+        MainApplication.apiManager.loginUser(user, new Callback<tokenResponse>() {
+            @Override
+            public void onResponse(Call<tokenResponse> call, Response<tokenResponse> response) {
+                tokenResponse responseToken = response.body();
+
+
+                if (response.isSuccessful() && responseToken.getSuccess() == "true") {
+
+                    Toast.makeText(MainActivity.this,
+                            String.format("User Login was Successful"),
+                            Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+
+                    startActivity(new Intent(MainActivity.this, HomePage.class));
+                    //String ResponseGson = response.body().toString();
+                    //Gson objGson = new Gson();
+                    //tokenResponse objResp = objGson.fromJson(ResponseGson, tokenResponse.class);
+                    //Toast.makeText(MainActivity.this, objResp.getAccess_token(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Token Got Successfully", Toast.LENGTH_SHORT).show();
+
+
+                } else {
+                    Toast.makeText(MainActivity.this,
+                            String.format("Wrong Credentials\nResponse is %s", String.valueOf(response.code()))
+                            , Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<tokenResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this,
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
+
+
+
+
+
+
+
+
+        /*mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
@@ -130,6 +185,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     progressBar.setVisibility(View.GONE);
                 }
             }
-        });
+        });*/
     }
 }

@@ -124,8 +124,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                                             responseUser.isSuccess(),
                                             responseUser.getData(),
                                             responseUser.getMessage()),
-                                    Toast.LENGTH_LONG)
-                            .show();
+                                    Toast.LENGTH_LONG).show();
                     startActivity(new Intent(Signup.this,MainActivity.class));
                 } else {
                     Toast.makeText(Signup.this,
@@ -137,7 +136,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onFailure(Call<UserRegister> call, Throwable t) {
                 Toast.makeText(Signup.this,
-                        "Error is " + t.getMessage()
+                        "Error: " + t.getMessage()
                         , Toast.LENGTH_LONG).show();
             }
         });
