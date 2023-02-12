@@ -32,11 +32,6 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     private ImageButton settingsBtn;
     private ImageView userProfileImgV;
 
-    //to reference user info from database
-    private FirebaseUser user;
-    private DatabaseReference dbReference; //example, reference the "Users" collection
-    private String userID;
-
     //Horizontal scrolling friends list
     private RecyclerView friendsRecView;
     private Button friendsViewAllBtn;
@@ -61,10 +56,6 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         logout = (ImageButton) findViewById(R.id.logOutBtn);
         logout.setOnClickListener(this);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        dbReference = FirebaseDatabase.getInstance().getReference("Users");
-        userID = user.getUid();
-
 
         //Temporary user profile placeholder
         userProfileImgV = findViewById(R.id.userProfileImgV);
@@ -73,31 +64,6 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 .load("https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg")
                 .centerCrop()
                 .into(userProfileImgV);
-
-
-
-        //get users fullname to display under the avatar//////////////
-        final TextView fullNameTextView = (TextView) findViewById(R.id.userFullName);
-
-        dbReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Creating a User.java object
-                User userProfile = snapshot.getValue(User.class);
-
-                if(userProfile != null){
-                    String fullName = userProfile.fullName;
-                    fullNameTextView.setText(fullName);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(UserProfile.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
-
-            }
-        });
-        //////////////////////////////////////////////////////////
 
 
         ArrayList<Friend> friends = new ArrayList<>();  //Fake friends list for testing purposes
@@ -142,3 +108,28 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         }
     }
 }
+
+
+
+//    //get users fullname to display under the avatar//////////////
+//    final TextView fullNameTextView = (TextView) findViewById(R.id.userFullName);
+//
+//        dbReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+//@Override
+//public void onDataChange(@NonNull DataSnapshot snapshot) {
+//        //Creating a User.java object
+//        User userProfile = snapshot.getValue(User.class);
+//
+//        if(userProfile != null){
+//        String fullName = userProfile.fullName;
+//        fullNameTextView.setText(fullName);
+//        }
+//        }
+//
+//@Override
+//public void onCancelled(@NonNull DatabaseError error) {
+//        Toast.makeText(UserProfile.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
+//
+//        }
+//        });
+////////////////////////////////////////////////////////////
