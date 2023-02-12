@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    app:cardBackgroundColor="@color/gray"
+    android:layout_margin="10dp"
+    android:id="@+id/rv_parent"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rv_name"
+            android:text="Item Name"
+            android:fontFamily="@font/poppinsbold"
+            android:textSize="25dp"
+            android:layout_toRightOf="@+id/rv_image"
+            android:layout_marginTop="7dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rv_description"
+            android:text="Description"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="14dp"
+            android:layout_below="@+id/rv_name"
+            android:layout_toRightOf="@+id/rv_image"
+            />
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/rv_image"
+            android:layout_margin="7dp"
+            android:src="@drawable/ic_launcher_background"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
