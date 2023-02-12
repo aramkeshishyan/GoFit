@@ -26,12 +26,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/friends"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textAlignment="center"
             android:layout_centerInParent="true"
-            android:contentDescription="@string/friends"/>
+            android:contentDescription="@string/friends"
+            android:text="@string/friends"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
 
         <ImageButton

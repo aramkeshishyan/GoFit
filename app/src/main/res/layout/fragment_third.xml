@@ -1,209 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/primary"
-    tools:context=".HomePage">
+    tools:context=".SecondFragment"
+    android:id="@+id/item_parent">
 
-    
-
-    <LinearLayout
-        android:background="@drawable/round_back_white10_20"
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical"
-        android:padding="15dp">
+        android:minHeight="32dp" />
 
-        <!--  White Been & Veggie Salad-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:id="@+id/whitebeen"
-                android:layout_height="100dp"
-                android:padding="12dp"/>
-            <!--                        android:src="@drawable/WhiteBeanVeggieSalad"-->
-
-
-            <TextView
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="White Been &amp; &#xA;Veggie Salad"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:layout_toEndOf="@+id/whitebeen"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/right_arrow_icon"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-
-        <!--  Lemon-Garlic Pasta with Salmon -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:id="@+id/lemonpasta"
-                android:layout_height="100dp"
-                android:padding="12dp"/>
-            <!--                        android:src="@drawable/LemonGarlicPastawithSalmon"-->
-
-            <TextView
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="Lemon Garlic Pasta &#xA;With Salmon"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:layout_toEndOf="@+id/lemonpasta"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/right_arrow_icon"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-
-        <!--  Spinach & Feta Scrambled Egg Pitas-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:id="@+id/spinachfeta"
-                android:layout_height="100dp"
-                android:padding="12dp"/>
-            <!--                        android:src="@drawable/SpinachFetaScrambledEggPitas"-->
-
-            <TextView
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="Spinach &amp; Feta Scramled &#xA;Egg Pitas"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:layout_toEndOf="@+id/spinachfeta"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/right_arrow_icon"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-
-        <!--  Salmon Sushi Grain Bowl -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:id="@+id/salmonsushi"
-                android:layout_height="100dp"
-                android:padding="12dp"/>
-            <!--                        android:src="@drawable/SalmonSushiGrainBowl"-->
-
-            <TextView
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="Salmon Sushi &#xA;Garlic Bowl"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:layout_toEndOf="@+id/salmonsushi"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/right_arrow_icon"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-
-        <!--  Mediterranean Tuna-Spinach Salad -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:id="@+id/mediterranean"
-                android:layout_height="100dp"
-                android:padding="12dp"/>
-            <!--                        android:src="@drawable/MediterraneanTunaSpinachSalad"-->
-
-            <TextView
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="Mediterranean &#xA;Tuna-Spinach Salad"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:layout_toEndOf="@+id/mediterranean"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/right_arrow_icon"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-
-        <!--  Lemon Chicken Pasta -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:id="@+id/lemonchicken"
-                android:layout_height="100dp"
-                android:padding="12dp"/>
-            <!--                        android:src="@drawable/LemonChickenPasta"-->
-
-            <TextView
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="Lemon Chicken Pasta"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:layout_toEndOf="@+id/lemonchicken"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/right_arrow_icon"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-
-
-
-    </LinearLayout>
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/nutritionRecView"
+        tools:listitem="@layout/recycle_view_item"
+        ></androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
