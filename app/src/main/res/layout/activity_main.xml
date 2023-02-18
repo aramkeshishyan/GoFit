@@ -54,6 +54,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email"
+            android:text="gofiteasytest@yahoo.com"
             android:layout_width="match_parent"
             android:inputType="textEmailAddress"
             android:fontFamily="@font/poppinsmedium"

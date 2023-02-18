@@ -1,5 +1,7 @@
 package com.example.gofit.data.remote;
 
+import android.content.SharedPreferences;
+
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.tokenResponse;
@@ -10,10 +12,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
+
+
 public class ApiManager {
 
     private static IUsersApi service;
     private static ApiManager apiManager;
+
+
 
     private ApiManager(){
         Retrofit retrofit = new Retrofit.Builder()
@@ -43,5 +49,14 @@ public class ApiManager {
         userLog.enqueue(callback);
 
     }
+
+
+    public void getFriends(String token, Callback<defaultResponse> callback){
+        Call <defaultResponse> userFriends = service.getFriends("Bearer " + token);
+        userFriends.enqueue(callback);
+
+    }
+
+
 
 }

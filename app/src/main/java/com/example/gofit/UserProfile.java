@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.gofit.data.model.responses.defaultResponse;
+import com.example.gofit.data.model.responses.tokenResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +28,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserProfile extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,6 +43,14 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     //Horizontal scrolling friends list
     private RecyclerView friendsRecView;
     private Button friendsViewAllBtn;
+
+    private Button getFriendsBtn;
+
+    private SharedPreferences sp;
+
+    //sp = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+    //String token = sp.getString("token", "");
+
 
 
     @Override
@@ -52,9 +68,15 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         friendsViewAllBtn = findViewById(R.id.friendsViewAllBtn);
         friendsViewAllBtn.setOnClickListener(this);
 
+        //testing authorized getFriends API endpoint
+        getFriendsBtn = findViewById(R.id.getFriendsBtn);
+        getFriendsBtn.setOnClickListener(this);
+
         //logout button functionality
         logout = (ImageButton) findViewById(R.id.logOutBtn);
         logout.setOnClickListener(this);
+
+        sp = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
 
 
         //Temporary user profile placeholder
@@ -105,8 +127,49 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.settingsBtn:
                 startActivity(new Intent(this, Settings.class));
+                break;
+            case R.id.getFriendsBtn:
+                getUserFriends();
+                break;
         }
     }
+
+    private void getUserFriends(){
+        //Toast.makeText(UserProfile.this, "Getting Friends from Database!", Toast.LENGTH_SHORT).show();
+
+        String token = sp.getString("token", "");
+        //Toast.makeText(UserProfile.this, String.format("%s", token), Toast.LENGTH_SHORT).show();
+        MainApplication.apiManager.getFriends(token, new Callback<defaultResponse>() {
+            @Override
+            public void onResponse(Call<defaultResponse> call, Response<defaultResponse> response) {
+                defaultResponse responseDefault = response.body();
+
+                if (response.isSuccessful() && responseDefault != null) {
+                    Toast.makeText(UserProfile.this,
+                            String.format("Get Friends was Successful %s %s %s",
+                                    responseDefault.isSuccess(),
+                                    responseDefault.getData(),
+                                    responseDefault.getMessage()),
+                            Toast.LENGTH_LONG).show();
+
+                }
+                else {
+                    Toast.makeText(UserProfile.this,
+                            String.format("Response is %s", String.valueOf(response.code()))
+                            , Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponse> call, Throwable t) {
+                Toast.makeText(UserProfile.this,
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 }
 
 
