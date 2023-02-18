@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -166,6 +167,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 Toast.makeText(UserProfile.this,
                         "Error: " + t.getMessage()
                         , Toast.LENGTH_LONG).show();
+                Log.d("myTag", t.getMessage());
             }
         });
     }
