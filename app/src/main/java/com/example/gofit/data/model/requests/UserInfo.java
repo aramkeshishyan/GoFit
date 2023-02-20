@@ -17,7 +17,9 @@ public class UserInfo {
     private String bodyType;
     private String goal;
 
-    public UserInfo(String fullName, String email, String photoUrl, boolean surveyComplete, int baseCalories, int recCalories, int age, double weight, double height, String gender, String activityLvl, String bodyType, String goal) {
+    public UserInfo(String fullName, String email, String photoUrl, boolean surveyComplete,
+                    int baseCalories, int recCalories, int age, double weight, double height,
+                    String gender, String activityLvl, String bodyType, String goal) {
         this.fullName = fullName;
         this.email = email;
         this.photoUrl = photoUrl;

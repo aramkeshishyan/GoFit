@@ -26,10 +26,10 @@ public class defaultResponseList<T> {
         return data;
     }
 
-    /*
+
     public void setData(ArrayList<T> data) {
         this.data = new ArrayList<>();
-    }*/
+    }
 
     public String getMessage() {
         return message;

@@ -1,7 +1,11 @@
 package com.example.gofit.data.remote;
 
+import com.example.gofit.data.model.requests.Friends;
 import com.example.gofit.data.model.requests.User;
+import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.responses.defaultResponse;
+import com.example.gofit.data.model.responses.defaultResponseFriendsList;
+import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.data.model.responses.tokenResponse;
 
 import retrofit2.Call;
@@ -43,14 +47,20 @@ public class ApiManager {
     }
 
     public void loginUser(User user, Callback<tokenResponse> callback){
-        Call<tokenResponse> userLog = service. loginUser(user);
+        Call<tokenResponse> userLog = service.loginUser(user);
         userLog.enqueue(callback);
 
     }
 
+    public void getUserInfo(String token, Callback<defaultResponse<UserInfo>> callback){
+        Call<defaultResponse<UserInfo>> userInfo = service.getUserInfo("Bearer " + token);
+        userInfo.enqueue(callback);
 
-    public void getFriends(String token, Callback<defaultResponse> callback){
-        Call <defaultResponse> userFriends = service.getFriends("Bearer " + token);
+    }
+
+
+    public void getFriends(String token, Callback<defaultResponseFriendsList> callback){
+        Call <defaultResponseFriendsList> userFriends = service.getFriends("Bearer " + token);
         userFriends.enqueue(callback);
 
     }
