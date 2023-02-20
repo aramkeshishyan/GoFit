@@ -114,10 +114,10 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
 
         User user = new User(email, fullName, password);
-        MainApplication.apiManager.createUser(user, new Callback<defaultResponse>() {
+        MainApplication.apiManager.createUser(user, new Callback<defaultResponse<Integer>>() {
             @Override
-            public void onResponse(Call<defaultResponse> call, Response<defaultResponse> response) {
-                defaultResponse responseUser = response.body();
+            public void onResponse(Call<defaultResponse<Integer>> call, Response<defaultResponse<Integer>> response) {
+                defaultResponse<Integer> responseUser = response.body();
                 if (response.isSuccessful() && responseUser != null) {
                     Toast.makeText(Signup.this,
                                     String.format("User Registration was Successful",
@@ -134,7 +134,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             }
 
             @Override
-            public void onFailure(Call<defaultResponse> call, Throwable t) {
+            public void onFailure(Call<defaultResponse<Integer>> call, Throwable t) {
                 Toast.makeText(Signup.this,
                         "Error: " + t.getMessage()
                         , Toast.LENGTH_LONG).show();

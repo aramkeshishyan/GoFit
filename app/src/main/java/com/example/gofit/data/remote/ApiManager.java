@@ -1,7 +1,5 @@
 package com.example.gofit.data.remote;
 
-import android.content.SharedPreferences;
-
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.tokenResponse;
@@ -39,8 +37,8 @@ public class ApiManager {
         return apiManager;
     }
 
-    public void createUser(User user, Callback<defaultResponse> callback){
-        Call<defaultResponse> userCall = service.createUser(user);
+    public void createUser(User user, Callback<defaultResponse<Integer>> callback){
+        Call<defaultResponse<Integer>> userCall = service.createUser(user);
         userCall.enqueue(callback);
     }
 

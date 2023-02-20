@@ -1,12 +1,12 @@
 package com.example.gofit.data.model.responses;
 
-public class defaultResponse {
+public class defaultResponse<T> {
 
     private boolean success;
-    private int data;
+    private T data;
     private String message;
 
-    public defaultResponse(boolean success, int data, String message) {
+    public defaultResponse(boolean success, T data, String message) {
         this.success = success;
         this.data = data;
         this.message = message;
@@ -20,11 +20,11 @@ public class defaultResponse {
         this.success = success;
     }
 
-    public int getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(int data) {
+    public void setData(T data) {
         this.data = data;
     }
 

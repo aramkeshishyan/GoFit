@@ -14,10 +14,14 @@ public interface IUsersApi {
 
 
     @POST("/User/register")
-    Call<defaultResponse> createUser(@Body User user);
+    Call<defaultResponse<Integer>> createUser(@Body User user);
 
     @POST("/User/login")
     Call<tokenResponse> loginUser(@Body User user);
+
+    //@GET("/User/userInfo")
+
+
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/User/friends")
