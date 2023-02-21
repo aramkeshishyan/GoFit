@@ -1,13 +1,21 @@
 package com.example.gofit.data.model.responses;
 
 import com.example.gofit.data.model.requests.Friends;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class defaultResponseFriendsList {
 
+    @SerializedName("success")
+    @Expose
     private boolean success;
+    @SerializedName("data")
+    @Expose
     private List<Friends> data;
+    @SerializedName("message")
+    @Expose
     private String message;
 
     public defaultResponseFriendsList(boolean success, List<Friends> data, String message) {

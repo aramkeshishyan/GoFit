@@ -23,6 +23,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +44,8 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     private Button getFriendsBtn;
 
     private SharedPreferences sp;
+
+    private List<Friends> friendsList = new ArrayList<>();
 
     //sp = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
     //String token = sp.getString("token", "");
@@ -139,22 +143,18 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 defaultResponseFriendsList responseDefault = response.body();
 
                 if (response.isSuccessful() && responseDefault != null) {
-                    String responseJson = response.body().toString();
-                    defaultResponseFriendsList friendsListJava = new Gson().fromJson(responseJson, defaultResponseFriendsList.class);
+                    friendsList.addAll(responseDefault.getData());
 
                     Toast.makeText(UserProfile.this,
                             "Get Friends was Successful",
                             Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(UserProfile.this,
-                            String.format("%s",friendsListJava.getData()),
-                            Toast.LENGTH_LONG).show();
-
-
-
-
+                    for(int i = 0; i < friendsList.size();i++){
+                        Toast.makeText(UserProfile.this,
+                                String.format("%s", friendsList.get(i).getFullName()),
+                                Toast.LENGTH_LONG).show();
+                    }
                     Log.d("myTag", responseDefault.getData().toString() );
-
                 }
                 else {
                     Toast.makeText(UserProfile.this,
