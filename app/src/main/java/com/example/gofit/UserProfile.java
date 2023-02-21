@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.gofit.data.model.requests.Friends;
-import com.example.gofit.data.model.responses.defaultResponseFriendsList;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
@@ -137,10 +136,10 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         //Toast.makeText(UserProfile.this, "Getting Friends from Database!", Toast.LENGTH_SHORT).show();
 
         String token = sp.getString("token", "");
-        MainApplication.apiManager.getFriends(token, new Callback<defaultResponseFriendsList>() {
+        MainApplication.apiManager.getFriends(token, new Callback<defaultResponseList<Friends>>() {
             @Override
-            public void onResponse(Call<defaultResponseFriendsList> call, Response<defaultResponseFriendsList> response) {
-                defaultResponseFriendsList responseDefault = response.body();
+            public void onResponse(Call<defaultResponseList<Friends>> call, Response<defaultResponseList<Friends>> response) {
+                defaultResponseList<Friends> responseDefault = response.body();
 
                 if (response.isSuccessful() && responseDefault != null) {
                     friendsList.addAll(responseDefault.getData());
@@ -165,7 +164,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             }
 
             @Override
-            public void onFailure(Call<defaultResponseFriendsList> call, Throwable t) {
+            public void onFailure(Call<defaultResponseList<Friends>> call, Throwable t) {
                 Toast.makeText(UserProfile.this,
                         "Error: " + t.getMessage()
                         , Toast.LENGTH_LONG).show();

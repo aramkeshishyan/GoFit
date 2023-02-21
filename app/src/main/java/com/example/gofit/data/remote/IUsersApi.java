@@ -4,7 +4,6 @@ import com.example.gofit.data.model.requests.Friends;
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.responses.defaultResponse;
-import com.example.gofit.data.model.responses.defaultResponseFriendsList;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.data.model.responses.tokenResponse;
 
@@ -30,6 +29,6 @@ public interface IUsersApi {
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/User/friends")
-    Call<defaultResponseFriendsList> getFriends(@Header("Authorization") String token);
+    Call<defaultResponseList<Friends>> getFriends(@Header("Authorization") String token);
 
 }

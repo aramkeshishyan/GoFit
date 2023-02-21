@@ -4,7 +4,6 @@ import com.example.gofit.data.model.requests.Friends;
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.responses.defaultResponse;
-import com.example.gofit.data.model.responses.defaultResponseFriendsList;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.data.model.responses.tokenResponse;
 
@@ -59,8 +58,8 @@ public class ApiManager {
     }
 
 
-    public void getFriends(String token, Callback<defaultResponseFriendsList> callback){
-        Call <defaultResponseFriendsList> userFriends = service.getFriends("Bearer " + token);
+    public void getFriends(String token, Callback<defaultResponseList<Friends>> callback){
+        Call <defaultResponseList<Friends>> userFriends = service.getFriends("Bearer " + token);
         userFriends.enqueue(callback);
 
     }
