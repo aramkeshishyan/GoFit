@@ -15,11 +15,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gofit.data.model.requests.Friends;
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.responses.defaultResponse;
+import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.data.model.responses.tokenResponse;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     private SharedPreferences sp;
+    private List<Friends> friendsList = new ArrayList<>();
+    private String jsonText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,44 +143,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                     ///////  LOGIN WAS SUCCESSFUL, WE HAVE THE TOKEN, NOW PASS THE TOKEN AND GET THE USER INFORMATION FROM USER TABLE  /////////////
-                    String token = sp.getString("token", "");
-                    MainApplication.apiManager.getUserInfo(token, new Callback<defaultResponse<UserInfo>>() {
-                        @Override
-                        public void onResponse(Call<defaultResponse<UserInfo>> call, Response<defaultResponse<UserInfo>> response) {
-                            defaultResponse<UserInfo> responseDefault = response.body();
-
-                            if (response.isSuccessful() && responseDefault != null) {
-                                Toast.makeText(MainActivity.this,
-                                        String.format("Getting user info was Successful %s %s %s",
-                                                responseDefault.isSuccess(),
-                                                responseDefault.getData(),
-                                                responseDefault.getMessage()),
-                                        Toast.LENGTH_LONG).show();
-
-                            }
-                            else {
-                                Toast.makeText(MainActivity.this,
-                                        String.format("Response is %s", String.valueOf(response.code()))
-                                        , Toast.LENGTH_LONG).show();
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<defaultResponse<UserInfo>> call, Throwable t) {
-                            Toast.makeText(MainActivity.this,
-                                    "Error: " + t.getMessage()
-                                    , Toast.LENGTH_LONG).show();
-                            Log.d("myTag", t.getMessage());
-
-                        }
-                    });
-
-
+                    //userInfoCall();
                     startActivity(new Intent(MainActivity.this, HomePage.class));
-
-
-
 
                 } else {
                     Toast.makeText(MainActivity.this,
@@ -228,4 +200,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });*/
     }
+
+
+    private void userInfoCall(){
+
+        String token = sp.getString("token", "");
+        MainApplication.apiManager.getUserInfo(token, new Callback<defaultResponse<UserInfo>>() {
+            @Override
+            public void onResponse(Call<defaultResponse<UserInfo>> call, Response<defaultResponse<UserInfo>> response) {
+                defaultResponse<UserInfo> responseDefault = response.body();
+
+                if (response.isSuccessful() && responseDefault != null) {
+                    Toast.makeText(MainActivity.this,
+                            String.format("Getting user info was Successful %s %s %s",
+                                    responseDefault.isSuccess(),
+                                    responseDefault.getData(),
+                                    responseDefault.getMessage()),
+                            Toast.LENGTH_LONG).show();
+
+                }
+                else {
+                    Toast.makeText(MainActivity.this,
+                            String.format("Response is %s", String.valueOf(response.code()))
+                            , Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponse<UserInfo>> call, Throwable t) {
+                Toast.makeText(MainActivity.this,
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+                Log.d("myTag", t.getMessage());
+
+            }
+        });
+
+    }
+
+
 }

@@ -18,9 +18,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.gofit.data.model.requests.Friends;
 import com.example.gofit.data.model.responses.defaultResponseList;
+import com.example.gofit.data.model.requests.Friends;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -45,6 +48,8 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     private SharedPreferences sp;
 
     private List<Friends> friendsList = new ArrayList<>();
+    Gson gson = new Gson();
+    String jsonText;
 
     //sp = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
     //String token = sp.getString("token", "");
@@ -85,10 +90,20 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 .centerCrop()
                 .into(userProfileImgV);
 
+        userFriendsCall();
+        //ArrayList<Friends> friends = new ArrayList<>();
 
-        ArrayList<Friend> friends = new ArrayList<>();  //Fake friends list for testing purposes
+        //jsonText = sp.getString("FriendsList", null);
+        //Type type = new TypeToken<ArrayList<Friends>>() {}.getType();
+        //friendsList = gson.fromJson(jsonText, type);
+
+
+
+
+          //Fake friends list for testing purposes
         //For loop to multiply fake friends to test scrolling
-        for (int i = 0; i < 2; i++) {
+
+        /*for (int i = 0; i < 2; i++) {
             friends.add(new Friend("John Smith", "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg"));
             friends.add(new Friend("Jane Doe", "https://image.shutterstock.com/image-photo/indoor-portrait-beautiful-brunette-young-260nw-640005220.jpg"));
             friends.add(new Friend("Margot Robbie", "https://assets.vogue.com/photos/5cf7ed4504f90a017a26d60f/master/pass/5-things-to-know-about-margot-robbie.jpg"));
@@ -97,15 +112,15 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             friends.add(new Friend("Adam Sandler", "https://cdn.britannica.com/24/157824-050-D8E9E191/Adam-Sandler-2011.jpg"));
             friends.add(new Friend("Emma Watson", "https://upload.wikimedia.org/wikipedia/commons/7/7f/Emma_Watson_2013.jpg"));
             friends.add(new Friend("Mark Zuckerberg", "https://cdn.britannica.com/99/236599-050-1199AD2C/Mark-Zuckerberg-2019.jpg"));
-        }
+        }*/
 
         //Adapter binds data from friends array to views in Recycler View
-        FriendsRecViewAdapter adapter = new FriendsRecViewAdapter(this);
-        adapter.setFriends(friends);
+        //FriendsRecViewAdapter adapter = new FriendsRecViewAdapter(this);
+        //adapter.setFriends(friendsList);
 
-        friendsRecView = findViewById(R.id.friendsRecyclerView);
-        friendsRecView.setAdapter(adapter);
-        friendsRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); //lists data horizontally
+        //friendsRecView = findViewById(R.id.friendsRecyclerView);
+        //friendsRecView.setAdapter(adapter);
+        //friendsRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); //lists data horizontally
 
     }
 
@@ -127,33 +142,31 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 startActivity(new Intent(this, Settings.class));
                 break;
             case R.id.getFriendsBtn:
-                getUserFriends();
+                //getUserFriends();
                 break;
         }
     }
 
-    private void getUserFriends(){
-        //Toast.makeText(UserProfile.this, "Getting Friends from Database!", Toast.LENGTH_SHORT).show();
-
+    private void userFriendsCall(){
         String token = sp.getString("token", "");
+
+        Gson gson = new Gson();
         MainApplication.apiManager.getFriends(token, new Callback<defaultResponseList<Friends>>() {
             @Override
             public void onResponse(Call<defaultResponseList<Friends>> call, Response<defaultResponseList<Friends>> response) {
-                defaultResponseList<Friends> responseDefault = response.body();
+                defaultResponseList<Friends> responseFriends = response.body();
 
-                if (response.isSuccessful() && responseDefault != null) {
-                    friendsList.addAll(responseDefault.getData());
+                if (response.isSuccessful() && responseFriends != null) {
+                    friendsList.addAll(responseFriends.getData());
+
+                    //jsonText = gson.toJson(friendsList);
+                    //sp.edit().putString("FriendsList", jsonText);
+                    //sp.edit().apply();
 
                     Toast.makeText(UserProfile.this,
                             "Get Friends was Successful",
                             Toast.LENGTH_SHORT).show();
 
-                    for(int i = 0; i < friendsList.size();i++){
-                        Toast.makeText(UserProfile.this,
-                                String.format("%s", friendsList.get(i).getFullName()),
-                                Toast.LENGTH_LONG).show();
-                    }
-                    Log.d("myTag", responseDefault.getData().toString() );
                 }
                 else {
                     Toast.makeText(UserProfile.this,
@@ -172,6 +185,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
             }
         });
+
     }
 
 }
