@@ -51,14 +51,14 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
         friends2 = new ArrayList<>();
         //For loop to multiply fake friends to test scrolling
         for (int i = 0; i < 2; i++) {
-            friends2.add(new Friend("John Smith", "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg"));
-            friends2.add(new Friend("Jane Doe", "https://image.shutterstock.com/image-photo/indoor-portrait-beautiful-brunette-young-260nw-640005220.jpg"));
-            friends2.add(new Friend("Margot Robbie", "https://assets.vogue.com/photos/5cf7ed4504f90a017a26d60f/master/pass/5-things-to-know-about-margot-robbie.jpg"));
-            friends2.add(new Friend("Scarlette Johanson", "https://m.media-amazon.com/images/M/MV5BMTM3OTUwMDYwNl5BMl5BanBnXkFtZTcwNTUyNzc3Nw@@._V1_UY1200_CR180,0,630,1200_AL_.jpg"));
-            friends2.add(new Friend("Ryan Gosling", "https://upload.wikimedia.org/wikipedia/commons/f/f6/Ryan_Gosling_in_2018.jpg"));
-            friends2.add(new Friend("Adam Sandler", "https://cdn.britannica.com/24/157824-050-D8E9E191/Adam-Sandler-2011.jpg"));
-            friends2.add(new Friend("Emma Watson", "https://upload.wikimedia.org/wikipedia/commons/7/7f/Emma_Watson_2013.jpg"));
-            friends2.add(new Friend("Mark Zuckerberg", "https://cdn.britannica.com/99/236599-050-1199AD2C/Mark-Zuckerberg-2019.jpg"));
+            friends2.add(new Friend("John Smith", "johnsmith@gmail.com","https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg"));
+            friends2.add(new Friend("Jane Doe", "janeDoe@gmail.com","https://image.shutterstock.com/image-photo/indoor-portrait-beautiful-brunette-young-260nw-640005220.jpg"));
+            friends2.add(new Friend("Margot Robbie", "margotrobbie@gmail.com","https://assets.vogue.com/photos/5cf7ed4504f90a017a26d60f/master/pass/5-things-to-know-about-margot-robbie.jpg"));
+            friends2.add(new Friend("Scarlette Johanson", "scarlJo@gmail.com", "https://m.media-amazon.com/images/M/MV5BMTM3OTUwMDYwNl5BMl5BanBnXkFtZTcwNTUyNzc3Nw@@._V1_UY1200_CR180,0,630,1200_AL_.jpg"));
+            friends2.add(new Friend("Ryan Gosling", "ryangos@gmaill.com", "https://upload.wikimedia.org/wikipedia/commons/f/f6/Ryan_Gosling_in_2018.jpg"));
+            friends2.add(new Friend("Adam Sandler", "adamSandler@gmail.com", "https://cdn.britannica.com/24/157824-050-D8E9E191/Adam-Sandler-2011.jpg"));
+            friends2.add(new Friend("Emma Watson", "emmawatson@gmail.com", "https://upload.wikimedia.org/wikipedia/commons/7/7f/Emma_Watson_2013.jpg"));
+            friends2.add(new Friend("Mark Zuckerberg", "markzuck@gmail.com", "https://cdn.britannica.com/99/236599-050-1199AD2C/Mark-Zuckerberg-2019.jpg"));
         }
 
         adapter2 = new FriendsRecViewAdapter(this);
