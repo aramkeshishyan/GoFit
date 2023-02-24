@@ -91,31 +91,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 .centerCrop()
                 .into(userProfileImgV);
 
-
-        //ArrayList<Friends> friends = new ArrayList<>();
-
-    //jsonText = sp.getString("FriendsList", null);
-    //Type type = new TypeToken<ArrayList<Friends>>() {}.getType();
-    //friendsList = gson.fromJson(jsonText, type);
-
-    /*
-        for (int i = 0; i < 2; i++) {
-            friendsList.add(new Friend("John Smith", "test@yahoo.com", "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg"));
-            friendsList.add(new Friend("Jane Doe", "test@yahoo.com","https://image.shutterstock.com/image-photo/indoor-portrait-beautiful-brunette-young-260nw-640005220.jpg"));
-            friendsList.add(new Friend("Margot Robbie", "test@yahoo.com","https://assets.vogue.com/photos/5cf7ed4504f90a017a26d60f/master/pass/5-things-to-know-about-margot-robbie.jpg"));
-            friendsList.add(new Friend("Scarlette Johanson", "test@yahoo.com","https://m.media-amazon.com/images/M/MV5BMTM3OTUwMDYwNl5BMl5BanBnXkFtZTcwNTUyNzc3Nw@@._V1_UY1200_CR180,0,630,1200_AL_.jpg"));
-            friendsList.add(new Friend("Ryan Gosling", "test@yahoo.com","https://upload.wikimedia.org/wikipedia/commons/f/f6/Ryan_Gosling_in_2018.jpg"));
-            friendsList.add(new Friend("Adam Sandler", "test@yahoo.com","https://cdn.britannica.com/24/157824-050-D8E9E191/Adam-Sandler-2011.jpg"));
-            friendsList.add(new Friend("Emma Watson", "test@yahoo.com","https://upload.wikimedia.org/wikipedia/commons/7/7f/Emma_Watson_2013.jpg"));
-            friendsList.add(new Friend("Mark Zuckerberg", "test@yahoo.com","https://cdn.britannica.com/99/236599-050-1199AD2C/Mark-Zuckerberg-2019.jpg"));
-        }*/
-
         userFriendsCall();
-
-
-
-    //Adapter binds data from friends array to views in Recycler View
-
 
     }
 

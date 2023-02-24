@@ -3,32 +3,46 @@ package com.example.gofit;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.gofit.data.model.responses.defaultResponseList;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FriendsListPage extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView friendsRecyclerView;
     private SearchView searchViewFriendsList;
-    private FriendsRecViewAdapter adapter2;
+
     private ImageButton btnBackFriendsList;
 
     //Fake friends list for testing purposes
-    private ArrayList<Friend> friends2;
+    private ArrayList<Friend> friendsList2 = new ArrayList<>();
+    private FriendsRecViewAdapter adapter2 = new FriendsRecViewAdapter(this);
+    Context context = this;
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_list_page);
+
+        sp = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
 
         btnBackFriendsList = findViewById(R.id.btnBackFriendsList);
         btnBackFriendsList.setOnClickListener(this);
@@ -48,9 +62,7 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
             }
         });
 
-        friends2 = new ArrayList<>();
-        //For loop to multiply fake friends to test scrolling
-        for (int i = 0; i < 2; i++) {
+        /*for (int i = 0; i < 2; i++) {
             friends2.add(new Friend("John Smith", "johnsmith@gmail.com","https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg"));
             friends2.add(new Friend("Jane Doe", "janeDoe@gmail.com","https://image.shutterstock.com/image-photo/indoor-portrait-beautiful-brunette-young-260nw-640005220.jpg"));
             friends2.add(new Friend("Margot Robbie", "margotrobbie@gmail.com","https://assets.vogue.com/photos/5cf7ed4504f90a017a26d60f/master/pass/5-things-to-know-about-margot-robbie.jpg"));
@@ -59,20 +71,69 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
             friends2.add(new Friend("Adam Sandler", "adamSandler@gmail.com", "https://cdn.britannica.com/24/157824-050-D8E9E191/Adam-Sandler-2011.jpg"));
             friends2.add(new Friend("Emma Watson", "emmawatson@gmail.com", "https://upload.wikimedia.org/wikipedia/commons/7/7f/Emma_Watson_2013.jpg"));
             friends2.add(new Friend("Mark Zuckerberg", "markzuck@gmail.com", "https://cdn.britannica.com/99/236599-050-1199AD2C/Mark-Zuckerberg-2019.jpg"));
-        }
+        }*/
 
-        adapter2 = new FriendsRecViewAdapter(this);
-        adapter2.setFriends(friends2);
-
-        friendsRecyclerView = findViewById(R.id.friendsListPageRecView);
-        friendsRecyclerView.setAdapter(adapter2);
-        friendsRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        userFriendsCall();
+//        adapter2.setFriends(friendsList2);
+//        friendsRecyclerView = findViewById(R.id.friendsListPageRecView);
+//        friendsRecyclerView.setAdapter(adapter2);
+//        friendsRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
 
     }
 
+    private void userFriendsCall(){
+        String token = sp.getString("token", "");
+
+        //Gson gson = new Gson();
+        MainApplication.apiManager.getFriends(token, new Callback<defaultResponseList<Friend>>() {
+            @Override
+            public void onResponse(Call<defaultResponseList<Friend>> call, Response<defaultResponseList<Friend>> response) {
+                defaultResponseList<Friend> responseFriends = response.body();
+
+                if (response.isSuccessful() && responseFriends != null) {
+                    friendsList2.addAll(responseFriends.getData());
+
+                    //jsonText = gson.toJson(friendsList);
+                    //sp.edit().putString("FriendsList", jsonText);
+                    //sp.edit().apply();
+
+                    Toast.makeText(FriendsListPage.this,
+                            "Get Friends was Successful",
+                            Toast.LENGTH_SHORT).show();
+
+                    adapter2.setFriends(friendsList2);
+
+                    friendsRecyclerView = findViewById(R.id.friendsListPageRecView);
+                    friendsRecyclerView.setAdapter(adapter2);
+                    friendsRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
+
+                }
+                else {
+                    Toast.makeText(FriendsListPage.this,
+                            String.format("Response is %s", String.valueOf(response.code()))
+                            , Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponseList<Friend>> call, Throwable t) {
+                Toast.makeText(FriendsListPage.this,
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+                Log.d("myTag", t.getMessage());
+
+            }
+        });
+
+    }
+
+
+
+
     private void filterList(String s) { //s is text searched in searchView
         ArrayList<Friend> filteredFriendsList = new ArrayList<>();
-        for (Friend friend : friends2) {
+        for (Friend friend : friendsList2) {
             if (friend.getName().toLowerCase().contains(s.toLowerCase())) {
                 filteredFriendsList.add(friend);
             }
