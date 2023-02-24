@@ -8,7 +8,11 @@ public class Friend {
     @SerializedName("fullName")
     @Expose
     private String name;
+    @SerializedName("email")
+    @Expose
     private String email;
+    @SerializedName("imageURL")
+    @Expose
     private String imageURL;
 
     public Friend(String name, String email, String imageURL) {
