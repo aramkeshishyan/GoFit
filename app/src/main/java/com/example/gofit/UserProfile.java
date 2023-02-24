@@ -47,7 +47,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
     private SharedPreferences sp;
 
-//    private List<Friends> friendsList = new ArrayList<>();
+    private ArrayList<Friend> friendsList = new ArrayList<>();
 //    Gson gson = new Gson();
 //    String jsonText;
 
@@ -88,18 +88,15 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 .load("https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg")
                 .centerCrop()
                 .into(userProfileImgV);
-    }
 
-//        userFriendsCall();
+
+        userFriendsCall();
     //ArrayList<Friends> friends = new ArrayList<>();
 
     //jsonText = sp.getString("FriendsList", null);
     //Type type = new TypeToken<ArrayList<Friends>>() {}.getType();
     //friendsList = gson.fromJson(jsonText, type);
 
-
-    //Fake friends list for testing purposes
-    //For loop to multiply fake friends to test scrolling
 
         /*for (int i = 0; i < 2; i++) {
             friends.add(new Friend("John Smith", "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg"));
@@ -113,12 +110,13 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         }*/
 
     //Adapter binds data from friends array to views in Recycler View
-    //FriendsRecViewAdapter adapter = new FriendsRecViewAdapter(this);
-    //adapter.setFriends(friendsList);
+    FriendsRecViewAdapter adapter = new FriendsRecViewAdapter(this);
+    adapter.setFriends(friendsList);
 
-    //friendsRecView = findViewById(R.id.friendsRecyclerView);
-    //friendsRecView.setAdapter(adapter);
-    //friendsRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); //lists data horizontally
+    friendsRecView = findViewById(R.id.friendsRecyclerView);
+    friendsRecView.setAdapter(adapter);
+    friendsRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); //lists data horizontally
+    }
 
     @Override
     public void onClick(View view) {
@@ -142,50 +140,62 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 break;
         }
     }
+
+
+    private void userFriendsCall(){
+        String token = sp.getString("token", "");
+
+        //Gson gson = new Gson();
+        MainApplication.apiManager.getFriends(token, new Callback<defaultResponseList<Friend>>() {
+            @Override
+            public void onResponse(Call<defaultResponseList<Friend>> call, Response<defaultResponseList<Friend>> response) {
+                defaultResponseList<Friend> responseFriends = response.body();
+
+                if (response.isSuccessful() && responseFriends != null) {
+                    friendsList.addAll(responseFriends.getData());
+
+                    //jsonText = gson.toJson(friendsList);
+                    //sp.edit().putString("FriendsList", jsonText);
+                    //sp.edit().apply();
+
+                    Toast.makeText(UserProfile.this,
+                            "Get Friends was Successful",
+                            Toast.LENGTH_SHORT).show();
+
+                    for(int i = 0; i < friendsList.size(); i++)
+                    {
+                        Toast.makeText(UserProfile.this,
+                                String.format("%s", friendsList.get(i).getName())
+                                , Toast.LENGTH_LONG).show();
+
+                    }
+
+
+
+
+
+                }
+                else {
+                    Toast.makeText(UserProfile.this,
+                            String.format("Response is %s", String.valueOf(response.code()))
+                            , Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponseList<Friend>> call, Throwable t) {
+                Toast.makeText(UserProfile.this,
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+                Log.d("myTag", t.getMessage());
+
+            }
+        });
+
+    }
+
 }
-//
-//    private void userFriendsCall(){
-//        String token = sp.getString("token", "");
-//
-//        Gson gson = new Gson();
-//        MainApplication.apiManager.getFriends(token, new Callback<defaultResponseList<Friends>>() {
-//            @Override
-//            public void onResponse(Call<defaultResponseList<Friends>> call, Response<defaultResponseList<Friends>> response) {
-//                defaultResponseList<Friends> responseFriends = response.body();
-//
-//                if (response.isSuccessful() && responseFriends != null) {
-//                    friendsList.addAll(responseFriends.getData());
-//
-//                    //jsonText = gson.toJson(friendsList);
-//                    //sp.edit().putString("FriendsList", jsonText);
-//                    //sp.edit().apply();
-//
-//                    Toast.makeText(UserProfile.this,
-//                            "Get Friends was Successful",
-//                            Toast.LENGTH_SHORT).show();
-//
-//                }
-//                else {
-//                    Toast.makeText(UserProfile.this,
-//                            String.format("Response is %s", String.valueOf(response.code()))
-//                            , Toast.LENGTH_LONG).show();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<defaultResponseList<Friends>> call, Throwable t) {
-//                Toast.makeText(UserProfile.this,
-//                        "Error: " + t.getMessage()
-//                        , Toast.LENGTH_LONG).show();
-//                Log.d("myTag", t.getMessage());
-//
-//            }
-//        });
-//
-//    }
-//
-//}
 
 
 

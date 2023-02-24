@@ -1,6 +1,6 @@
 package com.example.gofit.data.remote;
 
-import com.example.gofit.data.model.requests.Friends;
+import com.example.gofit.Friend;
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.responses.defaultResponse;
@@ -29,6 +29,6 @@ public interface IUsersApi {
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/User/friends")
-    Call<defaultResponseList<Friends>> getFriends(@Header("Authorization") String token);
+    Call<defaultResponseList<Friend>> getFriends(@Header("Authorization") String token);
 
 }

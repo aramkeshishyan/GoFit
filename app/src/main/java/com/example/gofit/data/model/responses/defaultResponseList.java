@@ -3,6 +3,7 @@ package com.example.gofit.data.model.responses;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class defaultResponseList<T> {
@@ -11,12 +12,12 @@ public class defaultResponseList<T> {
     private boolean success;
     @SerializedName("data")
     @Expose
-    private List<T> data;
+    private ArrayList<T> data;
     @SerializedName("message")
     @Expose
     private String message;
 
-    public defaultResponseList(boolean success, List<T> data, String message) {
+    public defaultResponseList(boolean success, ArrayList<T> data, String message) {
         this.success = success;
         this.data = data;
         this.message = message;
@@ -30,11 +31,11 @@ public class defaultResponseList<T> {
         this.success = success;
     }
 
-    public List<T> getData() {
+    public ArrayList<T> getData() {
         return data;
     }
 
-    public void setData(List<T> data) {
+    public void setData(ArrayList<T> data) {
         this.data = data;
     }
 
