@@ -143,8 +143,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                     ///////  LOGIN WAS SUCCESSFUL, WE HAVE THE TOKEN, NOW PASS THE TOKEN AND GET THE USER INFORMATION FROM USER TABLE  /////////////
-                    //userInfoCall();
-                    startActivity(new Intent(MainActivity.this, HomePage.class));
+                    userInfoCall();
+
+                    if(sp.getBoolean("surveyComplete",false)) {
+                        startActivity(new Intent(MainActivity.this, HomePage.class));
+                    }
+                    else{
+                        startActivity(new Intent(MainActivity.this, Survey1.class));
+                    }
 
                 } else {
                     Toast.makeText(MainActivity.this,
@@ -205,6 +211,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void userInfoCall(){
 
         String token = sp.getString("token", "");
+        SharedPreferences.Editor spEditor = sp.edit();
         MainApplication.apiManager.getUserInfo(token, new Callback<defaultResponse<UserInfo>>() {
             @Override
             public void onResponse(Call<defaultResponse<UserInfo>> call, Response<defaultResponse<UserInfo>> response) {
@@ -212,12 +219,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (response.isSuccessful() && responseDefault != null) {
                     Toast.makeText(MainActivity.this,
-                            String.format("Getting user info was Successful %s %s %s",
-                                    responseDefault.isSuccess(),
-                                    responseDefault.getData(),
-                                    responseDefault.getMessage()),
+                            "Getting user info was Successful",
                             Toast.LENGTH_LONG).show();
 
+
+                    spEditor.putString("fullName", responseDefault.getData().getFullName());
+                    spEditor.putString("email", responseDefault.getData().getEmail());
+                    spEditor.putString("photoUrl", responseDefault.getData().getPhotoUrl());
+                    spEditor.putBoolean("surveyComplete", responseDefault.getData().isSurveyComplete());
+                    spEditor.putInt("baseCalories", responseDefault.getData().getBaseCalories());
+                    spEditor.putInt("recCalories", responseDefault.getData().getRecCalories());
+                    spEditor.putInt("age", responseDefault.getData().getAge());
+                    spEditor.putFloat("weight", (float)responseDefault.getData().getWeight());
+                    spEditor.putFloat("height", (float)responseDefault.getData().getHeight());
+                    spEditor.putString("gender", responseDefault.getData().getGender());
+                    spEditor.putString("activityLvl", responseDefault.getData().getActivityLvl());
+                    spEditor.putString("bodyType", responseDefault.getData().getBodyType());
+                    spEditor.putString("goal", responseDefault.getData().getGoal());
+                    spEditor.apply();
                 }
                 else {
                     Toast.makeText(MainActivity.this,

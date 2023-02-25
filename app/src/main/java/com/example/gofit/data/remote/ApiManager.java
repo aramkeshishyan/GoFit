@@ -1,6 +1,7 @@
 package com.example.gofit.data.remote;
 
 import com.example.gofit.Friend;
+import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.responses.defaultResponse;
@@ -55,6 +56,11 @@ public class ApiManager {
         Call<defaultResponse<UserInfo>> userInfo = service.getUserInfo("Bearer " + token);
         userInfo.enqueue(callback);
 
+    }
+
+    public void postUserInfo(String token, UpdateSurvey update, Callback<defaultResponse<UserInfo>> callback){
+        Call<defaultResponse<UserInfo>> userInfo = service.postUserInfo("Bearer " + token, update);
+        userInfo.enqueue(callback);
     }
 
 

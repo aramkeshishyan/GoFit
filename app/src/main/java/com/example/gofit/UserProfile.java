@@ -93,6 +93,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
         userFriendsCall();
 
+
     }
 
     @Override

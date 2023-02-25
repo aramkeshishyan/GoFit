@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/heightBanner">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/height"
+            android:id="@+id/heightEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppinsmedium" />
@@ -87,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/weightBanner">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/weight"
+            android:id="@+id/weightEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppinsmedium" />
@@ -113,7 +113,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ageBanner">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/age"
+            android:id="@+id/ageEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppinsmedium" />
