@@ -1,20 +1,30 @@
 package com.example.gofit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.gofit.data.model.requests.UpdateSurvey;
+import com.example.gofit.data.model.requests.UserInfo;
+import com.example.gofit.data.model.responses.defaultResponse;
+import com.example.gofit.data.model.responses.defaultResponseList;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Survey2 extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,6 +51,8 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
     private float basalMetRate;
 
     private SharedPreferences sp;
+
+    private UpdateSurvey updatedUserSurvey;
 
     //Bundle extras = getIntent().getExtras();
 
@@ -105,17 +117,43 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
         age = Integer.parseInt(ageET.getText().toString());
 
         makeCalculations();
+
+        updatedUserSurvey = new UpdateSurvey(baseCalories, recCalories, age, weight, height, gender, activityLvl, bodyType, goal);
+
         pushUserInfo();
 
         startActivity(new Intent(Survey2.this, HomePage.class));
     }
 
     private void pushUserInfo() {
+        String token = sp.getString("token", "");
 
+        MainApplication.apiManager.postUserInfo(token, updatedUserSurvey, new Callback<defaultResponse<UserInfo>>() {
+            @Override
+            public void onResponse(Call<defaultResponse<UserInfo>> call, Response<defaultResponse<UserInfo>> response) {
+                defaultResponse<UserInfo> userInfoResponse = response.body();
 
+                if (response.isSuccessful() && userInfoResponse != null) {
 
+                    Toast.makeText(Survey2.this,
+                            String.format("User Data Posted Successfully"),
+                            Toast.LENGTH_LONG).show();
 
+                } else {
+                    Toast.makeText(Survey2.this,
+                            String.format("Response is %s", String.valueOf(response.code()))
+                            , Toast.LENGTH_LONG).show();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<defaultResponse<UserInfo>> call, Throwable t) {
+                Toast.makeText(Survey2.this,
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+                Log.d("myTag", t.getMessage());
+            }
+        });
 
 
     }
