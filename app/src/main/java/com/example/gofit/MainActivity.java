@@ -145,12 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     ///////  LOGIN WAS SUCCESSFUL, WE HAVE THE TOKEN, NOW PASS THE TOKEN AND GET THE USER INFORMATION FROM USER TABLE  /////////////
                     userInfoCall();
 
-                    if(sp.getBoolean("surveyComplete",false)) {
-                        startActivity(new Intent(MainActivity.this, HomePage.class));
-                    }
-                    else{
-                        startActivity(new Intent(MainActivity.this, Survey1.class));
-                    }
+
 
                 } else {
                     Toast.makeText(MainActivity.this,
@@ -237,6 +232,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     spEditor.putString("bodyType", responseDefault.getData().getBodyType());
                     spEditor.putString("goal", responseDefault.getData().getGoal());
                     spEditor.apply();
+
+                    if(sp.getBoolean("surveyComplete",false)) {
+                        startActivity(new Intent(MainActivity.this, HomePage.class));
+                    }
+                    else{
+                        startActivity(new Intent(MainActivity.this, Survey1.class));
+                    }
                 }
                 else {
                     Toast.makeText(MainActivity.this,

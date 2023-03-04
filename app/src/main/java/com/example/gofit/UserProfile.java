@@ -100,7 +100,8 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.backBtn:
-                super.finish();
+                startActivity(new Intent(UserProfile.this, HomePage.class));
+                //super.finish();
                 break;
             case R.id.logOutBtn:
                 FirebaseAuth.getInstance().signOut();
