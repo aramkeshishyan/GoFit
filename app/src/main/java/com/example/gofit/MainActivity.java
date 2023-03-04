@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (response.isSuccessful() && responseDefault != null) {
                     Toast.makeText(MainActivity.this,
                             "Getting user info was Successful",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
 
 
                     spEditor.putString("fullName", responseDefault.getData().getFullName());

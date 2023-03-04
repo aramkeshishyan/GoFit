@@ -4,6 +4,7 @@ import com.example.gofit.Friend;
 import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserInfo;
+import com.example.gofit.data.model.responses.addFriendResponse;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.data.model.responses.tokenResponse;
@@ -12,8 +13,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 
 public class ApiManager {
@@ -26,6 +26,7 @@ public class ApiManager {
     private ApiManager(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:5254/")
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -68,6 +69,11 @@ public class ApiManager {
         Call <defaultResponseList<Friend>> userFriends = service.getFriends("Bearer " + token);
         userFriends.enqueue(callback);
 
+    }
+
+    public void addFriend(String token, String email, Callback<addFriendResponse> callback){
+        Call<addFriendResponse> addedFriend = service.addFriend("Bearer " + token, email);
+        addedFriend.enqueue(callback);
     }
 
 
