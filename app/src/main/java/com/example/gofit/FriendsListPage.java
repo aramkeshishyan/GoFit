@@ -94,7 +94,8 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(FriendsListPage.this, String.format("%s", responseAdd.isSuccess()), Toast.LENGTH_SHORT).show();
                 }
                 else
-                    Toast.makeText(FriendsListPage.this, "Failed addFriend", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FriendsListPage.this, String.format("%s", responseAdd.getMessage()), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FriendsListPage.this, String.format("%s", responseAdd.isSuccess()), Toast.LENGTH_SHORT).show();
             }
 
             @Override
