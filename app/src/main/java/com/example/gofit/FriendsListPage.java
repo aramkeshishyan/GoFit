@@ -4,26 +4,21 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.gofit.data.model.requests.UserFriended;
 import com.example.gofit.data.model.responses.addFriendResponse;
-import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -39,7 +34,6 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
     private ImageButton btnBackFriendsList;
     private ImageButton btnAddFriend;
 
-    //Fake friends list for testing purposes
     private ArrayList<Friend> friendsList2 = new ArrayList<>();
     private FriendsRecViewAdapter adapter2 = new FriendsRecViewAdapter(this);
     Context context = this;
@@ -76,17 +70,6 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
                 return true;
             }
         });
-
-        /*for (int i = 0; i < 2; i++) {
-            friends2.add(new Friend("John Smith", "johnsmith@gmail.com","https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg"));
-            friends2.add(new Friend("Jane Doe", "janeDoe@gmail.com","https://image.shutterstock.com/image-photo/indoor-portrait-beautiful-brunette-young-260nw-640005220.jpg"));
-            friends2.add(new Friend("Margot Robbie", "margotrobbie@gmail.com","https://assets.vogue.com/photos/5cf7ed4504f90a017a26d60f/master/pass/5-things-to-know-about-margot-robbie.jpg"));
-            friends2.add(new Friend("Scarlette Johanson", "scarlJo@gmail.com", "https://m.media-amazon.com/images/M/MV5BMTM3OTUwMDYwNl5BMl5BanBnXkFtZTcwNTUyNzc3Nw@@._V1_UY1200_CR180,0,630,1200_AL_.jpg"));
-            friends2.add(new Friend("Ryan Gosling", "ryangos@gmaill.com", "https://upload.wikimedia.org/wikipedia/commons/f/f6/Ryan_Gosling_in_2018.jpg"));
-            friends2.add(new Friend("Adam Sandler", "adamSandler@gmail.com", "https://cdn.britannica.com/24/157824-050-D8E9E191/Adam-Sandler-2011.jpg"));
-            friends2.add(new Friend("Emma Watson", "emmawatson@gmail.com", "https://upload.wikimedia.org/wikipedia/commons/7/7f/Emma_Watson_2013.jpg"));
-            friends2.add(new Friend("Mark Zuckerberg", "markzuck@gmail.com", "https://cdn.britannica.com/99/236599-050-1199AD2C/Mark-Zuckerberg-2019.jpg"));
-        }*/
 
         userFriendsCall();
 //        adapter2.setFriends(friendsList2);
