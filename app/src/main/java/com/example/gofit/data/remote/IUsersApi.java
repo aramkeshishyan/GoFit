@@ -3,6 +3,7 @@ package com.example.gofit.data.remote;
 import com.example.gofit.Friend;
 import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.User;
+import com.example.gofit.data.model.requests.UserFriended;
 import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.responses.addFriendResponse;
 import com.example.gofit.data.model.responses.defaultResponse;
@@ -43,6 +44,6 @@ public interface IUsersApi {
     //@FormUrlEncoded
     @Headers({"Content-Type: text/plain"})
     @POST("/User/addFriend")
-    Call<addFriendResponse> addFriend(@Header("Authorization") String token, @Body String email);
+    Call<addFriendResponse> addFriend(@Header("Authorization") String token, @Body UserFriended friended);
 
 }

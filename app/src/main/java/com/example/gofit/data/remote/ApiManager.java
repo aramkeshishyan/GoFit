@@ -3,6 +3,7 @@ package com.example.gofit.data.remote;
 import com.example.gofit.Friend;
 import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.User;
+import com.example.gofit.data.model.requests.UserFriended;
 import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.responses.addFriendResponse;
 import com.example.gofit.data.model.responses.defaultResponse;
@@ -71,8 +72,8 @@ public class ApiManager {
 
     }
 
-    public void addFriend(String token, String email, Callback<addFriendResponse> callback){
-        Call<addFriendResponse> addedFriend = service.addFriend("Bearer " + token, email);
+    public void addFriend(String token, UserFriended friended, Callback<addFriendResponse> callback){
+        Call<addFriendResponse> addedFriend = service.addFriend("Bearer " + token, friended);
         addedFriend.enqueue(callback);
     }
 

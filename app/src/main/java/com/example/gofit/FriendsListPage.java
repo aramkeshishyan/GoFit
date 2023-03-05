@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.gofit.data.model.requests.UserFriended;
 import com.example.gofit.data.model.responses.addFriendResponse;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
@@ -97,7 +98,8 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
         String token = sp.getString("token", "");
 
         String friendsEmail = "string";
-        MainApplication.apiManager.addFriend(token, friendsEmail, new Callback<addFriendResponse>() {
+        UserFriended userFriended = new UserFriended(friendsEmail);
+        MainApplication.apiManager.addFriend(token, userFriended, new Callback<addFriendResponse>() {
             @Override
             public void onResponse(Call<addFriendResponse> call, Response<addFriendResponse> response) {
                 addFriendResponse responseAdd = response.body();
