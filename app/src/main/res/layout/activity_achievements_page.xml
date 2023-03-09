@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AchievementsPage">
+
+
+  <TableRow
+      android:id="@+id/achievementTableRow"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toBottomOf="@id/achieveRelLayout">
+
+    <SearchView
+        android:id="@+id/exercise_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="32dp" />
+
+    <Spinner
+        android:id="@+id/exercise_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:minHeight="32dp" />
+  </TableRow>
+
+  <RelativeLayout
+      android:id="@+id/achieveRelLayout"
+      android:layout_width="match_parent"
+      android:layout_height="70dp"
+
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+    <ImageButton
+        android:id="@+id/ach_backbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="7dp"
+        android:background="?android:selectableItemBackground"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_new_24" />
+
+    <TextView
+        android:id="@+id/achievementTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppinsbold"
+        android:text="Achievements"
+        android:textSize="25dp" />
+  </RelativeLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/achievementRecView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toBottomOf="@id/achievementTableRow"
+      tools:listitem="@layout/item_achievement" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
