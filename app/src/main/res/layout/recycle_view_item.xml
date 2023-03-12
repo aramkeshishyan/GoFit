@@ -37,7 +37,8 @@
             android:layout_height="80dp"
             android:id="@+id/rv_image"
             android:layout_margin="7dp"
-            android:src="@drawable/ic_launcher_background"/>
+            android:src="@drawable/ic_launcher_background"
+            android:scaleType="centerCrop"/>
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

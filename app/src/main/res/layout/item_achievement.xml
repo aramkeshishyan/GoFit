@@ -29,7 +29,7 @@
             />
 
         <TextView
-            android:id="@+id/ach_name"
+            android:id="@+id/ach_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
@@ -42,7 +42,7 @@
             android:id="@+id/ach_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ach_name"
+            android:layout_below="@+id/ach_title"
             android:layout_marginLeft="7dp"
             android:fontFamily="@font/poppinsmedium"
             android:text="Description"

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 
 public class First_Fragment extends Fragment{
 
+    private CardView achievement_button;
     public First_Fragment(){
         // require a empty public constructor
     }
@@ -28,6 +30,13 @@ public class First_Fragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        achievement_button = view.findViewById(R.id.achievements_card);
+        achievement_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), AchievementsPage.class));
+            }
+        });
         /*
         ImageView profilePic = (ImageView) view.findViewById(R.id.profile_pic);
         profilePic.setOnClickListener(new View.OnClickListener() {

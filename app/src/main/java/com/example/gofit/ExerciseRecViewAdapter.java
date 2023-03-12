@@ -41,17 +41,6 @@ public class ExerciseRecViewAdapter extends RecyclerView.Adapter<ExerciseRecView
         holder.item_name.setText(exercise.getItem_name());
         holder.item_description.setText(exercise.getItem_description());
         Picasso.get().load(exercise.getItem_image()).into(holder.item_image);
-        //holder.item_name.setText(exercises.get(position).getItem_name());
-        //holder.item_description.setText(exercises.get(position).getItem_description());
-
-       /* holder.item_parent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(exercise_context, exercisesArrayList.get(holder.getAdapterPosition()).getItem_name(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
-
     }
 
     @Override
