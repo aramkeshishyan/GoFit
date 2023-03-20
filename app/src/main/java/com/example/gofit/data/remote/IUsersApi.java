@@ -1,11 +1,11 @@
 package com.example.gofit.data.remote;
 
 import com.example.gofit.Friend;
+import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserFriended;
 import com.example.gofit.data.model.requests.UserInfo;
-import com.example.gofit.data.model.responses.addFriendResponse;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.data.model.responses.tokenResponse;
@@ -45,5 +45,10 @@ public interface IUsersApi {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("/User/addFriend")
     Call<defaultResponse<Boolean>> addFriend(@Header("Authorization") String token, @Body UserFriended friended);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET("/User/friendRequests")
+    Call<defaultResponseList<RequestersInfo>> getFriendRequests(@Header("Authorization") String token);
+
 
 }

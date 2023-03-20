@@ -1,11 +1,11 @@
 package com.example.gofit.data.remote;
 
 import com.example.gofit.Friend;
+import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserFriended;
 import com.example.gofit.data.model.requests.UserInfo;
-import com.example.gofit.data.model.responses.addFriendResponse;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.data.model.responses.tokenResponse;
@@ -75,6 +75,11 @@ public class ApiManager {
     public void addFriend(String token, UserFriended friended, Callback<defaultResponse<Boolean>> callback){
         Call<defaultResponse<Boolean>> addedFriend = service.addFriend("Bearer " + token, friended);
         addedFriend.enqueue(callback);
+    }
+
+    public void getFriendRequests(String token, Callback<defaultResponseList<RequestersInfo>> callback){
+        Call<defaultResponseList<RequestersInfo>> requesterInfo = service.getFriendRequests("Bearer " + token);
+        requesterInfo.enqueue(callback);
     }
 
 

@@ -19,8 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UserFriended;
-import com.example.gofit.data.model.responses.addFriendResponse;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 
@@ -33,13 +33,16 @@ import retrofit2.Response;
 public class FriendsListPage extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView friendsRecyclerView;
+    private RecyclerView requestersRecyclerView;
     private SearchView searchViewFriendsList;
 
     private ImageButton btnBackFriendsList;
     private ImageButton btnAddFriend;
 
     private ArrayList<Friend> friendsList2 = new ArrayList<>();
+    private ArrayList<RequestersInfo> requestersArray = new ArrayList<>();
     private FriendsRecViewAdapter adapter2 = new FriendsRecViewAdapter(this);
+    private RequestersRecViewAdapter requestsAdapter = new RequestersRecViewAdapter(this);
     Context context = this;
     private SharedPreferences sp;
 
@@ -76,11 +79,91 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
         });
 
         userFriendsCall();
-//        adapter2.setFriends(friendsList2);
-//        friendsRecyclerView = findViewById(R.id.friendsListPageRecView);
-//        friendsRecyclerView.setAdapter(adapter2);
-//        friendsRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        friendRequestsCall();
+    }
 
+    private void friendRequestsCall() {
+        String token = sp.getString("token", "");
+        MainApplication.apiManager.getFriendRequests(token, new Callback<defaultResponseList<RequestersInfo>>() {
+            @Override
+            public void onResponse(Call<defaultResponseList<RequestersInfo>> call, Response<defaultResponseList<RequestersInfo>> response) {
+                defaultResponseList<RequestersInfo> requestersList = response.body();
+
+
+
+                if(requestersList.getData().isEmpty())
+                {
+                    Toast.makeText(FriendsListPage.this,
+                            "No requests",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    requestersArray.addAll(requestersList.getData());
+                    requestsAdapter.setFriends(requestersArray);
+
+                    requestersRecyclerView = findViewById(R.id.requestersPageRecView);
+                    requestersRecyclerView.setAdapter(requestsAdapter);
+                    requestersRecyclerView.setLayoutManager(new GridLayoutManager(context,4));
+
+                    /*for(int i = 0; i < requestersArray.size(); i++)
+                    {
+                        Toast.makeText(FriendsListPage.this,
+                                String.format("Requester %d is %s", i, requestersArray.get(i).getFullName())
+                                , Toast.LENGTH_LONG).show();
+                    }*/
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponseList<RequestersInfo>> call, Throwable t) {
+                Toast.makeText(FriendsListPage.this,
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
+
+    //Makes a API call to get the friends of the user and displays them using recycler view
+    private void userFriendsCall(){
+        String token = sp.getString("token", "");
+        MainApplication.apiManager.getFriends(token, new Callback<defaultResponseList<Friend>>() {
+            @Override
+            public void onResponse(Call<defaultResponseList<Friend>> call, Response<defaultResponseList<Friend>> response) {
+                defaultResponseList<Friend> responseFriends = response.body();
+
+                if (response.isSuccessful() && responseFriends != null) {
+                    friendsList2.addAll(responseFriends.getData());
+
+                    Toast.makeText(FriendsListPage.this,
+                            "Get Friends was Successful",
+                            Toast.LENGTH_SHORT).show();
+
+                    adapter2.setFriends(friendsList2);
+
+                    friendsRecyclerView = findViewById(R.id.friendsListPageRecView);
+                    friendsRecyclerView.setAdapter(adapter2);
+                    friendsRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
+                }
+                else {
+                    Toast.makeText(FriendsListPage.this,
+                            String.format("Response is %s", String.valueOf(response.code()))
+                            , Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponseList<Friend>> call, Throwable t) {
+                Toast.makeText(FriendsListPage.this,
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+                Log.d("myTag", t.getMessage());
+
+            }
+        });
     }
 
     private void addFriendCall(){
@@ -130,49 +213,6 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
             }
         });
         builder.show();
-    }
-
-    //Makes a API call to get the friends of the user and displays them using recycler view
-    private void userFriendsCall(){
-        String token = sp.getString("token", "");
-        MainApplication.apiManager.getFriends(token, new Callback<defaultResponseList<Friend>>() {
-            @Override
-            public void onResponse(Call<defaultResponseList<Friend>> call, Response<defaultResponseList<Friend>> response) {
-                defaultResponseList<Friend> responseFriends = response.body();
-
-                if (response.isSuccessful() && responseFriends != null) {
-                    friendsList2.addAll(responseFriends.getData());
-
-                    //jsonText = gson.toJson(friendsList);
-                    //sp.edit().putString("FriendsList", jsonText);
-                    //sp.edit().apply();
-
-                    Toast.makeText(FriendsListPage.this,
-                            "Get Friends was Successful",
-                            Toast.LENGTH_SHORT).show();
-
-                    adapter2.setFriends(friendsList2);
-
-                    friendsRecyclerView = findViewById(R.id.friendsListPageRecView);
-                    friendsRecyclerView.setAdapter(adapter2);
-                    friendsRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
-                }
-                else {
-                    Toast.makeText(FriendsListPage.this,
-                            String.format("Response is %s", String.valueOf(response.code()))
-                            , Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<defaultResponseList<Friend>> call, Throwable t) {
-                Toast.makeText(FriendsListPage.this,
-                        "Error: " + t.getMessage()
-                        , Toast.LENGTH_LONG).show();
-                Log.d("myTag", t.getMessage());
-
-            }
-        });
     }
 
     private void filterList(String s) { //s is text searched in searchView
