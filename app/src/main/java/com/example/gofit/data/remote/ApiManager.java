@@ -72,8 +72,8 @@ public class ApiManager {
 
     }
 
-    public void addFriend(String token, UserFriended friended, Callback<addFriendResponse> callback){
-        Call<addFriendResponse> addedFriend = service.addFriend("Bearer " + token, friended);
+    public void addFriend(String token, UserFriended friended, Callback<defaultResponse<Boolean>> callback){
+        Call<defaultResponse<Boolean>> addedFriend = service.addFriend("Bearer " + token, friended);
         addedFriend.enqueue(callback);
     }
 

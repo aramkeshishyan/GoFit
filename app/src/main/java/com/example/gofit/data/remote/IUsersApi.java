@@ -44,6 +44,6 @@ public interface IUsersApi {
     //@FormUrlEncoded
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("/User/addFriend")
-    Call<addFriendResponse> addFriend(@Header("Authorization") String token, @Body UserFriended friended);
+    Call<defaultResponse<Boolean>> addFriend(@Header("Authorization") String token, @Body UserFriended friended);
 
 }
