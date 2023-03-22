@@ -24,7 +24,7 @@ public class ThirdFragment extends Fragment {
     private RecyclerView nutrition_RecView;
     private Spinner nutrition_spinner;
     private SearchView nutrition_searchview;
-    private ArrayList<RecView_Item> nutritionList;
+    private ArrayList<Nutrition_Item> nutritionList;
     private String[] nutrition_categories = {"All", "Type1", "Type2"};
     public ThirdFragment(){
         // require a empty public constructor
@@ -40,12 +40,12 @@ public class ThirdFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         nutritionList = new ArrayList<>();
-        nutritionList.add(new RecView_Item("Food1", "Type1", "https://uxwing.com/wp-content/themes/uxwing/download/food-and-drinks/meal-food-icon.png"));
-        nutritionList.add(new RecView_Item("Food2", "Type2", "https://uxwing.com/wp-content/themes/uxwing/download/food-and-drinks/meal-food-icon.png"));
-        nutritionList.add(new RecView_Item("Food3", "Type3", "https://uxwing.com/wp-content/themes/uxwing/download/food-and-drinks/meal-food-icon.png"));
-        nutritionList.add(new RecView_Item("Food4", "Type4", "https://uxwing.com/wp-content/themes/uxwing/download/food-and-drinks/meal-food-icon.png"));
-        nutritionList.add(new RecView_Item("Food5", "Type5", "https://uxwing.com/wp-content/themes/uxwing/download/food-and-drinks/meal-food-icon.png"));
-        nutritionList.add(new RecView_Item("Food6", "Type6", "https://uxwing.com/wp-content/themes/uxwing/download/food-and-drinks/meal-food-icon.png"));
+        nutritionList.add(new Nutrition_Item("Food1", "Type1", "https://uxwing.com/wp-content/themes/uxwing/download/food-and-drinks/meal-food-icon.png"));
+        nutritionList.add(new Nutrition_Item("Food2", "Type2", "https://uxwing.com/wp-content/themes/uxwing/download/food-and-drinks/meal-food-icon.png"));
+        nutritionList.add(new Nutrition_Item("Food3", "Type3", "https://uxwing.com/wp-content/themes/uxwing/download/food-and-drinks/meal-food-icon.png"));
+        nutritionList.add(new Nutrition_Item("Food4", "Type4", "https://uxwing.com/wp-content/themes/uxwing/download/food-and-drinks/meal-food-icon.png"));
+        nutritionList.add(new Nutrition_Item("Food5", "Type5", "https://uxwing.com/wp-content/themes/uxwing/download/food-and-drinks/meal-food-icon.png"));
+        nutritionList.add(new Nutrition_Item("Food6", "Type6", "https://uxwing.com/wp-content/themes/uxwing/download/food-and-drinks/meal-food-icon.png"));
 
         NutritionRecViewAdapter nutritionAdapter = new NutritionRecViewAdapter(getContext(),nutritionList);
         nutritionAdapter.setNutritionArrayList(nutritionList);
@@ -70,9 +70,9 @@ public class ThirdFragment extends Fragment {
                 }
                 else {
                     //Create new ArrayList
-                    ArrayList<RecView_Item> newNutritionList = new ArrayList<>();
+                    ArrayList<Nutrition_Item> newNutritionList = new ArrayList<>();
                     //for every item in nutritionList
-                    for(RecView_Item checkNutritionList : nutritionList){
+                    for(Nutrition_Item checkNutritionList : nutritionList){
                         //compare if strings match with category selected
                         if(checkNutritionList.getItem_description() == nutrition_categories[i]){
                             //add item into new array list if category match
@@ -110,8 +110,8 @@ public class ThirdFragment extends Fragment {
 
     private void filter(String s) {
         //create new ArrayList
-        ArrayList<RecView_Item> newNutritionList = new ArrayList<>();
-        for(RecView_Item nutrition : nutritionList){
+        ArrayList<Nutrition_Item> newNutritionList = new ArrayList<>();
+        for(Nutrition_Item nutrition : nutritionList){
             //checks if entered string matches with the name of the item
             if(nutrition.getItem_name().toLowerCase().contains(s.toLowerCase())){
                 newNutritionList.add((nutrition));
