@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -51,7 +52,8 @@ public class FriendRequestsPage extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnBackFriendRequests:
-                super.finish();
+                //super.finish();
+                startActivity(new Intent(this, FriendsListPage.class));
                 break;
         }
     }
@@ -63,9 +65,7 @@ public class FriendRequestsPage extends AppCompatActivity implements View.OnClic
             public void onResponse(Call<defaultResponseList<RequestersInfo>> call, Response<defaultResponseList<RequestersInfo>> response) {
                 defaultResponseList<RequestersInfo> requestersList = response.body();
 
-
-
-                if(requestersList.getData().isEmpty())
+                if(requestersList.getData() == null)
                 {
                     Toast.makeText(FriendRequestsPage.this,
                             "No requests",

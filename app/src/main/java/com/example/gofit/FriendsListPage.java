@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -84,7 +86,29 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
         });
 
         userFriendsCall();
-        //friendRequestsCall();
+        friendRequestsCall();
+    }
+
+    private void friendRequestsCall() {
+        String token = sp.getString("token", "");
+        MainApplication.apiManager.getFriendRequests(token, new Callback<defaultResponseList<RequestersInfo>>() {
+            @Override
+            public void onResponse(Call<defaultResponseList<RequestersInfo>> call, Response<defaultResponseList<RequestersInfo>> response) {
+                defaultResponseList<RequestersInfo> requestersList = response.body();
+
+                if(requestersList.getData() != null)
+                {
+                    //btnFriendRequests.setBackgroundColor(Color.parseColor("#db0d0d"));
+                    btnFriendRequests.setColorFilter(Color.parseColor("#db0d0d"));
+                }
+            }
+            @Override
+            public void onFailure(Call<defaultResponseList<RequestersInfo>> call, Throwable t) {
+                Toast.makeText(FriendsListPage.this,
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     //Makes a API call to get the friends of the user and displays them using recycler view
@@ -194,7 +218,8 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnBackFriendsList:
-                super.finish();
+                //super.finish();
+                startActivity(new Intent(this, HomePage.class));
                 break;
             case R.id.btnAddFriend:
                 addFriendCall();

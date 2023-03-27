@@ -4,6 +4,7 @@ import com.example.gofit.Friend;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.User;
+import com.example.gofit.data.model.requests.UserAcceptedDenied;
 import com.example.gofit.data.model.requests.UserFriended;
 import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.responses.defaultResponse;
@@ -12,8 +13,6 @@ import com.example.gofit.data.model.responses.tokenResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -47,8 +46,18 @@ public interface IUsersApi {
     Call<defaultResponse<Boolean>> addFriend(@Header("Authorization") String token, @Body UserFriended friended);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/User/acceptFriendRequest")
+    Call<defaultResponseList<Friend>> acceptFriend(@Header("Authorization") String token, @Body UserAcceptedDenied accepted);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/User/denyFriendRequest")
+    Call<defaultResponse<String>> denyFriend(@Header("Authorization") String token, @Body UserAcceptedDenied denied);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/User/friendRequests")
     Call<defaultResponseList<RequestersInfo>> getFriendRequests(@Header("Authorization") String token);
+
+
 
 
 }

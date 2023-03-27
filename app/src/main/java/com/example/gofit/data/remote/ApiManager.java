@@ -4,6 +4,7 @@ import com.example.gofit.Friend;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.User;
+import com.example.gofit.data.model.requests.UserAcceptedDenied;
 import com.example.gofit.data.model.requests.UserFriended;
 import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.responses.defaultResponse;
@@ -70,6 +71,16 @@ public class ApiManager {
         Call <defaultResponseList<Friend>> userFriends = service.getFriends("Bearer " + token);
         userFriends.enqueue(callback);
 
+    }
+
+    public void acceptFriend(String token, UserAcceptedDenied accepted, Callback<defaultResponseList<Friend>> callback){
+        Call<defaultResponseList<Friend>> userFriends = service.acceptFriend("Bearer " + token, accepted);
+        userFriends.enqueue(callback);
+    }
+
+    public void denyFriend(String token, UserAcceptedDenied denied, Callback<defaultResponse<String>> callback){
+        Call<defaultResponse<String>> denyStatus = service.denyFriend("Bearer " + token, denied);
+        denyStatus.enqueue(callback);
     }
 
     public void addFriend(String token, UserFriended friended, Callback<defaultResponse<Boolean>> callback){

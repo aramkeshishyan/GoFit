@@ -1,6 +1,7 @@
 package com.example.gofit;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.gofit.data.model.requests.RequestersInfo;
+import com.example.gofit.data.model.requests.UserAcceptedDenied;
+import com.example.gofit.data.model.responses.defaultResponse;
+import com.example.gofit.data.model.responses.defaultResponseList;
 
 import java.util.ArrayList;
 
-public class RequestersRecViewAdapter extends RecyclerView.Adapter<RequestersRecViewAdapter.ViewHolder>{
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+
+public class RequestersRecViewAdapter extends RecyclerView.Adapter<RequestersRecViewAdapter.ViewHolder>{
     private ArrayList<RequestersInfo> friends = new ArrayList<>();
 
     private Context context;
@@ -80,14 +88,17 @@ public class RequestersRecViewAdapter extends RecyclerView.Adapter<RequestersRec
 
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Accept selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Request Accepted", Toast.LENGTH_SHORT).show();
+                acceptCall(friends.get(holder.getAdapterPosition()).getRequestId());
+
             }
         });
 
         holder.friendListDenyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Deny selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,  "Request Denied", Toast.LENGTH_SHORT).show();
+                denyCall(friends.get(holder.getAdapterPosition()).getRequestId());
             }
         });
 
@@ -105,5 +116,49 @@ public class RequestersRecViewAdapter extends RecyclerView.Adapter<RequestersRec
     @Override
     public int getItemCount() {
         return friends.size();
+    }
+
+    //Executed When Accept Button Clicked
+    public void acceptCall(int reqId)
+    {
+        SharedPreferences sp = context.getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        String token = sp.getString("token", "");
+        UserAcceptedDenied acceptedUser = new UserAcceptedDenied(reqId);
+
+        MainApplication.apiManager.acceptFriend(token, acceptedUser, new Callback<defaultResponseList<Friend>>() {
+            @Override
+            public void onResponse(Call<defaultResponseList<Friend>> call, Response<defaultResponseList<Friend>> response) {
+                defaultResponseList<Friend> responseFriends = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponseList<Friend>> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+
+    //Executed When Deny Button Clicked
+    public void denyCall(int reqId)
+    {
+        SharedPreferences sp = context.getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        String token = sp.getString("token", "");
+        UserAcceptedDenied deniedUser = new UserAcceptedDenied(reqId);
+
+        MainApplication.apiManager.denyFriend(token, deniedUser, new Callback<defaultResponse<String>>() {
+            @Override
+            public void onResponse(Call<defaultResponse<String>> call, Response<defaultResponse<String>> response) {
+                defaultResponse<String> denyResponse = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponse<String>> call, Throwable t) {
+
+            }
+        });
+
+
     }
 }
