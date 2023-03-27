@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,12 +37,19 @@ public class RequestersRecViewAdapter extends RecyclerView.Adapter<RequestersRec
         private TextView friendListNameTxtV;
         private LinearLayout friendListItemParent; //So that functionality can be added when entire friend_list_item is clicked
 
+        private Button friendListAcceptBtn;
+        private Button friendListDenyBtn;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            friendListImgV = itemView.findViewById(R.id.friendListImgV);
-            friendListNameTxtV = itemView.findViewById(R.id.friendListNameTxtV);
-            friendListItemParent = itemView.findViewById(R.id.friendListItemParent);
+            friendListImgV = itemView.findViewById(R.id.friendRequestListImgV);
+            friendListNameTxtV = itemView.findViewById(R.id.friendRequestListNameTxtV);
+            friendListItemParent = itemView.findViewById(R.id.friendRequestListItemParent);
+
+            friendListAcceptBtn = itemView.findViewById(R.id.friendRequestListAcceptBtn);
+            friendListDenyBtn = itemView.findViewById(R.id.friendRequestListDenyBtn);
+
         }
     }
 
@@ -50,7 +58,7 @@ public class RequestersRecViewAdapter extends RecyclerView.Adapter<RequestersRec
     @NonNull
     @Override
     public RequestersRecViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_request_list_item, parent, false);
         RequestersRecViewAdapter.ViewHolder holder = new RequestersRecViewAdapter.ViewHolder(view);
 
         return holder;
@@ -67,6 +75,23 @@ public class RequestersRecViewAdapter extends RecyclerView.Adapter<RequestersRec
                 Toast.makeText(context, friends.get(holder.getAdapterPosition()).getFullName() + " selected", Toast.LENGTH_SHORT).show();
             }
         });
+
+        holder.friendListAcceptBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Accept selected", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.friendListDenyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Deny selected", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         //Glide allows easier image uploading from URL link
         //For testing purposes

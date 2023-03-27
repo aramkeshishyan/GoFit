@@ -1,9 +1,9 @@
 package com.example.gofit.data.model.requests;
 
 public class RequestersInfo {
-    int requestId;
-    String fullName;
-    String photoUrl;
+    private int requestId;
+    private String fullName;
+    private String photoUrl;
 
     public int getRequestId() {
         return requestId;

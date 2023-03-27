@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
@@ -38,6 +39,7 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
 
     private ImageButton btnBackFriendsList;
     private ImageButton btnAddFriend;
+    private ImageButton btnFriendRequests;
 
     private ArrayList<Friend> friendsList2 = new ArrayList<>();
     private ArrayList<RequestersInfo> requestersArray = new ArrayList<>();
@@ -61,6 +63,9 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
         btnAddFriend = findViewById(R.id.btnAddFriend);
         btnAddFriend.setOnClickListener(this);
 
+        btnFriendRequests = findViewById(R.id.btnFrndRequests);
+        btnFriendRequests.setOnClickListener(this);
+
         friendToAddEmail = "";
 
         searchViewFriendsList = findViewById(R.id.searchViewFriendsList);
@@ -79,52 +84,7 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
         });
 
         userFriendsCall();
-        friendRequestsCall();
-    }
-
-    private void friendRequestsCall() {
-        String token = sp.getString("token", "");
-        MainApplication.apiManager.getFriendRequests(token, new Callback<defaultResponseList<RequestersInfo>>() {
-            @Override
-            public void onResponse(Call<defaultResponseList<RequestersInfo>> call, Response<defaultResponseList<RequestersInfo>> response) {
-                defaultResponseList<RequestersInfo> requestersList = response.body();
-
-
-
-                if(requestersList.getData().isEmpty())
-                {
-                    Toast.makeText(FriendsListPage.this,
-                            "No requests",
-                            Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    requestersArray.addAll(requestersList.getData());
-                    requestsAdapter.setFriends(requestersArray);
-
-                    requestersRecyclerView = findViewById(R.id.requestersPageRecView);
-                    requestersRecyclerView.setAdapter(requestsAdapter);
-                    requestersRecyclerView.setLayoutManager(new GridLayoutManager(context,4));
-
-                    /*for(int i = 0; i < requestersArray.size(); i++)
-                    {
-                        Toast.makeText(FriendsListPage.this,
-                                String.format("Requester %d is %s", i, requestersArray.get(i).getFullName())
-                                , Toast.LENGTH_LONG).show();
-                    }*/
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<defaultResponseList<RequestersInfo>> call, Throwable t) {
-                Toast.makeText(FriendsListPage.this,
-                        "Error: " + t.getMessage()
-                        , Toast.LENGTH_LONG).show();
-            }
-        });
-
-
+        //friendRequestsCall();
     }
 
     //Makes a API call to get the friends of the user and displays them using recycler view
@@ -238,6 +198,9 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.btnAddFriend:
                 addFriendCall();
+                break;
+            case R.id.btnFrndRequests:
+                startActivity(new Intent(this, FriendRequestsPage.class));
                 break;
         }
     }

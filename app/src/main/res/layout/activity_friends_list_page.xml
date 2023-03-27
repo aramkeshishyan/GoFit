@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:minWidth="48dp"
-            android:src="@drawable/baseline_notifications"
+            android:src="@drawable/baseline_emoji_people_24"
             android:layout_toStartOf="@+id/btnAddFriend"
             android:background="?android:selectableItemBackground" />
 
@@ -69,26 +69,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friendsListPageRecView"
         android:layout_width="match_parent"
-        android:layout_height="311dp"
+        android:layout_height="526dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:padding="20dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/friends"
-        android:text="Friend Requests"
-        android:layout_marginStart="20dp"
-        android:textSize="20sp"
-        android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/requestersPageRecView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
 
 </LinearLayout>
