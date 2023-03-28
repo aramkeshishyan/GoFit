@@ -6,20 +6,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
 
 public class AchievementsPage extends AppCompatActivity {
     private RecyclerView achievement;
-    private Spinner achievement_spinner;
     private String[] achievement_categories = {"All", "Complete", "Incomplete"};
-    Context context = this;
+    private ImageView back_button;
     private ArrayList<Achievements> achievement_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_achievements_page);
+
+        back_button = findViewById(R.id.ach_backbutton);
+        back_button.setOnClickListener(view -> AchievementsPage.super.finish());
 
         achievement = findViewById(R.id.achievementRecView);
         achievement_list = new ArrayList<>();

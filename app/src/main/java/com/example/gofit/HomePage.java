@@ -18,30 +18,20 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class HomePage extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
-
     private ImageView profile_pic;
     private ImageView friends_button;
+    private ImageView achievement_button;
     private BottomNavigationView bottomNavigationView;
-
      First_Fragment firstFragment = new First_Fragment();
     SecondFragment secondFragment = new SecondFragment();
     ThirdFragment thirdFragment = new ThirdFragment();
     FourthFragment fourthFragment = new FourthFragment();
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
         profile_pic = (ImageView) findViewById(R.id.profile_pic);
         profile_pic.setOnClickListener(this);
-
-
-
-
-
-
 
         //Temporary image for user profile pic
         Glide.with(this)
@@ -53,21 +43,14 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
         friends_button = (ImageView) findViewById(R.id.friends_button);
         friends_button.setOnClickListener(this);
 
+        achievement_button = (ImageView) findViewById(R.id.achievement_button);
+        achievement_button.setOnClickListener(this);
 
-
-        //bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home);
         onNewIntent(getIntent());
-
-
-
-
     }
-
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -76,8 +59,6 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
             case R.id.home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.Fragment, firstFragment).commit();
                 set_title.setText("Home");
-
-
                 return true;
             case R.id.exercise:
                 getSupportFragmentManager().beginTransaction().replace(R.id.Fragment, secondFragment).commit();
@@ -86,18 +67,14 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
             case R.id.nutrition:
                 getSupportFragmentManager().beginTransaction().replace(R.id.Fragment, thirdFragment).commit();
                 set_title.setText("Nutrition");
-
                 return true;
             case R.id.challenges:
                 getSupportFragmentManager().beginTransaction().replace(R.id.Fragment, fourthFragment).commit() ;
                 set_title.setText("Challenges");
                 return true;
         }
-
         return false;
     }
-
-
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -109,7 +86,6 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
             Toast.makeText(this, "Sucess!!", Toast.LENGTH_SHORT).show();
         }
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -118,11 +94,10 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
                 break;
             case R.id.friends_button:
                 startActivity(new Intent(this, FriendsListPage.class));
+            case R.id.achievement_button:
+                startActivity(new Intent(this, AchievementsPage.class));
         }
     }
-
-
-
 }
 
 
