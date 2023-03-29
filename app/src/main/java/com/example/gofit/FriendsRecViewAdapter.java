@@ -18,11 +18,16 @@ import java.util.ArrayList;
 
 public class FriendsRecViewAdapter extends RecyclerView.Adapter<FriendsRecViewAdapter.ViewHolder> {
 
+    private final FriendRecyclerViewInterface recyclerViewInterface;
     private ArrayList<Friend> friends = new ArrayList<>();
 
     private Context context;
 
-    public FriendsRecViewAdapter(Context context) { this.context = context; }
+    public FriendsRecViewAdapter(Context context, FriendRecyclerViewInterface recyclerViewInterface)
+    {
+        this.context = context;
+        this.recyclerViewInterface = recyclerViewInterface;
+    }
 
     public void setFriends(ArrayList<Friend> friends) {
         this.friends = friends;
@@ -64,7 +69,15 @@ public class FriendsRecViewAdapter extends RecyclerView.Adapter<FriendsRecViewAd
         holder.friendListItemParent.setOnClickListener(new View.OnClickListener() { //Show toast message with name of friend_list_item when clicked
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, friends.get(holder.getAdapterPosition()).getName() + " selected", Toast.LENGTH_SHORT).show();
+                if(recyclerViewInterface !=null)
+                {
+                    int pos = holder.getAdapterPosition();
+
+                    if(pos != RecyclerView.NO_POSITION){
+                        recyclerViewInterface.onItemClick(pos);
+                    }
+                }
+                //Toast.makeText(context, friends.get(holder.getAdapterPosition()).getName() + " selected", Toast.LENGTH_SHORT).show();
             }
         });
 

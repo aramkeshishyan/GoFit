@@ -33,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserProfile extends AppCompatActivity implements View.OnClickListener {
+public class UserProfile extends AppCompatActivity implements View.OnClickListener, FriendRecyclerViewInterface {
 
     private ImageButton logout;
     private ImageButton backBtn;
@@ -47,7 +47,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
     private SharedPreferences sp;
 
-    FriendsRecViewAdapter adapter = new FriendsRecViewAdapter(this);
+    FriendsRecViewAdapter adapter = new FriendsRecViewAdapter(this, this);
     Context context = this;
     private ArrayList<Friend> friendsList = new ArrayList<>();
 //    Gson gson = new Gson();
@@ -175,6 +175,10 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    @Override
+    public void onItemClick(int position) {
+
+    }
 }
 
 

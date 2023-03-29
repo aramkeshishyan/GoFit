@@ -33,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FriendsListPage extends AppCompatActivity implements View.OnClickListener {
+public class FriendsListPage extends AppCompatActivity implements View.OnClickListener, FriendRecyclerViewInterface {
 
     private RecyclerView friendsRecyclerView;
     private RecyclerView requestersRecyclerView;
@@ -45,7 +45,7 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
 
     private ArrayList<Friend> friendsList2 = new ArrayList<>();
     private ArrayList<RequestersInfo> requestersArray = new ArrayList<>();
-    private FriendsRecViewAdapter adapter2 = new FriendsRecViewAdapter(this);
+    private FriendsRecViewAdapter adapter2 = new FriendsRecViewAdapter(this,this);
     private RequestersRecViewAdapter requestsAdapter = new RequestersRecViewAdapter(this);
     Context context = this;
     private SharedPreferences sp;
@@ -228,5 +228,18 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
                 startActivity(new Intent(this, FriendRequestsPage.class));
                 break;
         }
+    }
+
+    //Method to go to any Friend's Profile on click
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(FriendsListPage.this, FriendProfile.class);
+
+        intent.putExtra("NAME", friendsList2.get(position).getName());
+        intent.putExtra("EMAIL", friendsList2.get(position).getEmail());
+        intent.putExtra("IMAGE", friendsList2.get(position).getImageURL());
+
+        startActivity(intent);
+
     }
 }
