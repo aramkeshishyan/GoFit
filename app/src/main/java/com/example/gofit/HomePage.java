@@ -94,8 +94,10 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
                 break;
             case R.id.friends_button:
                 startActivity(new Intent(this, FriendsListPage.class));
+                break;
             case R.id.achievement_button:
                 startActivity(new Intent(this, AchievementsPage.class));
+                break;
         }
     }
 }
