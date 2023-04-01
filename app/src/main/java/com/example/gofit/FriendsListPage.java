@@ -112,7 +112,7 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
     }
 
     //Makes a API call to get the friends of the user and displays them using recycler view
-    private void userFriendsCall(){
+    protected void userFriendsCall(){
         String token = sp.getString("token", "");
         MainApplication.apiManager.getFriends(token, new Callback<defaultResponseList<Friend>>() {
             @Override

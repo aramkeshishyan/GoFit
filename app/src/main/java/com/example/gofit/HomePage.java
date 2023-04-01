@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
     SecondFragment secondFragment = new SecondFragment();
     ThirdFragment thirdFragment = new ThirdFragment();
     FourthFragment fourthFragment = new FourthFragment();
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +45,8 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
         friends_button = (ImageView) findViewById(R.id.friends_button);
         friends_button.setOnClickListener(this);
 
-        achievement_button = (ImageView) findViewById(R.id.achievement_button);
-        achievement_button.setOnClickListener(this);
+
+
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(this);
@@ -95,9 +97,8 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
             case R.id.friends_button:
                 startActivity(new Intent(this, FriendsListPage.class));
                 break;
-            case R.id.achievement_button:
-                startActivity(new Intent(this, AchievementsPage.class));
-                break;
+
+
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.gofit;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ public class second_custom_adapter extends RecyclerView.Adapter<second_custom_ad
 
    public ArrayList<String> descriptions;
 
+
+
    private FloatingActionButton cb ;
 
    private removeItemListner listener ;
@@ -35,6 +38,7 @@ public class second_custom_adapter extends RecyclerView.Adapter<second_custom_ad
    public void setOnRemoveItemLister (removeItemListner listener) {
        this.listener = listener ;
    }
+
 
 
     @NonNull
@@ -75,6 +79,7 @@ public class second_custom_adapter extends RecyclerView.Adapter<second_custom_ad
                 @Override
                 public void onClick(View v) {
                     listner.setRemoveItem(getAdapterPosition());
+
                 }
             });
 
