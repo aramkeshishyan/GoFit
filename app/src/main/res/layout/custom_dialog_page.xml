@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width= "match_parent"
+            android:id="@+id/Friend_list_titles"
+            android:layout_height="wrap_content"
+            android:text="Send to Friends"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            android:textAlignment="center">
+
+        </TextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Friend_list_titles"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/friends_list_container">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:id="@+id/send_friend_button"
+            android:layout_height="wrap_content"
+            android:text="send"
+            android:layout_below="@id/messagess"
+            android:layout_alignParentEnd="true">
+
+        </androidx.appcompat.widget.AppCompatButton>
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/messagess"
+            android:hint="enter your message here"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:background="@drawable/textboxborder"
+            android:layout_below="@id/friends_list_container">
+
+        </EditText>
+
+
+    </RelativeLayout>
+
+
+
+
+    </ScrollView>
