@@ -163,45 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 progressBar.setVisibility(View.GONE);
             }
         });
-
-
-
-        //String ResponseGson = response.body().toString();
-        //Gson objGson = new Gson();
-        //tokenResponse objResp = objGson.fromJson(ResponseGson, tokenResponse.class);
-
-
-
-
-
-
-
-
-        /*mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                    if(user.isEmailVerified()){
-                        //redirect to User Profile page
-                        startActivity(new Intent(MainActivity.this, HomePage.class));
-                    }
-                    else{
-                        user.sendEmailVerification();
-                        Toast.makeText(MainActivity.this, "Check your email to verify your account!", Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
-                    }
-
-                }
-                else{
-                    Toast.makeText(MainActivity.this, "Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });*/
     }
-
 
     private void userInfoCall(){
 
@@ -216,7 +178,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(MainActivity.this,
                             "Getting user info was Successful",
                             Toast.LENGTH_SHORT).show();
-
 
                     spEditor.putString("fullName", responseDefault.getData().getFullName());
                     spEditor.putString("email", responseDefault.getData().getEmail());
@@ -259,6 +220,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
     }
-
 
 }

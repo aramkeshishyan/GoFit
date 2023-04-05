@@ -232,7 +232,7 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
 
     //Method to go to any Friend's Profile on click
     @Override
-    public void onItemClick(int position) {
+    public void onFriendItemClick(int position) {
         Intent intent = new Intent(FriendsListPage.this, FriendProfile.class);
 
         intent.putExtra("NAME", friendsList2.get(position).getName());

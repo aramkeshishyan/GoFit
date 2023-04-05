@@ -53,9 +53,9 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
+            android:id="@+id/userFullName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/userFullName"
             android:text=""
             android:textStyle="bold"
             android:textSize="30sp"
@@ -64,9 +64,9 @@
             android:layout_centerHorizontal="true"/>
 
         <TextView
+            android:id="@+id/userEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/userEmail"
             android:text=""
             android:textStyle="bold"
             android:textSize="15sp"

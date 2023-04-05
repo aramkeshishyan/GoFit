@@ -51,7 +51,8 @@ public class FriendProfile extends AppCompatActivity implements View.OnClickList
         switch (view.getId())
         {
             case R.id.backBtn:
-                startActivity(new Intent(this, FriendsListPage.class));
+                super.finish();
+                //startActivity(new Intent(this, FriendsListPage.class));
                 break;
         }
 

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -28,6 +29,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,24 +40,23 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     private ImageButton logout;
     private ImageButton backBtn;
     private ImageButton settingsBtn;
+
     private ImageView userProfileImgV;
+    private TextView textViewUserFullName;
+    private TextView textViewEmail;
 
     private RecyclerView friendsRecView;
     private Button friendsViewAllBtn;
-
-    private Button getFriendsBtn;
 
     private SharedPreferences sp;
 
     FriendsRecViewAdapter adapter = new FriendsRecViewAdapter(this, this);
     Context context = this;
     private ArrayList<Friend> friendsList = new ArrayList<>();
-//    Gson gson = new Gson();
-//    String jsonText;
 
-    //sp = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
-    //String token = sp.getString("token", "");
-
+    private String userName;
+    private String userEmail;
+    private String userImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +73,6 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         friendsViewAllBtn = findViewById(R.id.friendsViewAllBtn);
         friendsViewAllBtn.setOnClickListener(this);
 
-        //testing authorized getFriends API endpoint
-        getFriendsBtn = findViewById(R.id.getFriendsBtn);
-        getFriendsBtn.setOnClickListener(this);
-
         //logout button functionality
         logout = (ImageButton) findViewById(R.id.logOutBtn);
         logout.setOnClickListener(this);
@@ -83,7 +80,8 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         sp = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
 
 
-        //Temporary user profile placeholder
+        textViewUserFullName = findViewById(R.id.userFullName);
+        textViewEmail = findViewById(R.id.userEmail);
         userProfileImgV = findViewById(R.id.userProfileImgV);
         Glide.with(this)
                 .asBitmap()
@@ -91,35 +89,22 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 .centerCrop()
                 .into(userProfileImgV);
 
+
         userFriendsCall();
+        userInfo();
 
 
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.backBtn:
-                startActivity(new Intent(UserProfile.this, HomePage.class));
-                //super.finish();
-                break;
-            case R.id.logOutBtn:
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(UserProfile.this, MainActivity.class));
-                Toast.makeText(UserProfile.this, "Logged out successfully!", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.friendsViewAllBtn:
-                startActivity(new Intent(this, FriendsListPage.class));
-                break;
-            case R.id.settingsBtn:
-                startActivity(new Intent(this, Settings.class));
-                break;
-            case R.id.getFriendsBtn:
-                //getUserFriends();
-                break;
-        }
-    }
+    private void userInfo() {
+        userName = sp.getString("fullName","");
+        userEmail = sp.getString("email","");
+        userImage = sp.getString("photoUrl","");
 
+        textViewUserFullName.setText(userName);
+        textViewEmail.setText(userEmail);
+        Glide.with(this).asBitmap().load(userImage).centerCrop().into(userProfileImgV);
+    }
 
     private void userFriendsCall(){
         String token = sp.getString("token", "");
@@ -176,10 +161,41 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onFriendItemClick(int position) {
+
+        Intent intent = new Intent(UserProfile.this, FriendProfile.class);
+
+        intent.putExtra("NAME", friendsList.get(position).getName());
+        intent.putExtra("EMAIL", friendsList.get(position).getEmail());
+        intent.putExtra("IMAGE", friendsList.get(position).getImageURL());
+
+        startActivity(intent);
 
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.backBtn:
+                startActivity(new Intent(UserProfile.this, HomePage.class));
+                //super.finish();
+                break;
+            case R.id.logOutBtn:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(UserProfile.this, MainActivity.class));
+                Toast.makeText(UserProfile.this, "Logged out successfully!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.friendsViewAllBtn:
+                startActivity(new Intent(this, FriendsListPage.class));
+                break;
+            case R.id.settingsBtn:
+                startActivity(new Intent(this, Settings.class));
+                break;
+        }
+    }
 }
+
+
 
 
 

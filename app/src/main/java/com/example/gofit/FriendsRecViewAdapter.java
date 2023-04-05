@@ -74,7 +74,7 @@ public class FriendsRecViewAdapter extends RecyclerView.Adapter<FriendsRecViewAd
                     int pos = holder.getAdapterPosition();
 
                     if(pos != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(pos);
+                        recyclerViewInterface.onFriendItemClick(pos);
                     }
                 }
                 //Toast.makeText(context, friends.get(holder.getAdapterPosition()).getName() + " selected", Toast.LENGTH_SHORT).show();

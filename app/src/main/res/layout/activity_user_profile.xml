@@ -86,15 +86,27 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
+                android:id="@+id/userFullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/userFullName"
                 android:text=""
                 android:textStyle="bold"
                 android:textSize="30sp"
                 android:paddingTop="5dp"
                 android:layout_below="@+id/profileImgCardV"
                 android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/userEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:paddingTop="5dp"
+                android:layout_below="@+id/userFullName"
+                android:layout_centerHorizontal="true"/>
+
 
         </RelativeLayout>
 
@@ -376,33 +388,6 @@
             </GridLayout>
 
         </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/testGetApi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/statComponent"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="30dp"
-            android:useDefaultMargins="true">
-
-            <Button
-                android:id="@+id/getFriendsBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:text="Get Friends"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
-
-        </RelativeLayout>
-
-
 
     </RelativeLayout>
 
