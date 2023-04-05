@@ -1,5 +1,6 @@
 package com.example.gofit.data.remote;
 
+import com.example.gofit.Exercise_Item;
 import com.example.gofit.Friend;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
@@ -91,6 +92,11 @@ public class ApiManager {
     public void getFriendRequests(String token, Callback<defaultResponseList<RequestersInfo>> callback){
         Call<defaultResponseList<RequestersInfo>> requesterInfo = service.getFriendRequests("Bearer " + token);
         requesterInfo.enqueue(callback);
+    }
+
+    public void getExercises(Callback<defaultResponseList<Exercise_Item>> callback){
+        Call<defaultResponseList<Exercise_Item>> exercisesList = service.getExercises();
+        exercisesList.enqueue(callback);
     }
 
 

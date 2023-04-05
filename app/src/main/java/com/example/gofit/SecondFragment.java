@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,15 +19,26 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.gofit.data.model.responses.defaultResponseList;
+
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.OnNoteListener {
 
-    private RecyclerView exercise;
+    private RecyclerView exercisesRecyclerView;
+    private ExerciseRecViewAdapter exerciseAdapter;
+    private ArrayList<Exercise_Item> exerciseList;
+    private ArrayList<Exercise_Item> exerciseList2;
+    private View myView;
+
     private Spinner exercise_spinner;
     private String[] exercise_categories = {"All", "Core", "Legs", "Arms", "Chest", "Shoulder", "Biceps", "Triceps", "Back", "Legs", "Abs"};
     private SearchView exercise_searchview;
-    private ArrayList<Exercise_Item> exerciseList, exerciseList2;
+
     public SecondFragment(){
         // require a empty public constructor
     }
@@ -40,6 +52,8 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        myView = view;
+
         exerciseList = new ArrayList<>();
         exerciseList.add(new Exercise_Item("E1_C", "Crunches", "Core", "Hard", "Test",  "https://betterme.world/articles/wp-content/uploads/2020/10/How-Many-Calories-Do-You-Burn-Doing-Crunches.jpg"));
         exerciseList.add(new Exercise_Item("E11_L", "Squats", "Legs", "Medium","Test", "https://experiencelife.lifetime.life/wp-content/uploads/2021/02/Squat-1-1280x720.jpg"));
@@ -48,18 +62,20 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
         exerciseList.add(new Exercise_Item("E3_C", "Leg Raise", "Core", "Hard","Test", "https://cathe.com/wp-content/uploads/2019/10/shutterstock_363953936.jpg"));
         exerciseList.add(new Exercise_Item("E5-A", "Plank", "Abs", "Hard","Test", "https://www.wellandgood.com/wp-content/uploads/2019/03/GettyImages-855913544.jpg"));
         exerciseList2 = exerciseList;
-        ExerciseRecViewAdapter exerciseAdapter = new ExerciseRecViewAdapter(getContext(),exerciseList, this);
+        exerciseAdapter = new ExerciseRecViewAdapter(getContext(),exerciseList, this);
         exerciseAdapter.setExercises(exerciseList);
 
-        exercise = view.findViewById(R.id.exerciseRecView);
-        exercise.setAdapter(exerciseAdapter);
-        exercise.setLayoutManager(new LinearLayoutManager(getContext()));
-        exercise.setHasFixedSize(true);
+        exercisesRecyclerView = view.findViewById(R.id.exerciseRecView);
+        exercisesRecyclerView.setAdapter(exerciseAdapter);
+        exercisesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        exercisesRecyclerView.setHasFixedSize(true);
 
         exerciseAdapter.notifyDataSetChanged();
 
         exercise_spinner = view.findViewById(R.id.exercise_spinner);
         exercise_spinner.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, exercise_categories));
+
+        //exercisesCall();
 
         //Spinner selection events
         exercise_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -69,7 +85,7 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
                     //set all exercises in RecView using exerciseList
                     ExerciseRecViewAdapter exerciseAdapter = new ExerciseRecViewAdapter(getContext(),exerciseList, SecondFragment.this);
                     exerciseAdapter.setExercises(exerciseList);
-                    exercise.setAdapter(exerciseAdapter);
+                    exercisesRecyclerView.setAdapter(exerciseAdapter);
                     exerciseList2 = exerciseList;
 
                 }
@@ -88,7 +104,7 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
                     exerciseList2 = newExerciseList;
                     ExerciseRecViewAdapter exerciseAdapter = new ExerciseRecViewAdapter(getContext(), newExerciseList, SecondFragment.this);
                     exerciseAdapter.setExercises(newExerciseList);
-                    exercise.setAdapter(exerciseAdapter);
+                    exercisesRecyclerView.setAdapter(exerciseAdapter);
 
                     //Toast.makeText(getContext().getApplicationContext(), exercise_categories[i], Toast.LENGTH_LONG).show();
                 }
@@ -116,6 +132,50 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
         });
     }
 
+    private void exercisesCall(){
+        MainApplication.apiManager.getExercises(new Callback<defaultResponseList<Exercise_Item>>() {
+            @Override
+            public void onResponse(Call<defaultResponseList<Exercise_Item>> call, Response<defaultResponseList<Exercise_Item>> response) {
+                defaultResponseList<Exercise_Item> responseExercises = response.body();
+
+                if (response.isSuccessful() && responseExercises != null) {
+                    exerciseList.addAll(responseExercises.getData());
+                    exerciseList2 = exerciseList;
+
+                    Toast.makeText(getContext(),
+                            "Get Exercises was Successful",
+                            Toast.LENGTH_SHORT).show();
+
+                    exerciseAdapter.setExercises(exerciseList);
+
+                    exercisesRecyclerView = myView.findViewById(R.id.friendsListPageRecView);
+                    exercisesRecyclerView.setAdapter(exerciseAdapter);
+                    exercisesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    exercisesRecyclerView.setHasFixedSize(true);
+                    exerciseAdapter.notifyDataSetChanged();
+
+                    exercise_spinner = myView.findViewById(R.id.exercise_spinner);
+                    exercise_spinner.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, exercise_categories));
+                }
+                else {
+                    Toast.makeText(getContext(),
+                            String.format("Response is %s", String.valueOf(response.code()))
+                            , Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponseList<Exercise_Item>> call, Throwable t) {
+                Toast.makeText(getContext(),
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
     private void filter(String s) {
         //create new Arraylist
         ArrayList<Exercise_Item> newExerciseList = new ArrayList<>();
@@ -132,7 +192,7 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
             //set new list into RecView
             ExerciseRecViewAdapter exerciseAdapter = new ExerciseRecViewAdapter(getContext(), newExerciseList, this);
             exerciseAdapter.setExercises(newExerciseList);
-            exercise.setAdapter(exerciseAdapter);
+            exercisesRecyclerView.setAdapter(exerciseAdapter);
             exerciseList2 = newExerciseList;
 
         }

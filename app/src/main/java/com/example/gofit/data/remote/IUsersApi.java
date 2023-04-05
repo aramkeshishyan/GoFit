@@ -1,5 +1,6 @@
 package com.example.gofit.data.remote;
 
+import com.example.gofit.Exercise_Item;
 import com.example.gofit.Friend;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
@@ -56,6 +57,10 @@ public interface IUsersApi {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/User/friendRequests")
     Call<defaultResponseList<RequestersInfo>> getFriendRequests(@Header("Authorization") String token);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET("/Exercise/all")
+    Call<defaultResponseList<Exercise_Item>> getExercises();
 
 
 

@@ -1,12 +1,28 @@
 package com.example.gofit;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Exercise_Item {
+    @SerializedName("id")
+    @Expose
     private String item_id;
+    @SerializedName("title")
+    @Expose
     private String item_name;
+    @SerializedName("muscleGroup")
+    @Expose
     private String item_mGroup;
+    @SerializedName("exerciseLvl")
+    @Expose
     private String item_level;
+    @SerializedName("desc")
+    @Expose
     private String item_description;
+    @SerializedName("photoURL")
+    @Expose
     private String item_image;
+
 
 
 

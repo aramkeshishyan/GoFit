@@ -35,18 +35,20 @@ import retrofit2.Response;
 
 public class FriendsListPage extends AppCompatActivity implements View.OnClickListener, FriendRecyclerViewInterface {
 
-    private RecyclerView friendsRecyclerView;
-    private RecyclerView requestersRecyclerView;
     private SearchView searchViewFriendsList;
 
     private ImageButton btnBackFriendsList;
     private ImageButton btnAddFriend;
     private ImageButton btnFriendRequests;
 
-    private ArrayList<Friend> friendsList2 = new ArrayList<>();
-    private ArrayList<RequestersInfo> requestersArray = new ArrayList<>();
+    private RecyclerView friendsRecyclerView;
     private FriendsRecViewAdapter adapter2 = new FriendsRecViewAdapter(this,this);
-    private RequestersRecViewAdapter requestsAdapter = new RequestersRecViewAdapter(this);
+    private ArrayList<Friend> friendsList2 = new ArrayList<>();
+
+
+    //private RecyclerView requestersRecyclerView;
+    //private RequestersRecViewAdapter requestsAdapter = new RequestersRecViewAdapter(this);
+    //private ArrayList<RequestersInfo> requestersArray = new ArrayList<>();
     Context context = this;
     private SharedPreferences sp;
 
@@ -112,7 +114,7 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
     }
 
     //Makes a API call to get the friends of the user and displays them using recycler view
-    protected void userFriendsCall(){
+    private void userFriendsCall(){
         String token = sp.getString("token", "");
         MainApplication.apiManager.getFriends(token, new Callback<defaultResponseList<Friend>>() {
             @Override
