@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".NutritionActivity"
+    android:weightSum="100">
+    <ImageButton
+        android:id="@+id/nt_backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:minWidth="48dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
+        android:background="?android:selectableItemBackground"
+        android:contentDescription="@string/back" />
+    <ImageView
+        android:id="@+id/nt_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="80"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_background"/>
+
+    <TextView
+        android:id="@+id/nt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="Title"
+        android:fontFamily="@font/poppinsbold"
+
+        android:textSize="30dp"/>
+    <TextView
+        android:id="@+id/nt_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Breakfast"
+        android:fontFamily="@font/poppinsmedium"
+        android:textSize="20dp"/>
+    <TextView
+        android:id="@+id/nt_calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Calories: "
+        android:fontFamily="@font/poppinsmedium"
+        android:textSize="16dp"/>
+    <TextView
+        android:id="@+id/nt_proteins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Protains: "
+        android:fontFamily="@font/poppinsmedium"
+        android:textSize="16dp"/>
+    <TextView
+        android:id="@+id/nt_carbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Carbs: "
+        android:fontFamily="@font/poppinsmedium"
+        android:textSize="16dp"/>
+    <TextView
+        android:id="@+id/nt_fats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Fats: "
+        android:fontFamily="@font/poppinsmedium"
+        android:textSize="16dp"/>
+    <TextView
+        android:id="@+id/nt_ingredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Ingredients:"
+        android:fontFamily="@font/poppinsmedium"
+        android:textSize="16dp"/>
+
+
+</LinearLayout>

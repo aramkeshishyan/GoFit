@@ -196,6 +196,5 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
         intent.putExtra("ex_imageUrl", exerciseList2.get(position).getItem_image());
         intent.putExtra("ex_type", exerciseList2.get(position).getItem_type());
         startActivity(intent);
-        Toast.makeText(getContext(), exerciseList2.get(position).getItem_name() + " has been pressed.", Toast.LENGTH_SHORT).show();
     }
 }

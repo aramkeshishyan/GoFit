@@ -26,6 +26,9 @@
             android:name=".AchievementsPage"
             android:exported="false" />
         <activity
+            android:name=".NutritionActivity"
+            android:exported="false"/>
+        <activity
             android:name=".ExerciseActivity"
             android:exported="false" />
         <activity

@@ -19,24 +19,26 @@ public class NutritionRecViewAdapter extends RecyclerView.Adapter<NutritionRecVi
 
     private ArrayList<Nutrition_Item> nutritionArrayList;
     private Context nutrition_context;
+    private OnNoteListener mOnNoteListener;
 
-    public NutritionRecViewAdapter(Context nutrition_context, ArrayList<Nutrition_Item> nutrition_list) {
+    public NutritionRecViewAdapter(Context nutrition_context, ArrayList<Nutrition_Item> nutrition_list, OnNoteListener onNoteListener) {
         this.nutrition_context = nutrition_context;
         this.nutritionArrayList = nutrition_list;
+        this.mOnNoteListener = onNoteListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(nutrition_context).inflate(R.layout.recycle_view_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnNoteListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Nutrition_Item nutrition_list = nutritionArrayList.get(position);
         holder.item_name.setText(nutrition_list.getItem_name());
-        holder.item_description.setText(nutrition_list.getItem_description());
+        holder.item_type.setText(nutrition_list.getItem_type());
         Picasso.get().load(nutrition_list.getItem_image()).into(holder.item_image);
     }
 
@@ -50,15 +52,26 @@ public class NutritionRecViewAdapter extends RecyclerView.Adapter<NutritionRecVi
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView item_name;
-        private TextView item_description;
+        private TextView item_type;
         private ImageView item_image;
-        public ViewHolder(@NonNull View itemView) {
+        OnNoteListener onNoteListener;
+        public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
             item_name = itemView.findViewById(R.id.rv_name);
-            item_description = itemView.findViewById(R.id.rv_description);
+            item_type = itemView.findViewById(R.id.rv_description);
             item_image = itemView.findViewById(R.id.rv_image);
+            this.onNoteListener = onNoteListener;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onNoteListener.onNoteClick(getAdapterPosition());
+        }
+    }
+    public interface OnNoteListener{
+        void onNoteClick(int position);
     }
 }
