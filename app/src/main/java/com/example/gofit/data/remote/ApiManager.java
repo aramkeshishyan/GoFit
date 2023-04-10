@@ -2,6 +2,7 @@ package com.example.gofit.data.remote;
 
 import com.example.gofit.Exercise_Item;
 import com.example.gofit.Friend;
+import com.example.gofit.data.model.requests.ExerciseType;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.User;
@@ -96,6 +97,11 @@ public class ApiManager {
 
     public void getExercises(Callback<defaultResponseList<Exercise_Item>> callback){
         Call<defaultResponseList<Exercise_Item>> exercisesList = service.getExercises();
+        exercisesList.enqueue(callback);
+    }
+
+    public void getExercisesByType(ExerciseType type, Callback<defaultResponseList<Exercise_Item>> callback){
+        Call<defaultResponseList<Exercise_Item>> exercisesList = service.getExercisesByType(type);
         exercisesList.enqueue(callback);
     }
 

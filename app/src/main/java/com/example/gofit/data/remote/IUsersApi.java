@@ -2,6 +2,7 @@ package com.example.gofit.data.remote;
 
 import com.example.gofit.Exercise_Item;
 import com.example.gofit.Friend;
+import com.example.gofit.data.model.requests.ExerciseType;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.User;
@@ -61,6 +62,11 @@ public interface IUsersApi {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/Exercise/all")
     Call<defaultResponseList<Exercise_Item>> getExercises();
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/Exercise/byType")
+    Call<defaultResponseList<Exercise_Item>> getExercisesByType(@Body ExerciseType type);
+
 
 
 
