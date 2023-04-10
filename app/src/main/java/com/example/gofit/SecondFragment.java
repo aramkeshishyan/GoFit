@@ -49,21 +49,21 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        exerciseList.add(new Exercise_Item("E1_C", "Crunches", "Core", "Hard", "Test",  "https://betterme.world/articles/wp-content/uploads/2020/10/How-Many-Calories-Do-You-Burn-Doing-Crunches.jpg"));
-//        exerciseList.add(new Exercise_Item("E11_L", "Squats", "Legs", "Medium","Test", "https://experiencelife.lifetime.life/wp-content/uploads/2021/02/Squat-1-1280x720.jpg"));
-//        exerciseList.add(new Exercise_Item("E3-L", "Lunges", "Legs", "Easy","Test", "https://post.healthline.com/wp-content/uploads/2020/09/11159-Mix_things_up_with_this_lunge_and_bicep_curl_compound_move_732x549-thumbnail-732x549.jpg"));
-//        exerciseList.add(new Exercise_Item("E8-C", "Push-up", "Chest", "Hard","Test", "https://blog.nasm.org/hubfs/power-pushups.jpg"));
-//        exerciseList.add(new Exercise_Item("E3_C", "Leg Raise", "Core", "Hard","Test", "https://cathe.com/wp-content/uploads/2019/10/shutterstock_363953936.jpg"));
-//        exerciseList.add(new Exercise_Item("E5-A", "Plank", "Abs", "Hard","Test", "https://www.wellandgood.com/wp-content/uploads/2019/03/GettyImages-855913544.jpg"));
+        exerciseList.add(new Exercise_Item("E1_C", "Crunches", "Core", "Hard", "Test",  "https://betterme.world/articles/wp-content/uploads/2020/10/How-Many-Calories-Do-You-Burn-Doing-Crunches.jpg", "Cardio"));
+        exerciseList.add(new Exercise_Item("E11_L", "Squats", "Legs", "Medium","Test", "https://experiencelife.lifetime.life/wp-content/uploads/2021/02/Squat-1-1280x720.jpg", "Cardio"));
+        exerciseList.add(new Exercise_Item("E3-L", "Lunges", "Legs", "Easy","Test", "https://post.healthline.com/wp-content/uploads/2020/09/11159-Mix_things_up_with_this_lunge_and_bicep_curl_compound_move_732x549-thumbnail-732x549.jpg","Cardio"));
+        exerciseList.add(new Exercise_Item("E8-C", "Push-up", "Chest", "Hard","Test", "https://blog.nasm.org/hubfs/power-pushups.jpg","Strength"));
+        exerciseList.add(new Exercise_Item("E3_C", "Leg Raise", "Core", "Hard","Test", "https://cathe.com/wp-content/uploads/2019/10/shutterstock_363953936.jpg","Cardio"));
+        exerciseList.add(new Exercise_Item("E5-A", "Plank", "Abs", "Hard","Test", "https://www.wellandgood.com/wp-content/uploads/2019/03/GettyImages-855913544.jpg","Strength"));
 
-        exercisesCall();
+        //exercisesCall();
 
         //wait for 1 second for the async call to get the exercises from backend
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            TimeUnit.SECONDS.sleep(1);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
 
         exerciseList2 = exerciseList;
         exerciseAdapter = new ExerciseRecViewAdapter(getContext(),exerciseList, this);
@@ -194,6 +194,7 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
         intent.putExtra("ex_level", exerciseList2.get(position).getItem_level());
         intent.putExtra("ex_description", exerciseList2.get(position).getItem_description());
         intent.putExtra("ex_imageUrl", exerciseList2.get(position).getItem_image());
+        intent.putExtra("ex_type", exerciseList2.get(position).getItem_type());
         startActivity(intent);
         Toast.makeText(getContext(), exerciseList2.get(position).getItem_name() + " has been pressed.", Toast.LENGTH_SHORT).show();
     }

@@ -27,7 +27,8 @@ public class ExerciseActivity extends AppCompatActivity {
                 && getIntent().hasExtra("ex_group")
                 && getIntent().hasExtra("ex_level")
                 && getIntent().hasExtra("ex_description")
-                && getIntent().hasExtra("ex_imageUrl")){
+                && getIntent().hasExtra("ex_imageUrl")
+                && getIntent().hasExtra("ex_type")){
 
             String id = getIntent().getStringExtra("ex_id");
             String title = getIntent().getStringExtra("ex_title");
@@ -35,12 +36,13 @@ public class ExerciseActivity extends AppCompatActivity {
             String level = getIntent().getStringExtra("ex_level");
             String description = getIntent().getStringExtra("ex_description");
             String imageUrl = getIntent().getStringExtra("ex_imageUrl");
+            String type = getIntent().getStringExtra("ex_type");
 
-            setupItems(id, title, group, level, description, imageUrl);
+            setupItems(id, title, group, level, description, imageUrl, type);
         }
     }
 
-    private void setupItems(String id, String title, String group, String level, String description, String imageUrl) {
+    private void setupItems(String id, String title, String group, String level, String description, String imageUrl, String type) {
         TextView mTitle = findViewById(R.id.ex_title);
         mTitle.setText(title);
 
@@ -48,12 +50,16 @@ public class ExerciseActivity extends AppCompatActivity {
         mGroup.setText("Muscle Group: " + group);
 
         TextView mLevel = findViewById(R.id.ex_level);
-        mLevel.setText("Exercise Level " + level);
+        mLevel.setText("Exercise Level: " + level);
 
         TextView mDescription = findViewById(R.id.ex_description);
         mDescription.setText("Description: " + description);
 
         ImageView mImage = findViewById(R.id.ex_image);
         Picasso.get().load(imageUrl).into(mImage);
+
+        TextView mType = findViewById(R.id.ex_type);
+        mType.setText("Exercise Type: " + type);
+
     }
 }

@@ -40,6 +40,7 @@ public class ExerciseRecViewAdapter extends RecyclerView.Adapter<ExerciseRecView
         Exercise_Item exercise = exercisesArrayList.get(position);
         holder.item_name.setText(exercise.getItem_name());
         holder.item_group.setText(exercise.getItem_mGroup());
+        holder.item_type.setText(exercise.getItem_type());
         Picasso.get().load(exercise.getItem_image()).into(holder.item_image);
 
     }
@@ -58,6 +59,7 @@ public class ExerciseRecViewAdapter extends RecyclerView.Adapter<ExerciseRecView
         private TextView item_name;
         private TextView item_group;
         private ImageView item_image;
+        private TextView item_type;
         OnNoteListener onNoteListener;
 
         public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
@@ -65,6 +67,8 @@ public class ExerciseRecViewAdapter extends RecyclerView.Adapter<ExerciseRecView
             item_name = itemView.findViewById(R.id.rv_name);
             item_group = itemView.findViewById(R.id.rv_description);
             item_image = itemView.findViewById(R.id.rv_image);
+            item_type = itemView.findViewById(R.id.rv_type);
+
             this.onNoteListener = onNoteListener;
 
             itemView.setOnClickListener(this);

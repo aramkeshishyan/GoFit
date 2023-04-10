@@ -51,6 +51,18 @@
         android:text="Exercise Level: "
         android:fontFamily="@font/poppinsmedium"
         android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/ex_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Exercise Type: "
+        android:fontFamily="@font/poppinsmedium"
+        android:textSize="20dp"/>
+
+
     <TextView
         android:id="@+id/ex_description"
         android:layout_width="wrap_content"

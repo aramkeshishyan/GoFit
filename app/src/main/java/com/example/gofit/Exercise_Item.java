@@ -23,16 +23,21 @@ public class Exercise_Item {
     @Expose
     private String item_image;
 
+    @SerializedName("type")
+    @Expose
+    private String item_type;
 
 
 
-    public Exercise_Item(String item_id, String item_name, String item_mGroup, String item_level,  String item_description, String item_image) {
+
+    public Exercise_Item(String item_id, String item_name, String item_mGroup, String item_level,  String item_description, String item_image, String item_type) {
         this.item_id = item_id;
         this.item_name = item_name;
         this.item_mGroup = item_mGroup;
         this.item_level = item_level;
         this.item_description = item_description;
         this.item_image = item_image;
+        this.item_type = item_type;
     }
 
     public String getItem_id() { return item_id; }
@@ -48,5 +53,6 @@ public class Exercise_Item {
     public String getItem_image() {
         return item_image;
     }
+    public String getItem_type() { return item_type;}
 
 }
