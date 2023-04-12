@@ -100,7 +100,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         textViewEmail.setText(userEmail);
 
         //default image if user has no photo
-        if (userImage == "") {
+        if (userImage.isEmpty()) {
             userImage = "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
         }
         Glide.with(this).asBitmap().load(userImage).centerCrop().into(userProfileImgV);
