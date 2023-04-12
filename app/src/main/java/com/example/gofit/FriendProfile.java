@@ -42,6 +42,10 @@ public class FriendProfile extends AppCompatActivity implements View.OnClickList
         textViewUserFullName.setText(userName);
         textViewEmail.setText(userEmail);
 
+        // Default image if user has no picture.
+        if (userImage.isEmpty()) {
+            userImage = "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
+        }
         Glide.with(this).asBitmap().load(userImage).centerCrop().into(imageViewUserImage);
 
     }

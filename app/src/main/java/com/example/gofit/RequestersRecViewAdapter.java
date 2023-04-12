@@ -106,9 +106,13 @@ public class RequestersRecViewAdapter extends RecyclerView.Adapter<RequestersRec
 
         //Glide allows easier image uploading from URL link
         //For testing purposes
+        String imageUrl = friends.get(position).getPhotoUrl();
+        if (imageUrl.isEmpty()) {
+            imageUrl = "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
+        }
         Glide.with(context)
                 .asBitmap()
-                .load(friends.get(position).getPhotoUrl())
+                .load(imageUrl)
                 .centerCrop()
                 .into(holder.friendListImgV);
     }

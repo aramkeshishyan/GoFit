@@ -83,11 +83,6 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         textViewUserFullName = findViewById(R.id.userFullName);
         textViewEmail = findViewById(R.id.userEmail);
         userProfileImgV = findViewById(R.id.userProfileImgV);
-        Glide.with(this)
-                .asBitmap()
-                .load("https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg")
-                .centerCrop()
-                .into(userProfileImgV);
 
 
         userFriendsCall();
@@ -103,6 +98,11 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
         textViewUserFullName.setText(userName);
         textViewEmail.setText(userEmail);
+
+        //default image if user has no photo
+        if (userImage == "") {
+            userImage = "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
+        }
         Glide.with(this).asBitmap().load(userImage).centerCrop().into(userProfileImgV);
     }
 
@@ -178,7 +178,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         switch (view.getId()) {
             case R.id.backBtn:
                 startActivity(new Intent(UserProfile.this, HomePage.class));
-                //super.finish();
+//                super.finish();
                 break;
             case R.id.logOutBtn:
                 FirebaseAuth.getInstance().signOut();

@@ -81,11 +81,15 @@ public class FriendsRecViewAdapter extends RecyclerView.Adapter<FriendsRecViewAd
             }
         });
 
-        //Glide allows easier image uploading from URL link
-        //For testing purposes
+        //Get user's profile pic or set default
+        String imageUrl = friends.get(position).getImageURL();
+        if (imageUrl.isEmpty()) {
+            imageUrl = "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
+        }
+
         Glide.with(context)
                 .asBitmap()
-                .load(friends.get(position).getImageURL())
+                .load(imageUrl)
                 .centerCrop()
                 .into(holder.friendListImgV);
     }

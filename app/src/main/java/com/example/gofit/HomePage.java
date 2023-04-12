@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +25,8 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
     private ImageView friends_button;
     private ImageView achievement_button;
     private BottomNavigationView bottomNavigationView;
+
+    private SharedPreferences sp;
      First_Fragment firstFragment = new First_Fragment();
     SecondFragment secondFragment = new SecondFragment();
     ThirdFragment thirdFragment = new ThirdFragment();
@@ -35,10 +39,16 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
         profile_pic = (ImageView) findViewById(R.id.profile_pic);
         profile_pic.setOnClickListener(this);
 
-        //Temporary image for user profile pic
+        //Get user's profile pic and set default if none present.
+        sp = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        String userImage = sp.getString("photoUrl","");
+
+        if (userImage.isEmpty()) {
+            userImage = "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
+        }
         Glide.with(this)
                 .asBitmap()
-                .load("https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg")
+                .load(userImage)
                 .centerCrop()
                 .into(profile_pic);
 
