@@ -1,6 +1,5 @@
-package com.example.gofit;
+package com.example.gofit.recyclerViews;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +7,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.gofit.Achievements;
+import com.example.gofit.R;
 
 import java.util.ArrayList;
 

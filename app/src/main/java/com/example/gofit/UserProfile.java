@@ -17,19 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.gofit.data.model.requests.Friends;
 import com.example.gofit.data.model.responses.defaultResponseList;
-import com.example.gofit.data.model.requests.Friends;
+import com.example.gofit.recyclerViews.FriendRecyclerViewInterface;
+import com.example.gofit.recyclerViews.FriendsRecViewAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;

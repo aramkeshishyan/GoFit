@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -26,6 +25,8 @@ import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UserFriended;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
+import com.example.gofit.recyclerViews.FriendRecyclerViewInterface;
+import com.example.gofit.recyclerViews.FriendsRecViewAdapter;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,6 @@
 package com.example.gofit;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,12 +9,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.responses.defaultResponseList;
+import com.example.gofit.recyclerViews.RequestersRecViewAdapter;
 
 import java.util.ArrayList;
 

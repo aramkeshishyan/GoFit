@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,12 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.gofit.data.model.requests.ExerciseType;
 import com.example.gofit.data.model.responses.defaultResponseList;
+import com.example.gofit.recyclerViews.ExerciseRecViewAdapter;
+import com.example.gofit.recyclerViews.RecommendExerciseAdapter;
+import com.example.gofit.recyclerViews.RecommendNutritionAdapter;
 
 import java.util.ArrayList;
 import java.util.Objects;

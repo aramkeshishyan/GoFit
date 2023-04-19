@@ -18,6 +18,8 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.gofit.recyclerViews.NutritionRecViewAdapter;
+
 import java.util.ArrayList;
 
 public class ThirdFragment extends Fragment implements NutritionRecViewAdapter.OnNoteListener{

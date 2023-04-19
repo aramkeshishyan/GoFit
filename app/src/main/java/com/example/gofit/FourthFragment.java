@@ -15,7 +15,6 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,10 +29,11 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.gofit.data.model.responses.defaultResponseList;
-import com.example.gofit.data.remote.ApiManager;
+import com.example.gofit.recyclerViews.FriendsRecViewAdapter;
+import com.example.gofit.recyclerViews.custum_base_adapter;
+import com.example.gofit.recyclerViews.second_custom_adapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
