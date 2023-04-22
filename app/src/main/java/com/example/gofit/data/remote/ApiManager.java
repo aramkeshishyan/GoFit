@@ -30,8 +30,8 @@ public class ApiManager {
 
     private ApiManager(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:5254/")
-                //.baseUrl("http://137.184.190.228/")
+                //.baseUrl("http://10.0.2.2:5254/")
+                .baseUrl("http://137.184.190.228/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
