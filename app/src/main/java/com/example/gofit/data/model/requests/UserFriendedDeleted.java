@@ -1,10 +1,11 @@
 package com.example.gofit.data.model.requests;
 
-public class UserFriended {
+public class UserFriendedDeleted {
+
 
     private String email;
 
-    public UserFriended(String email) {
+    public UserFriendedDeleted(String email) {
         this.email = email;
     }
 

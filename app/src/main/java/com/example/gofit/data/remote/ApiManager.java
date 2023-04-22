@@ -8,7 +8,7 @@ import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserAcceptedDenied;
-import com.example.gofit.data.model.requests.UserFriended;
+import com.example.gofit.data.model.requests.UserFriendedDeleted;
 import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
@@ -87,7 +87,12 @@ public class ApiManager {
         denyStatus.enqueue(callback);
     }
 
-    public void addFriend(String token, UserFriended friended, Callback<defaultResponse<Boolean>> callback){
+    public void deleteFriend(String token, UserFriendedDeleted friendToDelete, Callback<defaultResponse<String>> callback){
+        Call<defaultResponse<String>> deleteStatus = service.deleteFriend("Bearer " + token, friendToDelete);
+        deleteStatus.enqueue(callback);
+    }
+
+    public void addFriend(String token, UserFriendedDeleted friended, Callback<defaultResponse<Boolean>> callback){
         Call<defaultResponse<Boolean>> addedFriend = service.addFriend("Bearer " + token, friended);
         addedFriend.enqueue(callback);
     }

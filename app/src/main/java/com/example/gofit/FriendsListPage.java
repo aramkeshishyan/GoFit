@@ -22,7 +22,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.gofit.data.model.requests.RequestersInfo;
-import com.example.gofit.data.model.requests.UserFriended;
+import com.example.gofit.data.model.requests.UserFriendedDeleted;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.recyclerViews.FriendRecyclerViewInterface;
@@ -168,7 +168,7 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
             public void onClick(DialogInterface dialog, int which) {
                 friendToAddEmail = friendInput.getText().toString().trim();
                 if(!friendToAddEmail.isEmpty()) {
-                    UserFriended userFriended = new UserFriended(friendToAddEmail);
+                    UserFriendedDeleted userFriended = new UserFriendedDeleted(friendToAddEmail);
                     MainApplication.apiManager.addFriend(token, userFriended, new Callback<defaultResponse<Boolean>>() {
                         @Override
                         public void onResponse(Call<defaultResponse<Boolean>> call, Response<defaultResponse<Boolean>> response) {
