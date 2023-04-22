@@ -2,7 +2,8 @@ package com.example.gofit.data.remote;
 
 import com.example.gofit.Exercise_Item;
 import com.example.gofit.Friend;
-import com.example.gofit.data.model.requests.ExerciseType;
+import com.example.gofit.Nutrition_Item;
+import com.example.gofit.data.model.requests.ExerciseOrMealType;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.User;
@@ -29,8 +30,8 @@ public class ApiManager {
 
     private ApiManager(){
         Retrofit retrofit = new Retrofit.Builder()
-                //.baseUrl("http://10.0.2.2:5254/")
-                .baseUrl("http://137.184.190.228/")
+                .baseUrl("http://10.0.2.2:5254/")
+                //.baseUrl("http://137.184.190.228/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -101,9 +102,19 @@ public class ApiManager {
         exercisesList.enqueue(callback);
     }
 
-    public void getExercisesByType(ExerciseType type, Callback<defaultResponseList<Exercise_Item>> callback){
+    public void getExercisesByType(ExerciseOrMealType type, Callback<defaultResponseList<Exercise_Item>> callback){
         Call<defaultResponseList<Exercise_Item>> exercisesList = service.getExercisesByType(type);
         exercisesList.enqueue(callback);
+    }
+
+    public void getMeals(Callback<defaultResponseList<Nutrition_Item>> callback){
+        Call<defaultResponseList<Nutrition_Item>> mealList = service.getMeals();
+        mealList.enqueue(callback);
+    }
+
+    public void getMealsByType(ExerciseOrMealType type, Callback<defaultResponseList<Nutrition_Item>> callback){
+        Call<defaultResponseList<Nutrition_Item>> mealsList = service.getMealsByType(type);
+        mealsList.enqueue(callback);
     }
 
 

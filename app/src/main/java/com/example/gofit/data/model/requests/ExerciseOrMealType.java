@@ -1,10 +1,10 @@
 package com.example.gofit.data.model.requests;
 
-public class ExerciseType {
+public class ExerciseOrMealType {
 
     private String type;
 
-    public ExerciseType(String type) {
+    public ExerciseOrMealType(String type) {
         this.type = type;
     }
 

@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.gofit.data.model.requests.ExerciseType;
+import com.example.gofit.data.model.requests.ExerciseOrMealType;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.recyclerViews.ExerciseRecViewAdapter;
 import com.example.gofit.recyclerViews.RecommendExerciseAdapter;
@@ -38,7 +38,9 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
     private SharedPreferences sp;
     private String userGoal;
+    private String userBodyType;
     private String exerciseType;
+    private String mealType;
     public First_Fragment(){
         // require a empty public constructor
     }
@@ -53,14 +55,59 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
         sp = getContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         userGoal = sp.getString("goal","");
+        userBodyType = sp.getString("bodyType", "");
 
+        Toast.makeText(getContext(),
+                String.format("%s   %s", userGoal, userBodyType)
+                , Toast.LENGTH_LONG).show();
+
+        //Decide what Exercises to recommend
         if(Objects.equals(userGoal, "Gain Weight")) {
             exerciseType = "Strength";
         }
         else{
             exerciseType = "Cardio";
         }
-        addNutritionItems();
+
+        //Decide what Meals to recommend
+        if(Objects.equals(userBodyType, "Ectomorph"))
+        {
+            if(Objects.equals(userGoal, "Gain Weight"))
+            {
+                mealType = "High Carbs";
+            }
+            else
+            {
+                mealType = "Light Protein";
+            }
+
+        }
+        else if(Objects.equals(userBodyType, "Endomorph"))
+        {
+            if(Objects.equals(userGoal, "Gain Weight"))
+            {
+                mealType = "High Protein";
+            }
+            else
+            {
+                mealType = "Light Protein";
+            }
+
+        }
+        else if(Objects.equals(userBodyType, "Mesomorph"))
+        {
+            if(Objects.equals(userGoal, "Gain Weight"))
+            {
+                mealType = "High Protein";
+            }
+            else
+            {
+                mealType = "Light Protein";
+            }
+
+        }
+
+        //addNutritionItems();
 //        exercise_list.add(new Exercise_Item("E1_C", "Crunches", "Core", "Hard", "Test",  "https://betterme.world/articles/wp-content/uploads/2020/10/How-Many-Calories-Do-You-Burn-Doing-Crunches.jpg", "Type"));
 //        exercise_list.add(new Exercise_Item("E11_L", "Squats", "Legs", "Medium","Test", "https://experiencelife.lifetime.life/wp-content/uploads/2021/02/Squat-1-1280x720.jpg","Type"));
 //        exercise_list.add(new Exercise_Item("E3-L", "Lunges", "Legs", "Easy","Test", "https://post.healthline.com/wp-content/uploads/2020/09/11159-Mix_things_up_with_this_lunge_and_bicep_curl_compound_move_732x549-thumbnail-732x549.jpg", "Type"));
@@ -68,6 +115,8 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 //        exercise_list.add(new Exercise_Item("E3_C", "Leg Raise", "Core", "Hard","Test", "https://cathe.com/wp-content/uploads/2019/10/shutterstock_363953936.jpg","Type"));
 //        exercise_list.add(new Exercise_Item("E5-A", "Plank", "Abs", "Hard","Test", "https://www.wellandgood.com/wp-content/uploads/2019/03/GettyImages-855913544.jpg","Type"));
         //exercisesCall();
+
+        mealsByTypeCall(mealType);
         exercisesByTypeCall(exerciseType);
 
         //wait for 1 second for the async call to get the exercises from backend
@@ -92,11 +141,41 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         nutrition.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
     }
 
+    private void mealsByTypeCall(String recMealType) {
+        ExerciseOrMealType mealType = new ExerciseOrMealType(recMealType);
+        MainApplication.apiManager.getMealsByType(mealType, new Callback<defaultResponseList<Nutrition_Item>>() {
+            @Override
+            public void onResponse(Call<defaultResponseList<Nutrition_Item>> call, Response<defaultResponseList<Nutrition_Item>> response) {
+                defaultResponseList<Nutrition_Item> responseMeals = response.body();
+
+                if(response.isSuccessful() && responseMeals != null){
+                    nutrition_list.addAll(responseMeals.getData());
+
+                    Toast.makeText(getContext(),
+                            "Get Meals was Successful",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getContext(),
+                            String.format("Response is %s", String.valueOf(response.code()))
+                            , Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponseList<Nutrition_Item>> call, Throwable t) {
+                Toast.makeText(getContext(),
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
 
     private void exercisesByTypeCall(String userGoal) {
 
-        ExerciseType exerciseType = new ExerciseType(userGoal);
+        ExerciseOrMealType exerciseType = new ExerciseOrMealType(userGoal);
         MainApplication.apiManager.getExercisesByType(exerciseType, new Callback<defaultResponseList<Exercise_Item>>() {
             @Override
             public void onResponse(Call<defaultResponseList<Exercise_Item>> call, Response<defaultResponseList<Exercise_Item>> response) {

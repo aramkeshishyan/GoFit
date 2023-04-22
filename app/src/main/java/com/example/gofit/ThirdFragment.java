@@ -18,17 +18,25 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.recyclerViews.NutritionRecViewAdapter;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ThirdFragment extends Fragment implements NutritionRecViewAdapter.OnNoteListener{
 
     private RecyclerView nutrition_RecView;
+    private NutritionRecViewAdapter nutritionAdapter;
+    private ArrayList<Nutrition_Item> nutritionList = new ArrayList<>();
+    private ArrayList<Nutrition_Item> nutritionList2;
     private Spinner nutrition_spinner;
-    private SearchView nutrition_searchview;
-    private ArrayList<Nutrition_Item> nutritionList, nutritionList2;
     private String[] nutrition_categories = {"All", "Breakfast", "Lunch", "Dinner", "Snack", "Dessert"};
+    private SearchView nutrition_searchview;
     public ThirdFragment(){
         // require a empty public constructor
     }
@@ -42,10 +50,18 @@ public class ThirdFragment extends Fragment implements NutritionRecViewAdapter.O
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        nutritionList = new ArrayList<>();
-        addItemsIntoList();
+        //addItemsIntoList();
+        mealsCall();
+
+        //wait for 1 second for the async call to get the exercises from backend
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         nutritionList2 = nutritionList;
-        NutritionRecViewAdapter nutritionAdapter = new NutritionRecViewAdapter(getContext(),nutritionList, this);
+        nutritionAdapter = new NutritionRecViewAdapter(getContext(),nutritionList, this);
         nutritionAdapter.setNutritionArrayList(nutritionList);
 
         nutrition_RecView = view.findViewById(R.id.nutritionRecView);
@@ -108,6 +124,39 @@ public class ThirdFragment extends Fragment implements NutritionRecViewAdapter.O
         });
     }
 
+    private void mealsCall() {
+        MainApplication.apiManager.getMeals(new Callback<defaultResponseList<Nutrition_Item>>() {
+            @Override
+            public void onResponse(Call<defaultResponseList<Nutrition_Item>> call, Response<defaultResponseList<Nutrition_Item>> response) {
+                defaultResponseList<Nutrition_Item> responseMeals = response.body();
+
+                if(response.isSuccessful() && responseMeals != null){
+                    nutritionList.addAll(responseMeals.getData());
+
+                    Toast.makeText(getContext(),
+                            "Get Meals was Successful",
+                            Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(getContext(),
+                            String.format("%s", responseMeals.getData().get(0).getItem_fats()),
+                            Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getContext(),
+                            String.format("Response is %s", String.valueOf(response.code()))
+                            , Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponseList<Nutrition_Item>> call, Throwable t) {
+                Toast.makeText(getContext(),
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
 
 
     private void filter(String s) {

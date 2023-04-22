@@ -1,13 +1,36 @@
 package com.example.gofit;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Nutrition_Item {
+
+    @SerializedName("id")
+    @Expose
     private String item_id;
+    @SerializedName("title")
+    @Expose
     private String item_name;
+    @SerializedName("type")
+    @Expose
     private String item_type;
+    @SerializedName("calories")
+    @Expose
     private String item_calories;
+    @SerializedName("proteins")
+    @Expose
     private String item_proteins;
+    @SerializedName("carbs")
+    @Expose
     private String item_carbs;
+    @SerializedName("fats")
+    @Expose
     private String item_fats;
+    @SerializedName("photoUrl")
+    @Expose
     private String item_image;
+    @SerializedName("desc")
+    @Expose
     private String item_ingredients;
 
     public Nutrition_Item(String item_id, String item_name, String item_type, String item_calories, String item_proteins, String item_carbs, String item_fats, String item_image, String item_ingredients) {
