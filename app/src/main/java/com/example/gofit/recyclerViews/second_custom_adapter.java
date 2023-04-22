@@ -19,11 +19,7 @@ public class second_custom_adapter extends RecyclerView.Adapter<second_custom_ad
 
    public ArrayList<String> challenges ;
 
-
-
    public ArrayList<String> descriptions;
-
-
 
    private FloatingActionButton cb ;
 
@@ -39,8 +35,6 @@ public class second_custom_adapter extends RecyclerView.Adapter<second_custom_ad
    public void setOnRemoveItemLister (removeItemListner listener) {
        this.listener = listener ;
    }
-
-
 
     @NonNull
     @Override
@@ -83,8 +77,6 @@ public class second_custom_adapter extends RecyclerView.Adapter<second_custom_ad
 
                 }
             });
-
-
 
         }
     }

@@ -57,10 +57,6 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         userGoal = sp.getString("goal","");
         userBodyType = sp.getString("bodyType", "");
 
-        Toast.makeText(getContext(),
-                String.format("%s   %s", userGoal, userBodyType)
-                , Toast.LENGTH_LONG).show();
-
         //Decide what Exercises to recommend
         if(Objects.equals(userGoal, "Gain Weight")) {
             exerciseType = "Strength";

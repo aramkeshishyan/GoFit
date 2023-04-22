@@ -1,24 +1,15 @@
 package com.example.gofit;
 
-
-
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
-
-
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-
-
-
 public class challenge extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +29,6 @@ public class challenge extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
-
-
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search:
@@ -49,8 +37,6 @@ public class challenge extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
-
-
     }
 }
 

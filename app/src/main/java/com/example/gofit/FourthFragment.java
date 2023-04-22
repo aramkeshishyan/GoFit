@@ -53,15 +53,12 @@ public class FourthFragment extends Fragment {
     private ArrayList<String> custum_work_outs;
     private ArrayList<String> customs_description;
 
-
     ArrayList<Friend> friendsList = new ArrayList<>();
 
-
-    private boolean isComplete = false;         // this is to check if weather or not the boolean is comepelete or not  ///
+    private boolean isComplete = false;         // this is to check if weather or not the boolean is complete or not  ///
 
 
     private RecyclerView continer1;
-    private RecyclerView container2;
     private FloatingActionButton add;
     private custum_base_adapter adapter;
     private second_custom_adapter adapter2;
@@ -172,12 +169,9 @@ public class FourthFragment extends Fragment {
 
                         isComplete = true;
 
-
                         dialog.dismiss();
 
-
                     }
-
 
                 });
 

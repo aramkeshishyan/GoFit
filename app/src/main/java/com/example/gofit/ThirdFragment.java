@@ -137,9 +137,6 @@ public class ThirdFragment extends Fragment implements NutritionRecViewAdapter.O
                             "Get Meals was Successful",
                             Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(getContext(),
-                            String.format("%s", responseMeals.getData().get(0).getItem_fats()),
-                            Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Toast.makeText(getContext(),

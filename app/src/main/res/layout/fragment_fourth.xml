@@ -93,7 +93,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="My Own Challenge"
+            android:text="Create a Challenge"
             android:id="@+id/my_own_challenge_text"
             android:layout_below="@+id/visible_container"
             android:textSize="25sp"
@@ -145,7 +145,7 @@
             android:id="@+id/recently_title"
             android:textSize="30sp"
             android:layout_below="@+id/container"
-            android:text="recently created"
+            android:text="Recently Created"
             android:layout_marginTop="20dp"
             android:textColor="@color/black">
 
