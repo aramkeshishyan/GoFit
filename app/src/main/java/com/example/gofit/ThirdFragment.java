@@ -131,6 +131,7 @@ public class ThirdFragment extends Fragment implements NutritionRecViewAdapter.O
                 defaultResponseList<Nutrition_Item> responseMeals = response.body();
 
                 if(response.isSuccessful() && responseMeals != null){
+                    nutritionList = new ArrayList<>();
                     nutritionList.addAll(responseMeals.getData());
 
                     Toast.makeText(getContext(),

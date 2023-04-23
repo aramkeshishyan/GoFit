@@ -141,6 +141,7 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
                 defaultResponseList<Exercise_Item> responseExercises = response.body();
 
                 if (response.isSuccessful() && responseExercises != null) {
+                    exerciseList = new ArrayList<>();
                     exerciseList.addAll(responseExercises.getData());
 
                     Toast.makeText(getContext(),
