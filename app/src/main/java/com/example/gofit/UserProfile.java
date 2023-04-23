@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.gofit.data.model.requests.UserStats;
+import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.recyclerViews.FriendRecyclerViewInterface;
 import com.example.gofit.recyclerViews.FriendsRecViewAdapter;
@@ -40,6 +42,12 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
     private RecyclerView friendsRecView;
     private Button friendsViewAllBtn;
+
+    //Stats
+    private TextView stepsNumTxtV;
+    private TextView distanceNumTxtV;
+    private TextView challengesNumTxtV;
+    private TextView totalPointsNumTxtView;
 
     private SharedPreferences sp;
 
@@ -77,9 +85,15 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         textViewEmail = findViewById(R.id.userEmail);
         userProfileImgV = findViewById(R.id.userProfileImgV);
 
+        //Stats views
+        stepsNumTxtV = findViewById(R.id.stepsNumTxtV);
+        distanceNumTxtV = findViewById(R.id.distanceNumTxtV);
+        challengesNumTxtV = findViewById(R.id.challengesNumTxtV);
+        totalPointsNumTxtView = findViewById(R.id.totalPointsNumTxtView);
 
         userFriendsCall();
         userInfo();
+        userStatsCall();
 
 
     }
@@ -97,6 +111,37 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             userImage = "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
         }
         Glide.with(this).asBitmap().load(userImage).centerCrop().into(userProfileImgV);
+    }
+
+    private void userStatsCall(){
+        String token = sp.getString("token", "");
+        MainApplication.apiManager.getUserStats(token, new Callback<defaultResponse<UserStats>>() {
+            @Override
+            public void onResponse(Call<defaultResponse<UserStats>> call, Response<defaultResponse<UserStats>> response) {
+                defaultResponse<UserStats> responseUserStats = response.body();
+
+                if (response.isSuccessful() && responseUserStats != null) {
+                    UserStats stats = responseUserStats.getData();
+                    String distance = stats.getTotalDistanceKm() + " km";
+
+                    stepsNumTxtV.setText(String.valueOf(stats.getStepCount()));
+                    distanceNumTxtV.setText(distance);
+                    challengesNumTxtV.setText(String.valueOf(stats.getChallengeCount()));
+                    totalPointsNumTxtView.setText(String.valueOf(stats.getTotalPoints()));
+                }
+                else {
+                    Toast.makeText(UserProfile.this, responseUserStats.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponse<UserStats>> call, Throwable t) {
+                Toast.makeText(UserProfile.this,
+                        "Error: ", Toast.LENGTH_LONG).show();
+                Log.d("userStatsCallTag", t.getMessage());
+            }
+        });
+
     }
 
     private void userFriendsCall(){
@@ -170,11 +215,10 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.backBtn:
-                startActivity(new Intent(UserProfile.this, HomePage.class));
-//                super.finish();
+                //startActivity(new Intent(UserProfile.this, HomePage.class));
+                super.finish();
                 break;
             case R.id.logOutBtn:
-                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(UserProfile.this, MainActivity.class));
                 Toast.makeText(UserProfile.this, "Logged out successfully!", Toast.LENGTH_SHORT).show();
                 break;

@@ -10,6 +10,7 @@ import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserAcceptedDenied;
 import com.example.gofit.data.model.requests.UserFriendedDeleted;
 import com.example.gofit.data.model.requests.UserInfo;
+import com.example.gofit.data.model.requests.UserStats;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.data.model.responses.tokenResponse;
@@ -120,6 +121,12 @@ public class ApiManager {
     public void getMealsByType(ExerciseOrMealType type, Callback<defaultResponseList<Nutrition_Item>> callback){
         Call<defaultResponseList<Nutrition_Item>> mealsList = service.getMealsByType(type);
         mealsList.enqueue(callback);
+    }
+
+    //User Stats
+    public void getUserStats(String token, Callback<defaultResponse<UserStats>> callback) {
+        Call<defaultResponse<UserStats>> userStats = service.getUserStats("Bearer " + token);
+        userStats.enqueue(callback);
     }
 
 

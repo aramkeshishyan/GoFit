@@ -10,6 +10,7 @@ import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserAcceptedDenied;
 import com.example.gofit.data.model.requests.UserFriendedDeleted;
 import com.example.gofit.data.model.requests.UserInfo;
+import com.example.gofit.data.model.requests.UserStats;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.data.model.responses.tokenResponse;
@@ -80,9 +81,10 @@ public interface IUsersApi {
     Call<defaultResponseList<Nutrition_Item>> getMealsByType(@Body ExerciseOrMealType type);
 
 
-
-
-
+    //User Stats
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET("/UserStats/")
+    Call<defaultResponse<UserStats>> getUserStats(@Header("Authorization") String token);
 
 
 }
