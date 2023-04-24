@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gofit.data.model.requests.ExerciseOrMealType;
@@ -41,6 +42,7 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
     private String userBodyType;
     private String exerciseType;
     private String mealType;
+
     public First_Fragment(){
         // require a empty public constructor
     }
@@ -56,6 +58,12 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         sp = getContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         userGoal = sp.getString("goal","");
         userBodyType = sp.getString("bodyType", "");
+
+        //Greet user with Hello + their first name
+        TextView hello_greeting = (TextView) view.findViewById(R.id.hello_greeting);
+        String fullName = sp.getString("fullName","");
+        String firstName = fullName.split(" ")[0];  //split first/last name and get first name
+        hello_greeting.setText("Hello " + firstName);
 
         //Decide what Exercises to recommend
         if(Objects.equals(userGoal, "Gain Weight")) {
