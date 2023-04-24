@@ -17,6 +17,8 @@ import com.bumptech.glide.Glide;
 import com.example.gofit.data.model.requests.UserFriendedDeleted;
 import com.example.gofit.data.model.responses.defaultResponse;
 
+import java.util.concurrent.TimeUnit;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -78,10 +80,15 @@ public class FriendProfile extends AppCompatActivity implements View.OnClickList
                 //startActivity(new Intent(this, FriendsListPage.class));
                 break;
             case R.id.removeFriendBtn:
-                //Toast.makeText(FriendProfile.this, String.format("|%s|", userEmail), Toast.LENGTH_SHORT).show();
                 deleteFriendCall();
-                //super.finish();
-                //startActivity(new Intent(getApplicationContext(), FriendsListPage.class));
+
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                startActivity(new Intent(FriendProfile.this, FriendsListPage.class));
                 break;
         }
 
