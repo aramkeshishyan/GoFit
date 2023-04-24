@@ -28,8 +28,9 @@ public class Settings extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Settings.this, UserProfile.class);
-                startActivity(intent);
+//                Intent intent = new Intent(Settings.this, UserProfile.class);
+//                startActivity(intent);
+                  finish();
             }
         });
 
