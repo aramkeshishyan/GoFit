@@ -129,6 +129,18 @@ public class ApiManager {
         userStats.enqueue(callback);
     }
 
+    ///////////////////////CHALLENGES//////////////////
+
+    public void createChallenge(String token, CreateChallengeDto createChallenge, Callback<defaultResponse<ChallengeRecordDto>> callback){
+        Call<defaultResponse<ChallengeRecordDto>> challengeRecords = service.createChallenge("Bearer " + token, createChallenge);
+        challengeRecords.enqueue(callback);
+    }
+
+    public void getChallengeRecords(String token, Callback<defaultResponse<ChallengeRecordDto>> callback){
+        Call<defaultResponse<ChallengeRecordDto>> challengeRecords = service.getChallengeRecords("Bearer " + token);
+        challengeRecords.enqueue(callback);
+    }
+
 
 
 }

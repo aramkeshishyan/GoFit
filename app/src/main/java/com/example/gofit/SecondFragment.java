@@ -83,7 +83,7 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
         exercise_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(exercise_categories[i] == "All"){
+                if(exercise_categories[i].equals("All")){
                     //set all exercises in RecView using exerciseList
                     ExerciseRecViewAdapter exerciseAdapter = new ExerciseRecViewAdapter(getContext(),exerciseList, SecondFragment.this);
                     exerciseAdapter.setExercises(exerciseList);
@@ -97,7 +97,7 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
                     //for every item in exerciseList
                     for (Exercise_Item checkExerciseList : exerciseList) {
                         //comparing if strings match with category selected
-                        if (checkExerciseList.getItem_mGroup() == exercise_categories[i]) {
+                        if (checkExerciseList.getItem_mGroup().equals(exercise_categories[i])) {
                             //add item into new array list if category match
                             newExerciseList.add(checkExerciseList);
                         }
@@ -141,6 +141,7 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
                 defaultResponseList<Exercise_Item> responseExercises = response.body();
 
                 if (response.isSuccessful() && responseExercises != null) {
+                    exerciseList = new ArrayList<>();
                     exerciseList.addAll(responseExercises.getData());
 
                     Toast.makeText(getContext(),

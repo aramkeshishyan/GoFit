@@ -81,6 +81,16 @@ public interface IUsersApi {
     Call<defaultResponseList<Nutrition_Item>> getMealsByType(@Body ExerciseOrMealType type);
 
 
+    ////////////////////////////////////CHALLENGES//////////////////////////////////
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/Challenge/createChallenge")
+    Call<defaultResponse<ChallengeRecordDto>> createChallenge(@Header("Authorization") String token, @Body CreateChallengeDto createChallenge);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET("/Challenge/records")
+    Call<defaultResponse<ChallengeRecordDto>> getChallengeRecords(@Header("Authorization") String token);
+
     //User Stats
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/UserStats/")

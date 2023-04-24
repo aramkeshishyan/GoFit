@@ -35,7 +35,7 @@ public class ThirdFragment extends Fragment implements NutritionRecViewAdapter.O
     private ArrayList<Nutrition_Item> nutritionList = new ArrayList<>();
     private ArrayList<Nutrition_Item> nutritionList2;
     private Spinner nutrition_spinner;
-    private String[] nutrition_categories = {"All", "Breakfast", "Lunch", "Dinner", "Snack", "Dessert"};
+    private String[] nutrition_categories = {"All", "High Carbs", "High Protein", "Light Protein"};
     private SearchView nutrition_searchview;
     public ThirdFragment(){
         // require a empty public constructor
@@ -76,7 +76,7 @@ public class ThirdFragment extends Fragment implements NutritionRecViewAdapter.O
         nutrition_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (nutrition_categories[i] == "All"){
+                if (nutrition_categories[i].equals("All")){
                     //set all meals into RecyclerView using NutritionList
                     NutritionRecViewAdapter nutritionAdapter = new NutritionRecViewAdapter(getContext(), nutritionList, ThirdFragment.this);
                     nutritionAdapter.setNutritionArrayList(nutritionList);
@@ -89,7 +89,7 @@ public class ThirdFragment extends Fragment implements NutritionRecViewAdapter.O
                     //for every item in nutritionList
                     for(Nutrition_Item checkNutritionList : nutritionList){
                         //compare if strings match with category selected
-                        if(checkNutritionList.getItem_type() == nutrition_categories[i]){
+                        if(checkNutritionList.getItem_type().equals(nutrition_categories[i])){
                             //add item into new array list if category match
                             newNutritionList.add(checkNutritionList);
                         }
@@ -131,6 +131,7 @@ public class ThirdFragment extends Fragment implements NutritionRecViewAdapter.O
                 defaultResponseList<Nutrition_Item> responseMeals = response.body();
 
                 if(response.isSuccessful() && responseMeals != null){
+                    nutritionList = new ArrayList<>();
                     nutritionList.addAll(responseMeals.getData());
 
                     Toast.makeText(getContext(),
