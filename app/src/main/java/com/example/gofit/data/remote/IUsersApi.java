@@ -88,6 +88,12 @@ public interface IUsersApi {
     @POST("/Challenge/createChallenge")
     Call<defaultResponse<ChallengeRecordDto>> createChallenge(@Header("Authorization") String token, @Body CreateChallengeDto createChallenge);
 
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET("/Challenge/records")
+    Call<defaultResponse<ChallengeRecordDto>> getChallengeRecords(@Header("Authorization") String token);
+
+
+
 
 
 

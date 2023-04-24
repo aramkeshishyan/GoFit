@@ -131,6 +131,11 @@ public class ApiManager {
         challengeRecords.enqueue(callback);
     }
 
+    public void getChallengeRecords(String token, Callback<defaultResponse<ChallengeRecordDto>> callback){
+        Call<defaultResponse<ChallengeRecordDto>> challengeRecords = service.getChallengeRecords("Bearer " + token);
+        challengeRecords.enqueue(callback);
+    }
+
 
 
 }
