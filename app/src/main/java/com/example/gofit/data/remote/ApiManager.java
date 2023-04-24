@@ -3,6 +3,8 @@ package com.example.gofit.data.remote;
 import com.example.gofit.Exercise_Item;
 import com.example.gofit.Friend;
 import com.example.gofit.Nutrition_Item;
+import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
+import com.example.gofit.data.model.requests.Challenges.CreateChallengeDto;
 import com.example.gofit.data.model.requests.ExerciseOrMealType;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
@@ -120,6 +122,13 @@ public class ApiManager {
     public void getMealsByType(ExerciseOrMealType type, Callback<defaultResponseList<Nutrition_Item>> callback){
         Call<defaultResponseList<Nutrition_Item>> mealsList = service.getMealsByType(type);
         mealsList.enqueue(callback);
+    }
+
+    ///////////////////////CHALLENGES//////////////////
+
+    public void createChallenge(String token, CreateChallengeDto createChallenge, Callback<defaultResponse<ChallengeRecordDto>> callback){
+        Call<defaultResponse<ChallengeRecordDto>> challengeRecords = service.createChallenge("Bearer " + token, createChallenge);
+        challengeRecords.enqueue(callback);
     }
 
 

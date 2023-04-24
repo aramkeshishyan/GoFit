@@ -3,6 +3,8 @@ package com.example.gofit.data.remote;
 import com.example.gofit.Exercise_Item;
 import com.example.gofit.Friend;
 import com.example.gofit.Nutrition_Item;
+import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
+import com.example.gofit.data.model.requests.Challenges.CreateChallengeDto;
 import com.example.gofit.data.model.requests.ExerciseOrMealType;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
@@ -78,6 +80,14 @@ public interface IUsersApi {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("/Meal/byType")
     Call<defaultResponseList<Nutrition_Item>> getMealsByType(@Body ExerciseOrMealType type);
+
+
+    ////////////////////////////////////CHALLENGES//////////////////////////////////
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/Challenge/createChallenge")
+    Call<defaultResponse<ChallengeRecordDto>> createChallenge(@Header("Authorization") String token, @Body CreateChallengeDto createChallenge);
+
 
 
 

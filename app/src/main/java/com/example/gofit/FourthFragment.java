@@ -6,11 +6,13 @@ import android.app.NotificationManager;
 
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -25,9 +27,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
+import com.example.gofit.data.model.requests.Challenges.CreateChallengeDto;
+import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.recyclerViews.FriendsRecViewAdapter;
 import com.example.gofit.recyclerViews.custum_base_adapter;
@@ -75,6 +81,17 @@ public class FourthFragment extends Fragment {
     private Button custom;
     private SharedPreferences sp ;
 
+
+    //////Challenge Attributes////
+
+    private String chalCreatorEmail;
+    private String chalTitle;
+    private String chalDescription;
+    private ArrayList<Integer> chalExercisesIds = new ArrayList<>();
+    private int chalDuration;
+    private int chalReps;
+    private int chalSets;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -85,7 +102,11 @@ public class FourthFragment extends Fragment {
         work_out_names = new ArrayList<>();
         personal_challenge = new ArrayList<>();
 
-        userFriendsCall();
+        // This call creates a challenge. Currently Lacks interface
+        // If you uncomment, when user navigates to the fourth fragment, a test Challenge will be created and pushed to the Database
+        //createChallengeCall();
+
+        //userFriendsCall();
         // if the array has been saved, than load else it will it create an empty array //
         load_array();
 
@@ -102,6 +123,7 @@ public class FourthFragment extends Fragment {
         continer1 = (RecyclerView) fourth_view.findViewById(R.id.recyler_month_challenge);
 
         add = (FloatingActionButton) fourth_view.findViewById(R.id.floating_button1);
+
         adapter2 = new second_custom_adapter(fourth_view.getContext(), custum_work_outs, customs_description);
         adapter = new custum_base_adapter(fourth_view.getContext(), work_out_names, personal_challenge);
         continer1.setLayoutManager(new LinearLayoutManager(fourth_view.getContext()));
@@ -111,15 +133,82 @@ public class FourthFragment extends Fragment {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add_custum_work_outs();
-                saveArray_state();
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-                try {
-                    Notifcations();
-                } catch (PendingIntent.CanceledException e) {
-                    throw new RuntimeException(e);
-                }
+                builder.setCancelable(true);
+                builder.setTitle("Create a Challenge");
+                builder.setMessage("Enter Attributes");
+
+                EditText edtTitle = new EditText(getActivity());
+                EditText edtDesciption = new EditText(getActivity());
+                EditText edtEx1 = new EditText(getActivity());
+                EditText edtEx2 = new EditText(getActivity());
+                EditText edtEx3 = new EditText(getActivity());
+                EditText edtDuration = new EditText(getActivity());
+                EditText edtReps = new EditText(getActivity());
+                EditText edtSets = new EditText(getActivity());
+
+                LinearLayout lp = new LinearLayout(getActivity().getBaseContext());
+                lp.setOrientation(LinearLayout.VERTICAL);
+                lp.addView(edtTitle);
+                lp.addView(edtDesciption);
+                lp.addView(edtEx1);
+                lp.addView(edtEx2);
+                lp.addView(edtEx3);
+                lp.addView(edtDuration);
+                lp.addView(edtReps);
+                lp.addView(edtSets);
+
+                edtTitle.setHint("Title");
+                edtDesciption.setHint("Description");
+                edtEx1.setHint("First Exercise Id");
+                edtEx2.setHint("Second Exercise Id");
+                edtEx3.setHint("Third Exercise Id");
+                edtDuration.setHint("Challenge Duration");
+                edtReps.setHint("Repetitions amount");
+                edtSets.setHint("Sets amount");
+
+                builder.setView(lp);
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        chalCreatorEmail = sp.getString("email", "");
+                        chalTitle = edtTitle.getText().toString().trim();
+                        chalDescription = edtDesciption.getText().toString().trim();
+
+                        chalExercisesIds.add(Integer.parseInt(edtEx1.getText().toString().trim()));
+                        chalExercisesIds.add(Integer.parseInt(edtEx2.getText().toString().trim()));
+                        chalExercisesIds.add(Integer.parseInt(edtEx3.getText().toString().trim()));
+
+                        chalDuration = Integer.parseInt(edtDuration.getText().toString().trim());
+                        chalReps = Integer.parseInt(edtReps.getText().toString().trim());
+                        chalSets = Integer.parseInt(edtSets.getText().toString().trim());
+
+                        createChallengeCall();
+
+                    }
+                });
+
+                builder.show();
+
+//                add_custum_work_outs();
+//                saveArray_state();
+//
+//
+//                try {
+//                    Notifcations();
+//                } catch (PendingIntent.CanceledException e) {
+//                    throw new RuntimeException(e);
+//                }
 
             }
         });
@@ -345,6 +434,37 @@ public class FourthFragment extends Fragment {
                         "Error: " + t.getMessage()
                         , Toast.LENGTH_LONG).show();
                 Log.d("myTag", t.getMessage());
+
+            }
+        });
+    }
+
+    private void createChallengeCall() {
+
+        //String userEmail = sp.getString("email","");
+
+//        ArrayList<Integer> testExerciseList = new ArrayList<>();
+//        testExerciseList.add(4);
+//        testExerciseList.add(5);
+//        testExerciseList.add(6);
+
+        String token = sp.getString("token", "");
+
+        //CreateChallengeDto testModel = new CreateChallengeDto(userEmail, "Test Challenge", "Test Description", chalExercisesIds,10, 8,3);
+        CreateChallengeDto testModel = new CreateChallengeDto(chalCreatorEmail, chalTitle, chalDescription, chalExercisesIds,chalDuration, chalReps,chalSets);
+        MainApplication.apiManager.createChallenge(token, testModel, new Callback<defaultResponse<ChallengeRecordDto>>() {
+            @Override
+            public void onResponse(Call<defaultResponse<ChallengeRecordDto>> call, Response<defaultResponse<ChallengeRecordDto>> response) {
+                defaultResponse<ChallengeRecordDto> challengeRecords = response.body();
+
+                Toast.makeText(getActivity(),
+                        "Challenge Creation Successful",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponse<ChallengeRecordDto>> call, Throwable t) {
 
             }
         });
