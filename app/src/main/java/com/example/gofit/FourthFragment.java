@@ -135,11 +135,11 @@ public class FourthFragment extends Fragment {
                 saveArray_state();
 
 
-                try {
-                    Notifcations();
-                } catch (PendingIntent.CanceledException e) {
-                    throw new RuntimeException(e);
-                }
+//                try {
+//                    Notifcations();
+//                } catch (PendingIntent.CanceledException e) {
+//                    throw new RuntimeException(e);
+//                }
 
             }
         });
