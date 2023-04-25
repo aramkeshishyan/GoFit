@@ -37,10 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextEmail, editTextPassword;
     private Button login;
 
-//    private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     private SharedPreferences sp;
-    private List<Friends> friendsList = new ArrayList<>();
     private String jsonText;
 
     @Override
@@ -57,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextEmail = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.password);
 
-//        mAuth = FirebaseAuth.getInstance();
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -145,8 +142,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     ///////  LOGIN WAS SUCCESSFUL, WE HAVE THE TOKEN, NOW PASS THE TOKEN AND GET THE USER INFORMATION FROM USER TABLE  /////////////
                     userInfoCall();
 
-
-
                 } else {
                     Toast.makeText(MainActivity.this,
                             "Wrong Credentials"
@@ -194,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     spEditor.putString("goal", responseDefault.getData().getGoal());
                     spEditor.apply();
 
-                    if(sp.getBoolean("surveyComplete",false)) {
+                    if(sp.getBoolean("surveyComplete",true)) {
                         startActivity(new Intent(MainActivity.this, HomePage.class));
                     }
                     else{

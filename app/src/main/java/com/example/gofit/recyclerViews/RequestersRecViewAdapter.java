@@ -1,7 +1,6 @@
 package com.example.gofit.recyclerViews;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,27 +14,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.gofit.Friend;
-import com.example.gofit.MainApplication;
 import com.example.gofit.R;
 import com.example.gofit.data.model.requests.RequestersInfo;
-import com.example.gofit.data.model.requests.UserAcceptedDenied;
-import com.example.gofit.data.model.responses.defaultResponse;
-import com.example.gofit.data.model.responses.defaultResponseList;
 
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class RequestersRecViewAdapter extends RecyclerView.Adapter<RequestersRecViewAdapter.ViewHolder>{
     private ArrayList<RequestersInfo> friends = new ArrayList<>();
-
+    private OnFriendRequestActionListener requestActionListener;
     private Context context;
 
-    public RequestersRecViewAdapter(Context context) { this.context = context; }
+    public RequestersRecViewAdapter(Context context, OnFriendRequestActionListener listener) {
+        this.context = context;
+        requestActionListener = listener;
+    }
 
     public void setFriends(ArrayList<RequestersInfo> friends) {
         this.friends = friends;
@@ -78,38 +71,13 @@ public class RequestersRecViewAdapter extends RecyclerView.Adapter<RequestersRec
     //Functionality of onClick, setting text/img etc go here
     @Override
     public void onBindViewHolder(@NonNull RequestersRecViewAdapter.ViewHolder holder, int position) {
-        holder.friendListNameTxtV.setText(friends.get(position).getFullName());
+        RequestersInfo friendRequest = friends.get(position);
 
-        holder.friendListItemParent.setOnClickListener(new View.OnClickListener() { //Show toast message with name of friend_list_item when clicked
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, friends.get(holder.getAdapterPosition()).getFullName() + " selected", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        holder.friendListAcceptBtn.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "Request Accepted", Toast.LENGTH_SHORT).show();
-                acceptCall(friends.get(holder.getAdapterPosition()).getRequestId());
-
-            }
-        });
-
-        holder.friendListDenyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context,  "Request Denied", Toast.LENGTH_SHORT).show();
-                denyCall(friends.get(holder.getAdapterPosition()).getRequestId());
-            }
-        });
-
-
+        holder.friendListNameTxtV.setText(friendRequest.getFullName());
 
         //Glide allows easier image uploading from URL link
         //For testing purposes
-        String imageUrl = friends.get(position).getPhotoUrl();
+        String imageUrl = friendRequest.getPhotoUrl();
         if (imageUrl.isEmpty()) {
             imageUrl = "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
         }
@@ -118,6 +86,20 @@ public class RequestersRecViewAdapter extends RecyclerView.Adapter<RequestersRec
                 .load(imageUrl)
                 .centerCrop()
                 .into(holder.friendListImgV);
+
+        holder.friendListItemParent.setOnClickListener(new View.OnClickListener() { //Show toast message with name of friend_list_item when clicked
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, friendRequest.getFullName() + " selected", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.friendListAcceptBtn.setOnClickListener(view ->
+                    requestActionListener.onFriendRequestAccepted(friendRequest));
+
+        holder.friendListDenyBtn.setOnClickListener(view ->
+                requestActionListener.onFriendRequestDenied(friendRequest));
+
     }
 
     @Override
@@ -125,47 +107,9 @@ public class RequestersRecViewAdapter extends RecyclerView.Adapter<RequestersRec
         return friends.size();
     }
 
-    //Executed When Accept Button Clicked
-    public void acceptCall(int reqId)
-    {
-        SharedPreferences sp = context.getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
-        String token = sp.getString("token", "");
-        UserAcceptedDenied acceptedUser = new UserAcceptedDenied(reqId);
+    public interface OnFriendRequestActionListener {
+        void onFriendRequestAccepted(RequestersInfo request);
 
-        MainApplication.apiManager.acceptFriend(token, acceptedUser, new Callback<defaultResponseList<Friend>>() {
-            @Override
-            public void onResponse(Call<defaultResponseList<Friend>> call, Response<defaultResponseList<Friend>> response) {
-                defaultResponseList<Friend> responseFriends = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<defaultResponseList<Friend>> call, Throwable t) {
-
-            }
-        });
-
-
-    }
-
-    //Executed When Deny Button Clicked
-    public void denyCall(int reqId)
-    {
-        SharedPreferences sp = context.getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
-        String token = sp.getString("token", "");
-        UserAcceptedDenied deniedUser = new UserAcceptedDenied(reqId);
-
-        MainApplication.apiManager.denyFriend(token, deniedUser, new Callback<defaultResponse<String>>() {
-            @Override
-            public void onResponse(Call<defaultResponse<String>> call, Response<defaultResponse<String>> response) {
-                defaultResponse<String> denyResponse = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<defaultResponse<String>> call, Throwable t) {
-
-            }
-        });
-
-
+        void onFriendRequestDenied(RequestersInfo request);
     }
 }

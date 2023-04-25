@@ -45,6 +45,7 @@ public class custum_base_adapter extends RecyclerView.Adapter<custum_base_adapte
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
 
+
         holder.challenge_name.setText(challenges_list.get(position).title);
         holder.description_name.setText(challenges_list.get(position).desc);
     }

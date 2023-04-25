@@ -43,13 +43,10 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
     private ImageButton btnFriendRequests;
 
     private RecyclerView friendsRecyclerView;
-    private FriendsRecViewAdapter adapter2 = new FriendsRecViewAdapter(this,this);
+    private FriendsRecViewAdapter friendsAdapter = new FriendsRecViewAdapter(this,this);
+    private ArrayList<Friend> friendsList = new ArrayList<>();
     private ArrayList<Friend> friendsList2 = new ArrayList<>();
 
-
-    //private RecyclerView requestersRecyclerView;
-    //private RequestersRecViewAdapter requestsAdapter = new RequestersRecViewAdapter(this);
-    //private ArrayList<RequestersInfo> requestersArray = new ArrayList<>();
     Context context = this;
     private SharedPreferences sp;
 
@@ -92,6 +89,15 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
         friendRequestsCall();
     }
 
+    //When page is returned to after user clicks back
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        userFriendsCall();
+        friendRequestsCall();
+    }
+
     private void friendRequestsCall() {
         String token = sp.getString("token", "");
         MainApplication.apiManager.getFriendRequests(token, new Callback<defaultResponseList<RequestersInfo>>() {
@@ -99,10 +105,13 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
             public void onResponse(Call<defaultResponseList<RequestersInfo>> call, Response<defaultResponseList<RequestersInfo>> response) {
                 defaultResponseList<RequestersInfo> requestersList = response.body();
 
-                if(requestersList.getData() != null)
+                if(response.isSuccessful() && requestersList.getData() != null)
                 {
                     //btnFriendRequests.setBackgroundColor(Color.parseColor("#db0d0d"));
                     btnFriendRequests.setColorFilter(Color.parseColor("#db0d0d"));
+                }
+                else {
+                    btnFriendRequests.clearColorFilter();
                 }
             }
             @Override
@@ -123,16 +132,19 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
                 defaultResponseList<Friend> responseFriends = response.body();
 
                 if (response.isSuccessful() && responseFriends != null) {
-                    friendsList2.addAll(responseFriends.getData());
+                    ArrayList<Friend> tempList = new ArrayList<>();
+                    tempList.addAll(responseFriends.getData());
+
+                   friendsList = new ArrayList<>(tempList);
 
                     Toast.makeText(FriendsListPage.this,
                             "Get Friends was Successful",
                             Toast.LENGTH_SHORT).show();
 
-                    adapter2.setFriends(friendsList2);
+                    friendsAdapter.setFriends(friendsList);
 
                     friendsRecyclerView = findViewById(R.id.friendsListPageRecView);
-                    friendsRecyclerView.setAdapter(adapter2);
+                    friendsRecyclerView.setAdapter(friendsAdapter);
                     friendsRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
                 }
                 else {
@@ -204,16 +216,20 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
 
     private void filterList(String s) { //s is text searched in searchView
         ArrayList<Friend> filteredFriendsList = new ArrayList<>();
-        for (Friend friend : friendsList2) {
+        for (Friend friend : friendsList) {
             if (friend.getName().toLowerCase().contains(s.toLowerCase())) {
                 filteredFriendsList.add(friend);
             }
         }
 
         if (filteredFriendsList.isEmpty()) {
-            Toast.makeText(this, "No friends found.", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "No friends found.", Toast.LENGTH_SHORT).show();
         } else {
-            adapter2.setFriends(filteredFriendsList); //update data in recyclerView to show searched data.
+            FriendsRecViewAdapter newFriendsAdapter = new FriendsRecViewAdapter(this,this);
+            newFriendsAdapter.setFriends(filteredFriendsList);
+            friendsRecyclerView.setAdapter(newFriendsAdapter);
+
+            friendsList2 = filteredFriendsList;
         }
     }
 
@@ -238,9 +254,16 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
     public void onFriendItemClick(int position) {
         Intent intent = new Intent(FriendsListPage.this, FriendProfile.class);
 
-        intent.putExtra("NAME", friendsList2.get(position).getName());
-        intent.putExtra("EMAIL", friendsList2.get(position).getEmail());
-        intent.putExtra("IMAGE", friendsList2.get(position).getImageURL());
+        if (friendsList2.isEmpty()) {
+            intent.putExtra("NAME", friendsList.get(position).getName());
+            intent.putExtra("EMAIL", friendsList.get(position).getEmail());
+            intent.putExtra("IMAGE", friendsList.get(position).getImageURL());
+        }
+        else {
+            intent.putExtra("NAME", friendsList2.get(position).getName());
+            intent.putExtra("EMAIL", friendsList2.get(position).getEmail());
+            intent.putExtra("IMAGE", friendsList2.get(position).getImageURL());
+        }
 
         startActivity(intent);
 
