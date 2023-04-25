@@ -13,6 +13,7 @@ import com.example.gofit.data.model.requests.UserAcceptedDenied;
 import com.example.gofit.data.model.requests.UserFriendedDeleted;
 import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.requests.UserStats;
+import com.example.gofit.data.model.requests.UserUpdatePasswordDto;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.data.model.responses.tokenResponse;
@@ -103,6 +104,11 @@ public class ApiManager {
     public void getFriendRequests(String token, Callback<defaultResponseList<RequestersInfo>> callback){
         Call<defaultResponseList<RequestersInfo>> requesterInfo = service.getFriendRequests("Bearer " + token);
         requesterInfo.enqueue(callback);
+    }
+
+    public void updatePassword(String token, UserUpdatePasswordDto updatePassword, Callback<defaultResponse<String>> callback){
+        Call<defaultResponse<String>> updatePasswordStatus = service.updatePassword("Bearer " + token, updatePassword);
+        updatePasswordStatus.enqueue(callback);
     }
 
     public void getExercises(Callback<defaultResponseList<Exercise_Item>> callback){
