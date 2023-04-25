@@ -13,6 +13,7 @@ import com.example.gofit.data.model.requests.UserAcceptedDenied;
 import com.example.gofit.data.model.requests.UserFriendedDeleted;
 import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.requests.UserStats;
+import com.example.gofit.data.model.requests.UserUpdatePasswordDto;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.data.model.responses.tokenResponse;
@@ -24,8 +25,11 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+
 public interface IUsersApi {
 
+    //////////////////////USER///////////////////////////
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("/User/register")
     Call<defaultResponse<Integer>> createUser(@Body User user);
@@ -33,7 +37,6 @@ public interface IUsersApi {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("/User/login")
     Call<tokenResponse> loginUser(@Body User user);
-
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("/User/updateSurvey")
@@ -67,13 +70,21 @@ public interface IUsersApi {
     Call<defaultResponseList<RequestersInfo>> getFriendRequests(@Header("Authorization") String token);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @PUT("/User/updatePassword")
+    Call<defaultResponse<String>> updatePassword(@Header("Authorization") String token, @Body UserUpdatePasswordDto updatePassword);
+    //////////////////////USER///////////////////////////
+
+    //////////////////////Exercise///////////////////////////
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/Exercise/all")
     Call<defaultResponseList<Exercise_Item>> getExercises();
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("/Exercise/byType")
     Call<defaultResponseList<Exercise_Item>> getExercisesByType(@Body ExerciseOrMealType type);
+    //////////////////////Exercise///////////////////////////
 
+    //////////////////////MEALS///////////////////////////
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/Meal/all")
     Call<defaultResponseList<Nutrition_Item>> getMeals();
@@ -81,6 +92,7 @@ public interface IUsersApi {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("/Meal/byType")
     Call<defaultResponseList<Nutrition_Item>> getMealsByType(@Body ExerciseOrMealType type);
+    //////////////////////MEALS///////////////////////////
 
 
     ////////////////////////////////////CHALLENGES//////////////////////////////////
@@ -97,6 +109,7 @@ public interface IUsersApi {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/UserStats/")
     Call<defaultResponse<UserStats>> getUserStats(@Header("Authorization") String token);
+    ////////////////////////////////////CHALLENGES//////////////////////////////////
 
 
 }

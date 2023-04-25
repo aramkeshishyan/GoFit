@@ -79,7 +79,7 @@ public class FourthFragment extends Fragment {
     private Button all;
 
     private Button custom;
-    private SharedPreferences sp ;
+    private SharedPreferences sp;
 
 
     //////Challenge Attributes////
