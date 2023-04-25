@@ -3,6 +3,8 @@ package com.example.gofit.data.remote;
 import com.example.gofit.Exercise_Item;
 import com.example.gofit.Friend;
 import com.example.gofit.Nutrition_Item;
+import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
+import com.example.gofit.data.model.requests.Challenges.CreateChallengeDto;
 import com.example.gofit.data.model.requests.ExerciseOrMealType;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
@@ -19,6 +21,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -57,7 +60,7 @@ public interface IUsersApi {
     Call<defaultResponse<String>> denyFriend(@Header("Authorization") String token, @Body UserAcceptedDenied denied);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    @DELETE("/User/friend")
+    @HTTP(method = "DELETE", path = "/User/friend", hasBody = true)
     Call<defaultResponse<String>> deleteFriend(@Header("Authorization") String token, @Body UserFriendedDeleted friendToDelete);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})

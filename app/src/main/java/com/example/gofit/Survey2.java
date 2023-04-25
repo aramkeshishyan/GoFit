@@ -54,7 +54,7 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
 
     private UpdateSurvey updatedUserSurvey;
 
-    //Bundle extras = getIntent().getExtras();
+//    Bundle extras = getIntent().getExtras();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,11 +133,25 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
             public void onResponse(Call<defaultResponse<UserInfo>> call, Response<defaultResponse<UserInfo>> response) {
                 defaultResponse<UserInfo> userInfoResponse = response.body();
 
-                if (response.isSuccessful() && userInfoResponse != null) {
+                if (response.isSuccessful() && userInfoResponse.getData() != null) {
+                    SharedPreferences.Editor spEditor = sp.edit();
+
+                    spEditor.putBoolean("surveyComplete", userInfoResponse.getData().isSurveyComplete());
+                    spEditor.putInt("baseCalories", userInfoResponse.getData().getBaseCalories());
+                    spEditor.putInt("recCalories", userInfoResponse.getData().getRecCalories());
+                    spEditor.putInt("age", userInfoResponse.getData().getAge());
+                    spEditor.putFloat("weight", (float)userInfoResponse.getData().getWeight());
+                    spEditor.putFloat("height", (float)userInfoResponse.getData().getHeight());
+                    spEditor.putString("gender", userInfoResponse.getData().getGender());
+                    spEditor.putString("activityLvl", userInfoResponse.getData().getActivityLvl());
+                    spEditor.putString("bodyType", userInfoResponse.getData().getBodyType());
+                    spEditor.putString("goal", userInfoResponse.getData().getGoal());
+                    spEditor.apply();
 
                     Toast.makeText(Survey2.this,
                             String.format("User Data Posted Successfully"),
                             Toast.LENGTH_LONG).show();
+
 
                 } else {
                     Toast.makeText(Survey2.this,

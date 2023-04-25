@@ -54,7 +54,7 @@ public class Survey1 extends AppCompatActivity implements View.OnClickListener{
 
     private void firstSurveyAnswers()
     {
-        SharedPreferences.Editor spEditor = sp.edit();
+//        SharedPreferences.Editor spEditor = sp.edit();
 
         Intent i = new Intent(Survey1.this, Survey2.class);
 

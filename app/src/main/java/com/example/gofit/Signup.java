@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.requests.User;
-import com.google.firebase.auth.FirebaseAuth;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,7 +21,6 @@ import retrofit2.Response;
 
 public class Signup extends AppCompatActivity implements View.OnClickListener {
 
-    private FirebaseAuth mAuth;
 
     private TextView banner, registerUser, loginText;
     private EditText editTextFullName, editTextEmail, editTextPassword;
@@ -32,8 +30,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
-        mAuth = FirebaseAuth.getInstance();
 
         banner = (TextView) findViewById(R.id.banner);
         banner.setOnClickListener(this);

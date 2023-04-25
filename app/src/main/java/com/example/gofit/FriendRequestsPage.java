@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.gofit.data.model.requests.RequestersInfo;
+import com.example.gofit.data.model.requests.UserAcceptedDenied;
+import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.recyclerViews.RequestersRecViewAdapter;
 
@@ -22,14 +24,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FriendRequestsPage extends AppCompatActivity implements View.OnClickListener {
+public class FriendRequestsPage extends AppCompatActivity implements View.OnClickListener, RequestersRecViewAdapter.OnFriendRequestActionListener {
 
     private ImageButton backBtn;
     private SharedPreferences sp;
+
     private ArrayList<RequestersInfo> requestersArray = new ArrayList<>();
-
-
-    private RequestersRecViewAdapter requestsAdapter = new RequestersRecViewAdapter(this);
+    private RequestersRecViewAdapter requestsAdapter = new RequestersRecViewAdapter(this,this);
     private RecyclerView requestersRecyclerView;
     Context context = this;
 
@@ -98,5 +99,50 @@ public class FriendRequestsPage extends AppCompatActivity implements View.OnClic
         });
 
 
+    }
+
+    //Methods to Accept/Deny friend requests
+    @Override
+    public void onFriendRequestAccepted(RequestersInfo request) {
+        SharedPreferences sp = context.getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        String token = sp.getString("token", "");
+        UserAcceptedDenied acceptedUser = new UserAcceptedDenied(request.getRequestId());
+
+        MainApplication.apiManager.acceptFriend(token, acceptedUser, new Callback<defaultResponseList<Friend>>() {
+            @Override
+            public void onResponse(Call<defaultResponseList<Friend>> call, Response<defaultResponseList<Friend>> response) {
+                defaultResponseList<Friend> responseFriends = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponseList<Friend>> call, Throwable t) {
+
+            }
+        });
+
+        requestersArray.remove(request);            //remove request after accepting
+        requestsAdapter.notifyDataSetChanged();     //Update adapter to reflect request removal
+    }
+
+    @Override
+    public void onFriendRequestDenied(RequestersInfo request) {
+        SharedPreferences sp = context.getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        String token = sp.getString("token", "");
+        UserAcceptedDenied deniedUser = new UserAcceptedDenied(request.getRequestId());
+
+        MainApplication.apiManager.denyFriend(token, deniedUser, new Callback<defaultResponse<String>>() {
+            @Override
+            public void onResponse(Call<defaultResponse<String>> call, Response<defaultResponse<String>> response) {
+                defaultResponse<String> denyResponse = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponse<String>> call, Throwable t) {
+
+            }
+        });
+
+        requestersArray.remove(request);
+        requestsAdapter.notifyDataSetChanged();
     }
 }

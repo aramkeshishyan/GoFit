@@ -17,8 +17,6 @@ import com.bumptech.glide.Glide;
 import com.example.gofit.data.model.requests.UserFriendedDeleted;
 import com.example.gofit.data.model.responses.defaultResponse;
 
-import java.util.concurrent.TimeUnit;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -77,18 +75,9 @@ public class FriendProfile extends AppCompatActivity implements View.OnClickList
         {
             case R.id.backBtn:
                 super.finish();
-                //startActivity(new Intent(this, FriendsListPage.class));
                 break;
             case R.id.removeFriendBtn:
                 deleteFriendCall();
-
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-                startActivity(new Intent(FriendProfile.this, FriendsListPage.class));
                 break;
         }
 
@@ -102,10 +91,8 @@ public class FriendProfile extends AppCompatActivity implements View.OnClickList
         MainApplication.apiManager.deleteFriend(token, userDeleted, new Callback<defaultResponse<String>>() {
             @Override
             public void onResponse(Call<defaultResponse<String>> call, Response<defaultResponse<String>> response) {
-                defaultResponse<String> responseDelete = response.body();
-
-                    Toast.makeText(FriendProfile.this, String.format("%s Removed",userName), Toast.LENGTH_SHORT).show();
-
+                  Toast.makeText(FriendProfile.this, String.format("%s Removed",userName), Toast.LENGTH_SHORT).show();
+                  closeProfileAfterDelete();
             }
 
             @Override
@@ -116,6 +103,9 @@ public class FriendProfile extends AppCompatActivity implements View.OnClickList
 
             }
         });
+    }
 
+    private void closeProfileAfterDelete() {
+        super.finish();
     }
 }
