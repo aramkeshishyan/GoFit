@@ -1,11 +1,13 @@
 package com.example.gofit;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,9 +27,14 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
+import com.example.gofit.data.model.requests.Challenges.CreateChallengeDto;
+import com.example.gofit.data.model.requests.Challenges.Challengess;
+import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.recyclerViews.FriendsRecViewAdapter;
 import com.example.gofit.recyclerViews.custum_base_adapter;
@@ -45,13 +52,24 @@ import retrofit2.Response;
 
 public class FourthFragment extends Fragment {
 
-    private ArrayList<String> work_out_names;
+    private ArrayList<Challengess> work_out_names;
+
+
+
+    //////Challenge Attributes////
+
+    private String chalCreatorEmail;
+    private String chalTitle;
+    private String chalDescription;
+    private ArrayList<Integer> chalExercisesIds = new ArrayList<>();
+    private int chalDuration;
+    private int chalReps;
+    private int chalSets;
 
 
     private final String CHANNEL_ID = "MYCHANNEL_ID_CHALLENEGE";
-    private ArrayList<String> personal_challenge;
-    private ArrayList<String> custum_work_outs;
-    private ArrayList<String> customs_description;
+
+    private ArrayList<ChallengeRecordDto> custom_challenges ;
 
     ArrayList<Friend> friendsList = new ArrayList<>();
 
@@ -83,11 +101,12 @@ public class FourthFragment extends Fragment {
         sp = getActivity().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         sharedPreferences = getActivity().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
         work_out_names = new ArrayList<>();
-        personal_challenge = new ArrayList<>();
+
 
         userFriendsCall();
         // if the array has been saved, than load else it will it create an empty array //
         load_array();
+        challenge_call();
 
 
         visble_container = (RelativeLayout) fourth_view.findViewById(R.id.visible_container);
@@ -98,12 +117,13 @@ public class FourthFragment extends Fragment {
 
         container_2 = (RecyclerView) fourth_view.findViewById(R.id.recyler_view_2);
 
-        add_challenges();
+        //add_challenges(); this sholuld be comment, removed or a combination   //
+
         continer1 = (RecyclerView) fourth_view.findViewById(R.id.recyler_month_challenge);
 
         add = (FloatingActionButton) fourth_view.findViewById(R.id.floating_button1);
-        adapter2 = new second_custom_adapter(fourth_view.getContext(), custum_work_outs, customs_description);
-        adapter = new custum_base_adapter(fourth_view.getContext(), work_out_names, personal_challenge);
+        adapter2 = new second_custom_adapter(fourth_view.getContext(), custom_challenges);
+        adapter = new custum_base_adapter(fourth_view.getContext(), work_out_names);
         continer1.setLayoutManager(new LinearLayoutManager(fourth_view.getContext()));
         continer1.setAdapter(adapter);
 
@@ -162,9 +182,9 @@ public class FourthFragment extends Fragment {
 
 
                         Toast.makeText(getContext(), "john: " + message.getText().toString(), Toast.LENGTH_SHORT).show();
-
-                        customs_description.remove(postion);
-                        custum_work_outs.remove(postion);
+    /////////////API ON WORK HERE /////////////////////
+                        //customs_description.remove(postion);
+                       // custum_work_outs.remove(postion);
                         adapter2.notifyItemRemoved(postion);
 
                         isComplete = true;
@@ -201,23 +221,205 @@ public class FourthFragment extends Fragment {
     // this will  be modify later, tempority type of challeneges       // /
 
 
-    private void add_challenges() {    //S temporary way to populate the recylerview addapter //
-        for (int i = 0; i < 10; i++) {
-            work_out_names.add("Run if you can");
-            personal_challenge.add("description...");
-        }
+   //private void add_challenges() {    //S temporary way to populate the recylerview addapter //
+       // for (int i = 0; i < 10; i++) {
+          //  work_out_names.add("Run if you can");
+           // personal_challenge.add("description...");
+     //   }
+    //}
+
+
+    private void challenge_call () {
+        String token = sp.getString("token", "");
+
+        MainApplication.apiManager.getChallenges(token, new Callback<defaultResponseList<Challengess>>() {
+            @Override
+            public void onResponse(Call<defaultResponseList<Challengess>> call, Response<defaultResponseList<Challengess>> response) {
+                defaultResponseList<Challengess> challengeReponse = response.body() ;
+
+                if (challengeReponse !=null && response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Challenge was sucessful: " + response.code(), Toast.LENGTH_SHORT).show();
+                    work_out_names.addAll(challengeReponse.getData()) ;
+
+                    // updates the front end again after the api call   //
+
+                    adapter.setChallenges_list(work_out_names);
+                    continer1.setAdapter(adapter);
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponseList<Challengess>> call, Throwable t) {
+
+                Toast.makeText(getContext(), "ERROR: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
     // same situatio over here //
     private void add_custum_work_outs() {
 
-        custum_work_outs.add("Add Challenges");
-        customs_description.add("Add descriptions");
-        adapter2.notifyItemInserted(customs_description.size() - 1);
-        Toast.makeText(getContext(), "this new size is " + custum_work_outs.size(), Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setCancelable(true);
+        builder.setTitle("Create a Challenge");
+        builder.setMessage("Enter Attributes");
+
+        EditText edtTitle = new EditText(getActivity());
+        EditText edtDesciption = new EditText(getActivity());
+        EditText edtEx1 = new EditText(getActivity());
+        EditText edtEx2 = new EditText(getActivity());
+        EditText edtEx3 = new EditText(getActivity());
+        EditText edtDuration = new EditText(getActivity());
+        EditText edtReps = new EditText(getActivity());
+        EditText edtSets = new EditText(getActivity());
+
+        LinearLayout lp = new LinearLayout(getActivity().getBaseContext());
+        lp.setOrientation(LinearLayout.VERTICAL);
+        lp.addView(edtTitle);
+        lp.addView(edtDesciption);
+        lp.addView(edtEx1);
+        lp.addView(edtEx2);
+        lp.addView(edtEx3);
+        lp.addView(edtDuration);
+        lp.addView(edtReps);
+        lp.addView(edtSets);
+
+        edtTitle.setHint("Title");
+        edtDesciption.setHint("Description");
+        edtEx1.setHint("First Exercise Id");
+        edtEx2.setHint("Second Exercise Id");
+        edtEx3.setHint("Third Exercise Id");
+        edtDuration.setHint("Challenge Duration");
+        edtReps.setHint("Repetitions amount");
+        edtSets.setHint("Sets amount");
+
+        builder.setView(lp);
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                builder.setCancelable(true);
+                builder.setTitle("Create a Challenge");
+                builder.setMessage("Enter Attributes");
+
+                EditText edtTitle = new EditText(getActivity());
+                EditText edtDesciption = new EditText(getActivity());
+                EditText edtEx1 = new EditText(getActivity());
+                EditText edtEx2 = new EditText(getActivity());
+                EditText edtEx3 = new EditText(getActivity());
+                EditText edtDuration = new EditText(getActivity());
+                EditText edtReps = new EditText(getActivity());
+                EditText edtSets = new EditText(getActivity());
+
+                LinearLayout lp = new LinearLayout(getActivity().getBaseContext());
+                lp.setOrientation(LinearLayout.VERTICAL);
+                lp.addView(edtTitle);
+                lp.addView(edtDesciption);
+                lp.addView(edtEx1);
+                lp.addView(edtEx2);
+                lp.addView(edtEx3);
+                lp.addView(edtDuration);
+                lp.addView(edtReps);
+                lp.addView(edtSets);
+
+                edtTitle.setHint("Title");
+                edtDesciption.setHint("Description");
+                edtEx1.setHint("First Exercise Id");
+                edtEx2.setHint("Second Exercise Id");
+                edtEx3.setHint("Third Exercise Id");
+                edtDuration.setHint("Challenge Duration");
+                edtReps.setHint("Repetitions amount");
+                edtSets.setHint("Sets amount");
+
+                builder.setView(lp);
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        chalCreatorEmail = sp.getString("email", "");
+                        chalTitle = edtTitle.getText().toString().trim();
+                        chalDescription = edtDesciption.getText().toString().trim();
+
+                        chalExercisesIds.add(Integer.parseInt(edtEx1.getText().toString().trim()));
+                        chalExercisesIds.add(Integer.parseInt(edtEx2.getText().toString().trim()));
+                        chalExercisesIds.add(Integer.parseInt(edtEx3.getText().toString().trim()));
+
+                        chalDuration = Integer.parseInt(edtDuration.getText().toString().trim());
+                        chalReps = Integer.parseInt(edtReps.getText().toString().trim());
+                        chalSets = Integer.parseInt(edtSets.getText().toString().trim());
+
+                        createChallengeCall();
+
+
+
+                    }
+                });
+
+                builder.show();
+
+            }
+        });
+
+        builder.show();
 
     }
+
+
+    private void createChallengeCall () {
+
+        String token = sp.getString("token", "");
+
+        //CreateChallengeDto testModel = new CreateChallengeDto(userEmail, "Test Challenge", "Test Description", chalExercisesIds,10, 8,3);
+        CreateChallengeDto testModel = new CreateChallengeDto(chalCreatorEmail, chalTitle, chalDescription, chalExercisesIds,chalDuration, chalReps,chalSets);
+        MainApplication.apiManager.createChallenge(token, testModel, new Callback<defaultResponse<ChallengeRecordDto>>() {
+            @Override
+            public void onResponse(Call<defaultResponse<ChallengeRecordDto>> call, Response<defaultResponse<ChallengeRecordDto>> response) {
+                defaultResponse<ChallengeRecordDto> challengeRecords = response.body();
+
+
+                custom_challenges.add(challengeRecords.getData()) ;
+
+                /////reset the UI data  /////////
+
+                adapter2.setChallengesList(custom_challenges);
+                container_2.setAdapter(adapter2);
+
+                ////////////////////////////////
+
+                Toast.makeText(getActivity(),
+                        "Challenge Creation Successful",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponse<ChallengeRecordDto>> call, Throwable t) {
+
+            }
+        });
+    }
+
 
 
     // feature that may or may not be used ///
@@ -268,11 +470,11 @@ public class FourthFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
 
-        String Json = gson.toJson(custum_work_outs);
-        String JSon2 = gson.toJson(customs_description);
+        String Json = gson.toJson(custom_challenges);
+
 
         editor.putString(text, Json);
-        editor.putString(text, JSon2);
+
         editor.apply();
     }
 
@@ -290,32 +492,23 @@ public class FourthFragment extends Fragment {
         Type type = new TypeToken<ArrayList<String>>() {
         }.getType();
 
-        custum_work_outs = gson.fromJson(Json, type);
-        customs_description = gson.fromJson(Json2, type);
+        custom_challenges = gson.fromJson(Json, type);
 
 
-        if (customs_description == null && custum_work_outs == null) {
 
-            customs_description = new ArrayList<String>();
-            custum_work_outs = new ArrayList<String>();
+        if (custom_challenges  == null) {
+
+            custom_challenges = new ArrayList<ChallengeRecordDto>() ;
         }
 
 
     }
 
 
-    // later will be removed ///
 
 
-    private void populate_fake_friends_list() {
 
 
-        for (int i = 0; i < 10; i++) {
-            Friend friends = new Friend("john", "fakeemail.com",
-                    "https://upload.wikimedia.org/wikipedia/commons/b/bf/LeBron_James_-_51959723161_%28cropped%29.jpg");
-            friendsList.add(friends);
-        }
-    }
 
     protected void userFriendsCall() {
         String token = sp.getString("token", "");

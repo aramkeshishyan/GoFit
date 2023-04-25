@@ -10,20 +10,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gofit.R;
+import com.example.gofit.data.model.requests.Challenges.Challengess;
 
 import java.util.ArrayList;
 
 public class custum_base_adapter extends RecyclerView.Adapter<custum_base_adapter.myViewHolder> {
 
-    private ArrayList<String> string_names  ;
+    private ArrayList<Challengess> challenges_list ;
 
-    private ArrayList<String> description_namess;
     private Context context ;
 
-    public custum_base_adapter(Context context, ArrayList<String> string_names, ArrayList<String> description_namess) {
+    public custum_base_adapter(Context context, ArrayList<Challengess> challenges_list) {
         this.context = context ;
-        this.string_names = string_names ;
-        this.description_namess = description_namess ;
+        this.challenges_list = challenges_list ;
+    }
+
+    public void setChallenges_list (ArrayList<Challengess> challenges_list) {
+        this.challenges_list = challenges_list ;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -41,15 +45,15 @@ public class custum_base_adapter extends RecyclerView.Adapter<custum_base_adapte
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
 
-        holder.challenge_name.setText(string_names.get(position));
-        holder.description_name.setText(description_namess.get(position));
+        holder.challenge_name.setText(challenges_list.get(position).title);
+        holder.description_name.setText(challenges_list.get(position).desc);
     }
 
 
 
     @Override
     public int getItemCount() {
-        return string_names.size();
+        return challenges_list.size();
     }
 
 

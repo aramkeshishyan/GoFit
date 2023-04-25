@@ -51,8 +51,8 @@ public class FriendRequestsPage extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnBackFriendRequests:
-                //super.finish();
-                startActivity(new Intent(this, FriendsListPage.class));
+                super.finish();
+//                startActivity(new Intent(this, FriendsListPage.class));
                 break;
         }
     }

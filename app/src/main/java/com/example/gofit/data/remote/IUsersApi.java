@@ -3,6 +3,9 @@ package com.example.gofit.data.remote;
 import com.example.gofit.Exercise_Item;
 import com.example.gofit.Friend;
 import com.example.gofit.Nutrition_Item;
+import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
+import com.example.gofit.data.model.requests.Challenges.CreateChallengeDto;
+import com.example.gofit.data.model.requests.Challenges.Challengess;
 import com.example.gofit.data.model.requests.ExerciseOrMealType;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
@@ -11,6 +14,7 @@ import com.example.gofit.data.model.requests.UserAcceptedDenied;
 import com.example.gofit.data.model.requests.UserFriendedDeleted;
 import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.requests.UserStats;
+import com.example.gofit.data.model.requests.UserUpdatePasswordDto;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.data.model.responses.tokenResponse;
@@ -22,6 +26,8 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+
 public interface IUsersApi {
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
@@ -85,6 +91,31 @@ public interface IUsersApi {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/UserStats/")
     Call<defaultResponse<UserStats>> getUserStats(@Header("Authorization") String token);
+
+    ////////////////////////////////////CHALLENGES//////////////////////////////////
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/Challenge/createChallenge")
+    Call<defaultResponse<ChallengeRecordDto>> createChallenge(@Header("Authorization") String token, @Body CreateChallengeDto createChallenge);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET("/Challenge/records")
+    Call<defaultResponse<ChallengeRecordDto>> getChallengeRecords(@Header("Authorization") String token);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @PUT("/User/updatePassword")
+    Call<defaultResponse<String>> updatePassword(@Header("Authorization") String token, @Body UserUpdatePasswordDto updatePassword);
+
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET("Challenge/allUserChallenges")
+    Call<defaultResponseList<Challengess>> getChallenges(@Header("Authorization") String token);
+
+
+
+    ////////////////////////////////////CHALLENGES//////////////////////////////////
+
+
 
 
 }

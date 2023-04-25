@@ -219,7 +219,15 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 super.finish();
                 break;
             case R.id.logOutBtn:
-                startActivity(new Intent(UserProfile.this, MainActivity.class));
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear(); //clear all shared preferences
+                editor.apply(); //apply these changes before going to login page
+
+                Intent intent = new Intent(this, MainActivity.class);
+                //ensure that page history is reset before going back to login
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
                 Toast.makeText(UserProfile.this, "Logged out successfully!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.friendsViewAllBtn:

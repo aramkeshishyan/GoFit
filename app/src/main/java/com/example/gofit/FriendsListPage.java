@@ -221,8 +221,8 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnBackFriendsList:
-                //super.finish();
-                startActivity(new Intent(this, HomePage.class));
+                super.finish();
+//                startActivity(new Intent(this, HomePage.class));
                 break;
             case R.id.btnAddFriend:
                 addFriendCall();

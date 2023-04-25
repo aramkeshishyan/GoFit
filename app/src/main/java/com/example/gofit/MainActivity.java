@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (response.isSuccessful() && responseToken.getSuccess() == "true") {
 
                     Toast.makeText(MainActivity.this,
-                            String.format("User Login was Successful"),
+                            String.format("Login was Successful"),
                             Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
 
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 } else {
                     Toast.makeText(MainActivity.this,
-                            String.format("Wrong Credentials\nResponse is %s", String.valueOf(response.code()))
+                            "Wrong Credentials"
                             , Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
                 }

@@ -26,8 +26,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:id="@+id/challenge_name"
+                android:text="Title"
+                android:textAlignment="center"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"
+                android:textSize="30sp"
                 android:textColor="@color/black"
                 >
 
@@ -37,8 +39,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:id="@+id/description_name"
+                android:text="description"
+                android:textAlignment="center"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:textColor="@color/black">
 
             </TextView>
