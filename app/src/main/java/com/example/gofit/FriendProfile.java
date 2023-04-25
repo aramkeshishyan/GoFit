@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,7 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.gofit.data.model.requests.EmailDto;
 import com.example.gofit.data.model.requests.UserFriendedDeleted;
+import com.example.gofit.data.model.requests.UserStats;
 import com.example.gofit.data.model.responses.defaultResponse;
 
 import java.util.concurrent.TimeUnit;
@@ -32,9 +35,15 @@ public class FriendProfile extends AppCompatActivity implements View.OnClickList
     private TextView textViewUserFullName;
 
     private TextView textViewEmail;
-    private String userName;
-    private String userEmail;
-    private String userImage;
+    private String friendName;
+    private String friendEmail;
+    private String friendImage;
+
+    //Friend stats
+    private TextView stepsNumTxtV;
+    private TextView distanceNumTxtV;
+    private TextView challengesNumTxtV;
+    private TextView totalPointsNumTxtView;
 
     private SharedPreferences sp;
 
@@ -56,19 +65,26 @@ public class FriendProfile extends AppCompatActivity implements View.OnClickList
         textViewEmail = findViewById(R.id.userEmail);
 
         //need to use a parseable to parse an Image?
-        userName = getIntent().getStringExtra("NAME");
-        userEmail = getIntent().getStringExtra("EMAIL");
-        userImage = getIntent().getStringExtra("IMAGE");
+        friendName = getIntent().getStringExtra("NAME");
+        friendEmail = getIntent().getStringExtra("EMAIL");
+        friendImage = getIntent().getStringExtra("IMAGE");
 
-        textViewUserFullName.setText(userName);
-        textViewEmail.setText(userEmail);
+        textViewUserFullName.setText(friendName);
+        textViewEmail.setText(friendEmail);
 
         // Default image if user has no picture.
-        if (userImage.isEmpty()) {
-            userImage = "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
+        if (friendImage.isEmpty()) {
+            friendImage = "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
         }
-        Glide.with(this).asBitmap().load(userImage).centerCrop().into(imageViewUserImage);
+        Glide.with(this).asBitmap().load(friendImage).centerCrop().into(imageViewUserImage);
 
+        //Friend stats
+        stepsNumTxtV = findViewById(R.id.stepsNumTxtV);
+        distanceNumTxtV = findViewById(R.id.distanceNumTxtV);
+        challengesNumTxtV = findViewById(R.id.challengesNumTxtV);
+        totalPointsNumTxtView = findViewById(R.id.totalPointsNumTxtView);
+
+        friendStatsCall();
     }
 
     @Override
@@ -77,35 +93,67 @@ public class FriendProfile extends AppCompatActivity implements View.OnClickList
         {
             case R.id.backBtn:
                 super.finish();
-                //startActivity(new Intent(this, FriendsListPage.class));
                 break;
             case R.id.removeFriendBtn:
                 deleteFriendCall();
-
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-                startActivity(new Intent(FriendProfile.this, FriendsListPage.class));
                 break;
         }
+
+    }
+
+    private void friendStatsCall(){
+        String token = sp.getString("token", "");
+        EmailDto email = new EmailDto(friendEmail);
+
+        MainApplication.apiManager.getFriendStats(token, email, new Callback<defaultResponse<UserStats>>() {
+            @Override
+            public void onResponse(Call<defaultResponse<UserStats>> call, Response<defaultResponse<UserStats>> response) {
+                defaultResponse<UserStats> responseFriendStats = response.body();
+
+                if (response.isSuccessful() && responseFriendStats != null) {
+                    if (responseFriendStats.getData() != null) {
+                        UserStats friendStats = responseFriendStats.getData();
+                        String distance = friendStats.getTotalDistanceKm() + " km";
+
+                        stepsNumTxtV.setText(String.valueOf(friendStats.getStepCount()));
+                        distanceNumTxtV.setText(distance);
+                        challengesNumTxtV.setText(String.valueOf(friendStats.getChallengeCount()));
+                        totalPointsNumTxtView.setText(String.valueOf(friendStats.getTotalPoints()));
+                    }
+                    else {
+                        stepsNumTxtV.setText(String.valueOf(0));
+                        distanceNumTxtV.setText(0.0 + " km");
+                        challengesNumTxtV.setText(String.valueOf(0));
+                        totalPointsNumTxtView.setText(String.valueOf(0));
+                    }
+                }
+                else {
+                    Toast.makeText(FriendProfile.this, responseFriendStats.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponse<UserStats>> call, Throwable t) {
+                Toast.makeText(FriendProfile.this,
+                        "Error: ", Toast.LENGTH_LONG).show();
+                Log.d("friendStatsCallTag", t.getMessage());
+            }
+        });
+
+
 
     }
 
     private void deleteFriendCall() {
         String token = sp.getString("token", "");
 
-        UserFriendedDeleted userDeleted = new UserFriendedDeleted(userEmail);
+        UserFriendedDeleted userDeleted = new UserFriendedDeleted(friendEmail);
 
         MainApplication.apiManager.deleteFriend(token, userDeleted, new Callback<defaultResponse<String>>() {
             @Override
             public void onResponse(Call<defaultResponse<String>> call, Response<defaultResponse<String>> response) {
-                defaultResponse<String> responseDelete = response.body();
-
-                    Toast.makeText(FriendProfile.this, String.format("%s Removed",userName), Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(FriendProfile.this, String.format("%s Removed", friendName), Toast.LENGTH_SHORT).show();
+                closeProfileAfterDelete();
             }
 
             @Override
@@ -117,5 +165,9 @@ public class FriendProfile extends AppCompatActivity implements View.OnClickList
             }
         });
 
+    }
+
+    private void closeProfileAfterDelete() {
+        super.finish();
     }
 }

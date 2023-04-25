@@ -6,6 +6,7 @@ import com.example.gofit.Nutrition_Item;
 import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
 import com.example.gofit.data.model.requests.Challenges.CreateChallengeDto;
 import com.example.gofit.data.model.requests.Challenges.Challengess;
+import com.example.gofit.data.model.requests.EmailDto;
 import com.example.gofit.data.model.requests.ExerciseOrMealType;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
@@ -89,10 +90,14 @@ public interface IUsersApi {
     Call<defaultResponseList<Nutrition_Item>> getMealsByType(@Body ExerciseOrMealType type);
 
 
-    //User Stats
+    // ---------------- USER STATS ----------------
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/UserStats/")
     Call<defaultResponse<UserStats>> getUserStats(@Header("Authorization") String token);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/UserStats/Friend/")
+    Call<defaultResponse<UserStats>> getFriendStats(@Header("authorization") String token, @Body EmailDto friendEmail);
 
     ////////////////////////////////////CHALLENGES//////////////////////////////////
 

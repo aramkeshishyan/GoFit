@@ -6,6 +6,7 @@ import com.example.gofit.Nutrition_Item;
 import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
 import com.example.gofit.data.model.requests.Challenges.CreateChallengeDto;
 import com.example.gofit.data.model.requests.Challenges.Challengess;
+import com.example.gofit.data.model.requests.EmailDto;
 import com.example.gofit.data.model.requests.ExerciseOrMealType;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.UpdateSurvey;
@@ -136,6 +137,11 @@ public class ApiManager {
     public void getUserStats(String token, Callback<defaultResponse<UserStats>> callback) {
         Call<defaultResponse<UserStats>> userStats = service.getUserStats("Bearer " + token);
         userStats.enqueue(callback);
+    }
+
+    public void getFriendStats(String token, EmailDto friendEmail, Callback<defaultResponse<UserStats>> callback) {
+        Call<defaultResponse<UserStats>> friendStats = service.getFriendStats("Bearer " + token, friendEmail);
+        friendStats.enqueue(callback);
     }
 
 
