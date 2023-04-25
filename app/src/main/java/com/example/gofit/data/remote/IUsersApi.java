@@ -9,6 +9,7 @@ import com.example.gofit.data.model.requests.Challenges.Challengess;
 import com.example.gofit.data.model.requests.EmailDto;
 import com.example.gofit.data.model.requests.ExerciseOrMealType;
 import com.example.gofit.data.model.requests.RequestersInfo;
+import com.example.gofit.data.model.requests.Steps;
 import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserAcceptedDenied;
@@ -40,6 +41,9 @@ public interface IUsersApi {
     @POST("/User/login")
     Call<tokenResponse> loginUser(@Body User user);
 
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @PUT("/User/updatePassword")
+    Call<defaultResponse<String>> updatePassword(@Header("Authorization") String token, @Body UserUpdatePasswordDto updatePassword);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("/User/updateSurvey")
@@ -51,6 +55,10 @@ public interface IUsersApi {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/User/friends")
     Call<defaultResponseList<Friend>> getFriends(@Header("Authorization") String token);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET("/User/friendRequests")
+    Call<defaultResponseList<RequestersInfo>> getFriendRequests(@Header("Authorization") String token);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("/User/addFriend")
@@ -69,10 +77,8 @@ public interface IUsersApi {
     @HTTP(method = "DELETE", path = "/User/friend", hasBody = true)
     Call<defaultResponse<String>> deleteFriend(@Header("Authorization") String token, @Body UserFriendedDeleted friendToDelete);
 
-    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    @GET("/User/friendRequests")
-    Call<defaultResponseList<RequestersInfo>> getFriendRequests(@Header("Authorization") String token);
 
+    // ---------------- EXERCISES AND MEALS ----------------
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/Exercise/all")
     Call<defaultResponseList<Exercise_Item>> getExercises();
@@ -92,12 +98,35 @@ public interface IUsersApi {
 
     // ---------------- USER STATS ----------------
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET("/UserStats/create/")
+    Call<defaultResponse<String>> createUserStats(@Header("Authorization") String token);
+
+    //For testing purposes this allows you to manually change all stats of the user
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/UserStats/manualStatUpdate/")
+    Call<defaultResponse<UserStats>> manualUserStatsChange(@Header("Authorization") String token, @Body UserStats statsToChange);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/UserStats/updateSteps/")
+    Call<defaultResponse<String>> updateSteps(@Header("Authorization") String token, @Body Steps stepsToAdd);   //Steps will be added to total
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET("/UserStats/resetSteps/")
+    Call<defaultResponse<String>> resetStepsAndDistTo0(@Header("Authorization") String token);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET("/UserStats/updateChallengeStats/")
+    Call<defaultResponse<String>> updateChallengeStats(@Header("Authorization") String token);  //Ensures challenge count/points are up to date.
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/UserStats/")
     Call<defaultResponse<UserStats>> getUserStats(@Header("Authorization") String token);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("/UserStats/Friend/")
-    Call<defaultResponse<UserStats>> getFriendStats(@Header("authorization") String token, @Body EmailDto friendEmail);
+    Call<defaultResponse<UserStats>> getFriendStats(@Header("Authorization") String token, @Body EmailDto friendEmail);
+
+
 
     ////////////////////////////////////CHALLENGES//////////////////////////////////
 
@@ -108,10 +137,6 @@ public interface IUsersApi {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/Challenge/records")
     Call<defaultResponse<ChallengeRecordDto>> getChallengeRecords(@Header("Authorization") String token);
-
-    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    @PUT("/User/updatePassword")
-    Call<defaultResponse<String>> updatePassword(@Header("Authorization") String token, @Body UserUpdatePasswordDto updatePassword);
 
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
