@@ -4,11 +4,16 @@ import com.example.gofit.Exercise_Item;
 import com.example.gofit.Friend;
 import com.example.gofit.Nutrition_Item;
 import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
+import com.example.gofit.data.model.requests.Challenges.ChallengeRequestDto;
 import com.example.gofit.data.model.requests.Challenges.CreateChallengeDto;
-import com.example.gofit.data.model.requests.Challenges.Challengess;
+import com.example.gofit.data.model.requests.Challenges.ChallengeDto;
+import com.example.gofit.data.model.requests.Challenges.SendChallengeDto;
+import com.example.gofit.data.model.requests.Challenges.UpdateChallengeDto;
 import com.example.gofit.data.model.requests.EmailDto;
 import com.example.gofit.data.model.requests.ExerciseOrMealType;
+import com.example.gofit.data.model.requests.ObjectId;
 import com.example.gofit.data.model.requests.RequestersInfo;
+import com.example.gofit.data.model.requests.Steps;
 import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserAcceptedDenied;
@@ -133,7 +138,32 @@ public class ApiManager {
         mealsList.enqueue(callback);
     }
 
-    //User Stats
+    // ---------------- USER STATS ----------------
+    public void createUserStats(String token, Callback<defaultResponse<String>> callback) {
+        Call<defaultResponse<String>> emptyDataResponse = service.createUserStats("Bearer " + token);
+        emptyDataResponse.enqueue(callback);
+    }
+
+    public void manualUserStatsChange(String token, UserStats statsToChange, Callback<defaultResponse<UserStats>> callback) {
+        Call<defaultResponse<UserStats>> newUserStats = service.manualUserStatsChange("Bearer " + token, statsToChange);
+        newUserStats.enqueue(callback);
+    }
+
+    public void updateSteps(String token, Steps steps, Callback<defaultResponse<String>> callback) {
+        Call<defaultResponse<String>> emptyDataResponse = service.updateSteps("Bearer " + token, steps);
+        emptyDataResponse.enqueue(callback);
+    }
+
+    public void resetStepsAndDist(String token, Callback<defaultResponse<String>> callback) {
+        Call<defaultResponse<String>> emptyDataResponse = service.resetStepsAndDistTo0("Bearer " + token);
+        emptyDataResponse.enqueue(callback);
+    }
+
+    public void updateChallengeStats(String token, Callback<defaultResponse<String>> callback) {
+        Call<defaultResponse<String>> emptyDataResponse = service.updateChallengeStats("Bearer " + token);
+        emptyDataResponse.enqueue(callback);
+    }
+
     public void getUserStats(String token, Callback<defaultResponse<UserStats>> callback) {
         Call<defaultResponse<UserStats>> userStats = service.getUserStats("Bearer " + token);
         userStats.enqueue(callback);
@@ -145,6 +175,8 @@ public class ApiManager {
     }
 
 
+
+
     ///////////////////////CHALLENGES//////////////////
 
     public void createChallenge(String token, CreateChallengeDto createChallenge, Callback<defaultResponse<ChallengeRecordDto>> callback){
@@ -152,19 +184,49 @@ public class ApiManager {
         challengeRecords.enqueue(callback);
     }
 
-    public void getChallengeRecords(String token, Callback<defaultResponse<ChallengeRecordDto>> callback){
-        Call<defaultResponse<ChallengeRecordDto>> challengeRecords = service.getChallengeRecords("Bearer " + token);
+    public void getChallengeRecords(String token, Callback<defaultResponseList<ChallengeRecordDto>> callback){
+        Call<defaultResponseList<ChallengeRecordDto>> challengeRecords = service.getChallengeRecords("Bearer " + token);
         challengeRecords.enqueue(callback);
     }
 
-
-    public void getChallenges (String token, Callback<defaultResponseList<Challengess>> callback) {
-        Call<defaultResponseList<Challengess>> challenges_list = service.getChallenges("Bearer " + token);
+    public void getChallenges(String token, Callback<defaultResponseList<ChallengeDto>> callback) {
+        Call<defaultResponseList<ChallengeDto>> challenges_list = service.getAllUserChallenges("Bearer " + token);
         challenges_list.enqueue(callback);
-
     }
 
+    public void getChallengeInfoById(String token, ObjectId challengeId, Callback<defaultResponse<ChallengeDto>> callback) {
+        Call<defaultResponse<ChallengeDto>> challenge = service.getChallengeInfoById("Bearer " + token, challengeId);
+        challenge.enqueue(callback);
+    }
+    public void sendChallengeRequest(String token, SendChallengeDto sendRequest, Callback<defaultResponse<String>> callback) {
+        Call<defaultResponse<String>> emptyDataResponse = service.sendChallengeRequest("Bearer " + token, sendRequest);
+        emptyDataResponse.enqueue(callback);
+    }
 
+    public void acceptChallengeRequest(String token, ObjectId requestId, Callback<defaultResponse<ChallengeRequestDto>> callback) {
+        Call<defaultResponse<ChallengeRequestDto>> challengeRequestInfo = service.acceptChallengeRequest("Bearer " + token, requestId);
+        challengeRequestInfo.enqueue(callback);
+    }
+
+    public void denyChallengeRequest(String token, ObjectId requestId, Callback<defaultResponse<String>> callback) {
+        Call<defaultResponse<String>> emptyDataResponse = service.denyChallengeRequest("Bearer " + token, requestId);
+        emptyDataResponse.enqueue(callback);
+    }
+
+    public void getUserChallengeRequests(String token, Callback<defaultResponseList<ChallengeRequestDto>> callback) {
+        Call<defaultResponseList<ChallengeRequestDto>> challengeRequests = service.getUserChallengeRequests("Bearer " + token);
+        challengeRequests.enqueue(callback);
+    }
+
+    public void completeChallenge(String token, ObjectId challengeId, Callback<defaultResponse<ChallengeRecordDto>> callback) {
+        Call<defaultResponse<ChallengeRecordDto>>  updatedChallengeRecord = service.completeChallenge("Bearer " + token, challengeId);
+        updatedChallengeRecord.enqueue(callback);
+    }
+
+    public void updateChallenge(String token, UpdateChallengeDto updatedInfo, Callback<defaultResponse<ChallengeDto>> callback) {
+        Call<defaultResponse<ChallengeDto>> updatedChallenge = service.updateChallenge("Bearer " + token, updatedInfo);
+        updatedChallenge.enqueue(callback);
+    }
 
     //////////////////CHALLENGES //////////////////////////////////////////////
 

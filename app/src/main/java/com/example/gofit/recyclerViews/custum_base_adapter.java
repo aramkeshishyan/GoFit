@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gofit.R;
-import com.example.gofit.data.model.requests.Challenges.Challengess;
+import com.example.gofit.data.model.requests.Challenges.ChallengeDto;
 
 import java.util.ArrayList;
 
 public class custum_base_adapter extends RecyclerView.Adapter<custum_base_adapter.myViewHolder> {
 
-    private ArrayList<Challengess> challenges_list ;
+    private ArrayList<ChallengeDto> challenges_list ;
 
     private Context context ;
 
-    public custum_base_adapter(Context context, ArrayList<Challengess> challenges_list) {
+    public custum_base_adapter(Context context, ArrayList<ChallengeDto> challenges_list) {
         this.context = context ;
         this.challenges_list = challenges_list ;
     }
 
-    public void setChallenges_list (ArrayList<Challengess> challenges_list) {
+    public void setChallenges_list (ArrayList<ChallengeDto> challenges_list) {
         this.challenges_list = challenges_list ;
         notifyDataSetChanged();
     }
@@ -46,8 +46,8 @@ public class custum_base_adapter extends RecyclerView.Adapter<custum_base_adapte
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
 
 
-        holder.challenge_name.setText(challenges_list.get(position).title);
-        holder.description_name.setText(challenges_list.get(position).desc);
+        holder.challenge_name.setText(challenges_list.get(position).getTitle());
+        holder.description_name.setText(challenges_list.get(position).getDesc());
     }
 
 

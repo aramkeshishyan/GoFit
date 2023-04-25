@@ -33,7 +33,7 @@ import android.widget.Toast;
 
 import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
 import com.example.gofit.data.model.requests.Challenges.CreateChallengeDto;
-import com.example.gofit.data.model.requests.Challenges.Challengess;
+import com.example.gofit.data.model.requests.Challenges.ChallengeDto;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.recyclerViews.FriendsRecViewAdapter;
@@ -52,7 +52,7 @@ import retrofit2.Response;
 
 public class FourthFragment extends Fragment {
 
-    private ArrayList<Challengess> work_out_names;
+    private ArrayList<ChallengeDto> work_out_names;
 
 
 
@@ -232,10 +232,10 @@ public class FourthFragment extends Fragment {
     private void challenge_call () {
         String token = sp.getString("token", "");
 
-        MainApplication.apiManager.getChallenges(token, new Callback<defaultResponseList<Challengess>>() {
+        MainApplication.apiManager.getChallenges(token, new Callback<defaultResponseList<ChallengeDto>>() {
             @Override
-            public void onResponse(Call<defaultResponseList<Challengess>> call, Response<defaultResponseList<Challengess>> response) {
-                defaultResponseList<Challengess> challengeReponse = response.body() ;
+            public void onResponse(Call<defaultResponseList<ChallengeDto>> call, Response<defaultResponseList<ChallengeDto>> response) {
+                defaultResponseList<ChallengeDto> challengeReponse = response.body() ;
 
                 if (challengeReponse !=null && response.isSuccessful()) {
                     Toast.makeText(getContext(), "Challenge was sucessful: " + response.code(), Toast.LENGTH_SHORT).show();
@@ -252,7 +252,7 @@ public class FourthFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<defaultResponseList<Challengess>> call, Throwable t) {
+            public void onFailure(Call<defaultResponseList<ChallengeDto>> call, Throwable t) {
 
                 Toast.makeText(getContext(), "ERROR: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

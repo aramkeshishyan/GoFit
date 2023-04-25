@@ -3,9 +3,8 @@ package com.example.gofit.data.model.requests.Challenges;
 import java.time.LocalDateTime;
 
 public class ChallengeRecordDto {
-
     private String creatorEmail;
-    private Challengess challenge;
+    private ChallengeDto challenge;
     private LocalDateTime dateAccepted;
     private LocalDateTime dateStarted;
     private LocalDateTime dateEnd;
@@ -15,7 +14,7 @@ public class ChallengeRecordDto {
     private int totalDaysCompleted;
     private int score;
 
-    public ChallengeRecordDto(String creatorEmail, Challengess challenge, LocalDateTime dateAccepted, LocalDateTime dateStarted, LocalDateTime dateEnd, LocalDateTime dateLastCompleted, boolean isComplete, int streak, int totalDaysCompleted, int score) {
+    public ChallengeRecordDto(String creatorEmail, ChallengeDto challenge, LocalDateTime dateAccepted, LocalDateTime dateStarted, LocalDateTime dateEnd, LocalDateTime dateLastCompleted, boolean isComplete, int streak, int totalDaysCompleted, int score) {
         this.creatorEmail = creatorEmail;
         this.challenge = challenge;
         this.dateAccepted = dateAccepted;
@@ -36,11 +35,11 @@ public class ChallengeRecordDto {
         this.creatorEmail = creatorEmail;
     }
 
-    public Challengess getChallenge() {
+    public ChallengeDto getChallenge() {
         return challenge;
     }
 
-    public void setChallenge(Challengess challenge) {
+    public void setChallenge(ChallengeDto challenge) {
         this.challenge = challenge;
     }
 

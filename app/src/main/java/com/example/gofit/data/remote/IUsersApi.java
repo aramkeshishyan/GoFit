@@ -4,10 +4,14 @@ import com.example.gofit.Exercise_Item;
 import com.example.gofit.Friend;
 import com.example.gofit.Nutrition_Item;
 import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
+import com.example.gofit.data.model.requests.Challenges.ChallengeRequestDto;
 import com.example.gofit.data.model.requests.Challenges.CreateChallengeDto;
-import com.example.gofit.data.model.requests.Challenges.Challengess;
+import com.example.gofit.data.model.requests.Challenges.ChallengeDto;
+import com.example.gofit.data.model.requests.Challenges.SendChallengeDto;
+import com.example.gofit.data.model.requests.Challenges.UpdateChallengeDto;
 import com.example.gofit.data.model.requests.EmailDto;
 import com.example.gofit.data.model.requests.ExerciseOrMealType;
+import com.example.gofit.data.model.requests.ObjectId;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.Steps;
 import com.example.gofit.data.model.requests.UpdateSurvey;
@@ -23,7 +27,6 @@ import com.example.gofit.data.model.responses.tokenResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
@@ -129,21 +132,50 @@ public interface IUsersApi {
 
 
     ////////////////////////////////////CHALLENGES//////////////////////////////////
-
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("/Challenge/createChallenge")
     Call<defaultResponse<ChallengeRecordDto>> createChallenge(@Header("Authorization") String token, @Body CreateChallengeDto createChallenge);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/Challenge/records")
-    Call<defaultResponse<ChallengeRecordDto>> getChallengeRecords(@Header("Authorization") String token);
-
+    Call<defaultResponseList<ChallengeRecordDto>> getChallengeRecords(@Header("Authorization") String token);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    @GET("Challenge/allUserChallenges")
-    Call<defaultResponseList<Challengess>> getChallenges(@Header("Authorization") String token);
+    @GET("/Challenge/allUserChallenges")
+    Call<defaultResponseList<ChallengeDto>> getAllUserChallenges(@Header("Authorization") String token);
 
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/Challenge/challengeById/")
+    Call<defaultResponse<ChallengeDto>> getChallengeInfoById(@Header("Authorization") String token, @Body ObjectId challengeId);
 
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/Challenge/sendRequest/")
+    Call<defaultResponse<String>> sendChallengeRequest(@Header("Authorization") String token, @Body SendChallengeDto sendRequest);
+
+    //This returns a challengeRequestDto but you can ignore this data.
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/Challenge/acceptRequest/")
+    Call<defaultResponse<ChallengeRequestDto>> acceptChallengeRequest(@Header("Authorization") String token, @Body ObjectId requestId);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/Challenge/denyRequest/")
+    Call<defaultResponse<String>> denyChallengeRequest(@Header("Authorization") String token, @Body ObjectId requestId);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET("/Challenge/requests/")
+    Call<defaultResponseList<ChallengeRequestDto>> getUserChallengeRequests(@Header("Authorization") String token);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/Challenge/completeChallenge/")
+    Call<defaultResponse<ChallengeRecordDto>> completeChallenge(@Header("Authorization") String token, @Body ObjectId challengeId);
+
+    //Users can only update challenges that they created!
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @PUT("/Challenge/")
+    Call<defaultResponse<ChallengeDto>> updateChallenge(@Header("Authorization") String token, @Body UpdateChallengeDto updatedInfo);
+
+    //There is a delete challenge function for testing purposes only
+    //Not for users to delete their challenges
 
     ////////////////////////////////////CHALLENGES//////////////////////////////////
 
