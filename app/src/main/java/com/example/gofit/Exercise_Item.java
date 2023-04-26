@@ -3,7 +3,9 @@ package com.example.gofit;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Exercise_Item {
+import java.io.Serializable;
+
+public class Exercise_Item implements Serializable {
     @SerializedName("id")
     @Expose
     private String item_id;

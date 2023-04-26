@@ -43,6 +43,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -50,7 +51,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FourthFragment extends Fragment {
+public class FourthFragment extends Fragment implements custum_base_adapter.OnNoteListener {
 
     private ArrayList<ChallengeDto> work_out_names;
 
@@ -123,7 +124,7 @@ public class FourthFragment extends Fragment {
 
         add = (FloatingActionButton) fourth_view.findViewById(R.id.floating_button1);
         adapter2 = new second_custom_adapter(fourth_view.getContext(), custom_challenges);
-        adapter = new custum_base_adapter(fourth_view.getContext(), work_out_names);
+        adapter = new custum_base_adapter(fourth_view.getContext(), work_out_names, this);
         continer1.setLayoutManager(new LinearLayoutManager(fourth_view.getContext()));
         continer1.setAdapter(adapter);
 
@@ -541,6 +542,25 @@ public class FourthFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onNoteClick(int position) {
+
+        Intent intent = new Intent(getContext(), ChallengeDetails.class);
+        intent.putExtra("title", work_out_names.get(position).getTitle());
+        intent.putExtra("duration", work_out_names.get(position).getDurationDays());
+        intent.putExtra("reps",work_out_names.get(position).getReps());
+        intent.putExtra("sets", work_out_names.get(position).getSets());
+        intent.putExtra("id", work_out_names.get(position).getChallengeId());
+        intent.putExtra("email", work_out_names.get(position).getCreatorEmail());
+        intent.putExtra("description", work_out_names.get(position).getDesc());
+
+        Bundle bundle = new Bundle();
+        ArrayList<Exercise_Item> exercise_list = work_out_names.get(position).getExerciseList() ;
+        bundle.putSerializable("exercise_list", exercise_list);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }
 
