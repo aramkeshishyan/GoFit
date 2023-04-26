@@ -31,7 +31,7 @@ public class ChallengeRecViewAdapter extends RecyclerView.Adapter<ChallengeRecVi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(challenge_context).inflate(R.layout.recycle_view_item_challenge, parent,false);
+        View view = LayoutInflater.from(challenge_context).inflate(R.layout.recycle_view_item_challenge1, parent,false);
         return new ViewHolder(view, mOnNoteListener);
     }
 
