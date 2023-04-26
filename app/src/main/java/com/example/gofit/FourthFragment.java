@@ -235,20 +235,20 @@ public class FourthFragment extends Fragment {
         MainApplication.apiManager.getChallenges(token, new Callback<defaultResponseList<ChallengeDto>>() {
             @Override
             public void onResponse(Call<defaultResponseList<ChallengeDto>> call, Response<defaultResponseList<ChallengeDto>> response) {
-                defaultResponseList<ChallengeDto> challengeReponse = response.body() ;
+                defaultResponseList<ChallengeDto> challengeResponse = response.body();
 
-                if (challengeReponse !=null && response.isSuccessful()) {
-                    Toast.makeText(getContext(), "Challenge was sucessful: " + response.code(), Toast.LENGTH_SHORT).show();
-                    work_out_names.addAll(challengeReponse.getData()) ;
+                Toast.makeText(getContext(), "Challenge was sucessful: " + response.code(), Toast.LENGTH_SHORT).show();
 
-                    // updates the front end again after the api call   //
+                if (response.isSuccessful() && challengeResponse != null) {
+                    if (challengeResponse.getData() != null) {
+                        work_out_names.addAll(challengeResponse.getData()) ;
 
-                    adapter.setChallenges_list(work_out_names);
-                    continer1.setAdapter(adapter);
+                        // updates the front end again after the api call   //
 
+                        adapter.setChallenges_list(work_out_names);
+                        continer1.setAdapter(adapter);
+                    }
                 }
-
-
             }
 
             @Override

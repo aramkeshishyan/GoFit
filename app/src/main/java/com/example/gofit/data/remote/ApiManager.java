@@ -15,6 +15,7 @@ import com.example.gofit.data.model.requests.ObjectId;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.Steps;
 import com.example.gofit.data.model.requests.UpdateSurvey;
+import com.example.gofit.data.model.requests.UpdateUserDto;
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserAcceptedDenied;
 import com.example.gofit.data.model.requests.UserFriendedDeleted;
@@ -78,6 +79,11 @@ public class ApiManager {
 
     public void updateUserSurvey(String token, UpdateSurvey update, Callback<defaultResponse<UserInfo>> callback){
         Call<defaultResponse<UserInfo>> userInfo = service.updateUserSurvey("Bearer " + token, update);
+        userInfo.enqueue(callback);
+    }
+
+    public void updateUserInfo(String token, UpdateUserDto update, Callback<defaultResponse<UserInfo>> callback) {
+        Call<defaultResponse<UserInfo>> userInfo = service.updateUserInfo("Bearer " + token, update);
         userInfo.enqueue(callback);
     }
 

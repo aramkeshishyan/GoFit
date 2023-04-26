@@ -15,6 +15,7 @@ import com.example.gofit.data.model.requests.ObjectId;
 import com.example.gofit.data.model.requests.RequestersInfo;
 import com.example.gofit.data.model.requests.Steps;
 import com.example.gofit.data.model.requests.UpdateSurvey;
+import com.example.gofit.data.model.requests.UpdateUserDto;
 import com.example.gofit.data.model.requests.User;
 import com.example.gofit.data.model.requests.UserAcceptedDenied;
 import com.example.gofit.data.model.requests.UserFriendedDeleted;
@@ -51,6 +52,13 @@ public interface IUsersApi {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("/User/updateSurvey")
     Call<defaultResponse<UserInfo>> updateUserSurvey(@Header("Authorization") String token, @Body UpdateSurvey update);
+
+    //Updates name, email, and photo
+    //Any blanks should be filled with current user data
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @PUT("/User/updateUser")
+    Call<defaultResponse<UserInfo>> updateUserInfo(@Header("Authorization") String token, @Body UpdateUserDto update);
+
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/User/info")
     Call<defaultResponse<UserInfo>> getUserInfo(@Header("Authorization") String token);
