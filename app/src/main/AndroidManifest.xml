@@ -20,6 +20,9 @@
             android:name=".ChallengeActivity"
             android:exported="false" />
         <activity
+            android:name=".ChallengeDetails"
+            android:exported="false" />
+        <activity
             android:name=".FriendProfile"
             android:exported="false" />
         <activity
