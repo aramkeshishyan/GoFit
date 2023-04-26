@@ -15,16 +15,16 @@ public class ChallengeRecordDto {
     private ChallengeDtoInRecord challenge;
     @SerializedName("dateAccepted")
     @Expose
-    private LocalDateTime dateAccepted;
+    private String dateAccepted;
     @SerializedName("dateStarted")
     @Expose
-    private LocalDateTime dateStarted;
+    private String dateStarted;
     @SerializedName("dateEnd")
     @Expose
-    private LocalDateTime dateEnd;
+    private String dateEnd;
     @SerializedName("dateLastCompleted")
     @Expose
-    private LocalDateTime dateLastCompleted;
+    private String dateLastCompleted;
     @SerializedName("isComplete")
     @Expose
     private boolean isComplete;
@@ -38,7 +38,7 @@ public class ChallengeRecordDto {
     @Expose
     private int score;
 
-    public ChallengeRecordDto(String creatorEmail, ChallengeDtoInRecord challenge, LocalDateTime dateAccepted, LocalDateTime dateStarted, LocalDateTime dateEnd, LocalDateTime dateLastCompleted, boolean isComplete, int streak, int totalDaysCompleted, int score) {
+    public ChallengeRecordDto(String creatorEmail, ChallengeDtoInRecord challenge, String dateAccepted, String dateStarted, String dateEnd, String dateLastCompleted, boolean isComplete, int streak, int totalDaysCompleted, int score) {
         this.creatorEmail = creatorEmail;
         this.challenge = challenge;
         this.dateAccepted = dateAccepted;
@@ -67,35 +67,35 @@ public class ChallengeRecordDto {
         this.challenge = challenge;
     }
 
-    public LocalDateTime getDateAccepted() {
+    public String getDateAccepted() {
         return dateAccepted;
     }
 
-    public void setDateAccepted(LocalDateTime dateAccepted) {
+    public void setDateAccepted(String dateAccepted) {
         this.dateAccepted = dateAccepted;
     }
 
-    public LocalDateTime getDateStarted() {
+    public String getDateStarted() {
         return dateStarted;
     }
 
-    public void setDateStarted(LocalDateTime dateStarted) {
+    public void setDateStarted(String dateStarted) {
         this.dateStarted = dateStarted;
     }
 
-    public LocalDateTime getDateEnd() {
+    public String getDateEnd() {
         return dateEnd;
     }
 
-    public void setDateEnd(LocalDateTime dateEnd) {
+    public void setDateEnd(String dateEnd) {
         this.dateEnd = dateEnd;
     }
 
-    public LocalDateTime getDateLastCompleted() {
+    public String getDateLastCompleted() {
         return dateLastCompleted;
     }
 
-    public void setDateLastCompleted(LocalDateTime dateLastCompleted) {
+    public void setDateLastCompleted(String dateLastCompleted) {
         this.dateLastCompleted = dateLastCompleted;
     }
 
