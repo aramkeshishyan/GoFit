@@ -26,6 +26,7 @@ import com.example.gofit.recyclerViews.ExerciseRecViewAdapter;
 import com.example.gofit.recyclerViews.RecommendExerciseAdapter;
 import com.example.gofit.recyclerViews.RecommendNutritionAdapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -285,6 +286,27 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         Intent intent = new Intent(getContext(), ChallengeActivity.class);
         intent.putExtra("chal_title", challenge_list.get(position).getTitle());
         intent.putExtra("chal_description", challenge_list.get(position).getDesc());
+
+        //Bundle args = new Bundle();
+        //args.putSerializable("ARRAYLIST", (Serializable) challenge_list);
+        //intent.putExtra("BUNDLE", args);
+
+        intent.putExtra("chal_durationDays", challenge_list.get(position).getDurationDays());
+        intent.putExtra("chal_repetitions", challenge_list.get(position).getReps());
+        intent.putExtra("chal_sets", challenge_list.get(position).getSets());
+        intent.putExtra("chal_creator", challenge_list.get(position).getCreatorEmail());
+        intent.putExtra("chal_date_accepted", challenge_list.get(position).getDateAccepted());
+        intent.putExtra("chal_date_started", challenge_list.get(position).getDateStarted());
+        intent.putExtra("chal_date_end", challenge_list.get(position).getDateEnd());
+        intent.putExtra("chal_date_last_completed", challenge_list.get(position).getDateLastCompleted());
+        intent.putExtra("chal_complete", challenge_list.get(position).isComplete());
+        intent.putExtra("chal_streak", challenge_list.get(position).getStreak());
+        intent.putExtra("chal_score", challenge_list.get(position).getScore());
+
+
+
+
+
         startActivity(intent);
     }
 }
