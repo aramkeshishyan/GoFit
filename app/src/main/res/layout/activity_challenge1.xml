@@ -1,32 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ChallengeActivity"
-    android:weightSum="100">
+    tools:context=".ChallengeActivity">
 
-    <ImageButton
-        android:id="@+id/chal_backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:minWidth="48dp"
-        android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
-        android:background="?android:selectableItemBackground"
-        android:contentDescription="@string/back" />
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/chal_backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="7dp"
+            android:background="?android:selectableItemBackground"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:contentDescription="Challenge_Back_button"
+            android:src="@drawable/ic_baseline_arrow_back_ios_new_24" />
+
+        <TextView
+            android:id="@+id/ch_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Title"
+            android:textSize="25dp" />
+
+    </RelativeLayout>
+
 
     <TextView
-        android:id="@+id/ch_title"
+        android:id="@+id/ch_daysRemaining"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:text="Title"
-        android:fontFamily="@font/poppinsbold"
-        android:textSize="30dp"/>
+        android:text="Duration:"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppinsmedium"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/RelativeLayout1"
+        app:layout_constraintStart_toStartOf="@+id/RelativeLayout1" />
 
     <TextView
         android:id="@+id/ch_description"
@@ -36,8 +60,123 @@
         android:layout_marginTop="10dp"
         android:text="Description: "
         android:fontFamily="@font/poppinsmedium"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/ch_daysRemaining"
+        app:layout_constraintStart_toStartOf="@+id/RelativeLayout1"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ch_exercise_RecView"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/ch_description"
+        app:layout_constraintStart_toStartOf="@+id/ch_description"/>
+
+    <TextView
+        android:id="@+id/ch_repetitions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Repetitions: "
+        android:fontFamily="@font/poppinsmedium"
+        app:layout_constraintTop_toBottomOf="@+id/ch_exercise_RecView"
+        app:layout_constraintStart_toStartOf="@+id/RelativeLayout1"/>
+
+    <TextView
+        android:id="@+id/ch_sets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="80dp"
+        android:text="Sets: "
+        android:fontFamily="@font/poppinsmedium"
+        app:layout_constraintTop_toBottomOf="@+id/ch_exercise_RecView"
+        app:layout_constraintStart_toEndOf="@+id/ch_repetitions"/>
+
+    <TextView
+        android:id="@+id/ch_date_accepted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date Accepted:"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/poppinsmedium"
+        app:layout_constraintTop_toBottomOf="@+id/ch_repetitions"
+        app:layout_constraintStart_toStartOf="@+id/RelativeLayout1"/>
+
+    <TextView
+        android:id="@+id/ch_date_started"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date Started:"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/poppinsmedium"
+        app:layout_constraintTop_toBottomOf="@+id/ch_date_accepted"
+        app:layout_constraintStart_toStartOf="@+id/RelativeLayout1"/>
+
+    <TextView
+        android:id="@+id/ch_date_ended"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date Ended:"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/poppinsmedium"
+        app:layout_constraintTop_toBottomOf="@+id/ch_date_started"
+        app:layout_constraintStart_toStartOf="@+id/RelativeLayout1"/>
+
+    <TextView
+        android:id="@+id/ch_date_last_completed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date Last Completed:"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/poppinsmedium"
+        app:layout_constraintTop_toBottomOf="@+id/ch_date_ended"
+        app:layout_constraintStart_toStartOf="@+id/RelativeLayout1"/>
+
+    <TextView
+        android:id="@+id/ch_streak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Streak:"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/poppinsmedium"
+        app:layout_constraintTop_toBottomOf="@+id/ch_date_last_completed"
+        app:layout_constraintStart_toStartOf="@+id/RelativeLayout1"/>
+
+    <TextView
+        android:id="@+id/ch_total_days_completed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You Completed 0/10 Days!"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/poppinsmedium"
+        app:layout_constraintTop_toBottomOf="@+id/ch_streak"
+        app:layout_constraintStart_toStartOf="@+id/RelativeLayout1"/>
+
+    <TextView
+        android:id="@+id/ch_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score:"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/poppinsmedium"
+        app:layout_constraintTop_toBottomOf="@+id/ch_total_days_completed"
+        app:layout_constraintStart_toStartOf="@+id/RelativeLayout1"/>
 
 
 
-</LinearLayout>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

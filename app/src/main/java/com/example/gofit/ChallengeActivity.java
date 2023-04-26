@@ -38,6 +38,6 @@ public class ChallengeActivity extends AppCompatActivity {
         mTitle.setText(title);
 
         TextView mDescription = findViewById(R.id.ch_description);
-        mDescription.setText("Description" + description);
+        mDescription.setText("Description " + description);
     }
 }

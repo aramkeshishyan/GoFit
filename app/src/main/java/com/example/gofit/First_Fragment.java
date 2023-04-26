@@ -283,8 +283,8 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
     public void onNoteClick3(int position){
         Intent intent = new Intent(getContext(), ChallengeActivity.class);
-        intent.putExtra("chal_title", challenge_list.get(position).getChallenge().getTitle());
-        intent.putExtra("chal_description", challenge_list.get(position).getChallenge().getDesc());
+        intent.putExtra("chal_title", challenge_list.get(position).getTitle());
+        intent.putExtra("chal_description", challenge_list.get(position).getDesc());
         startActivity(intent);
     }
 }

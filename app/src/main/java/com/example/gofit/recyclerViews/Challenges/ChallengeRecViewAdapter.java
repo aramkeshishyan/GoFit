@@ -38,8 +38,8 @@ public class ChallengeRecViewAdapter extends RecyclerView.Adapter<ChallengeRecVi
     @Override
     public void onBindViewHolder(@NonNull ChallengeRecViewAdapter.ViewHolder holder, int position) {
         ChallengeRecordDto challenge = challengeArrayList.get(position);
-        holder.item_name.setText(challenge.getChallenge().getTitle());
-        holder.item_description.setText(challenge.getChallenge().getDesc());
+        holder.item_name.setText(challenge.getTitle());
+        holder.item_description.setText(challenge.getDesc());
     }
 
     @Override
