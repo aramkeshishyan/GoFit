@@ -164,7 +164,20 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
                 defaultResponseList<ChallengeRecordDto> chalRecordsResponse = response.body();
 
                 challenge_list = new ArrayList<>();
-                challenge_list.addAll(chalRecordsResponse.getData());
+                if (response.isSuccessful() && chalRecordsResponse != null) {
+                    if (chalRecordsResponse.getData() != null) {
+                        challenge_list.addAll(chalRecordsResponse.getData());
+
+                        Toast.makeText(getContext(),
+                                "Get Challenges was Successful",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getContext(),
+                                "No challenges yet.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
 
                 Toast.makeText(getContext(),
                         "Get Challenges was Successful",

@@ -1,7 +1,6 @@
 package com.example.gofit;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 import com.example.gofit.data.model.requests.UpdateSurvey;
 import com.example.gofit.data.model.requests.UserInfo;
 import com.example.gofit.data.model.responses.defaultResponse;
-import com.example.gofit.data.model.responses.defaultResponseList;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
@@ -127,14 +125,14 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
 
     private void pushUserInfo() {
         String token = sp.getString("token", "");
+        SharedPreferences.Editor spEditor = sp.edit();
 
-        MainApplication.apiManager.postUserInfo(token, updatedUserSurvey, new Callback<defaultResponse<UserInfo>>() {
+        MainApplication.apiManager.updateUserSurvey(token, updatedUserSurvey, new Callback<defaultResponse<UserInfo>>() {
             @Override
             public void onResponse(Call<defaultResponse<UserInfo>> call, Response<defaultResponse<UserInfo>> response) {
                 defaultResponse<UserInfo> userInfoResponse = response.body();
 
-                if (response.isSuccessful() && userInfoResponse.getData() != null) {
-                    SharedPreferences.Editor spEditor = sp.edit();
+                if (response.isSuccessful() && userInfoResponse != null) {
 
                     spEditor.putBoolean("surveyComplete", userInfoResponse.getData().isSurveyComplete());
                     spEditor.putInt("baseCalories", userInfoResponse.getData().getBaseCalories());

@@ -76,8 +76,8 @@ public class ApiManager {
 
     }
 
-    public void postUserInfo(String token, UpdateSurvey update, Callback<defaultResponse<UserInfo>> callback){
-        Call<defaultResponse<UserInfo>> userInfo = service.postUserInfo("Bearer " + token, update);
+    public void updateUserSurvey(String token, UpdateSurvey update, Callback<defaultResponse<UserInfo>> callback){
+        Call<defaultResponse<UserInfo>> userInfo = service.updateUserSurvey("Bearer " + token, update);
         userInfo.enqueue(callback);
     }
 

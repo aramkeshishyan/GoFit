@@ -49,8 +49,8 @@ public interface IUsersApi {
     Call<defaultResponse<String>> updatePassword(@Header("Authorization") String token, @Body UserUpdatePasswordDto updatePassword);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    @POST("/User/updateSurvey")
-    Call<defaultResponse<UserInfo>> postUserInfo(@Header("Authorization") String token, @Body UpdateSurvey update);
+    @PUT("/User/updateSurvey")
+    Call<defaultResponse<UserInfo>> updateUserSurvey(@Header("Authorization") String token, @Body UpdateSurvey update);
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/User/info")
     Call<defaultResponse<UserInfo>> getUserInfo(@Header("Authorization") String token);
