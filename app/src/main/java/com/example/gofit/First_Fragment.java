@@ -149,7 +149,7 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
         challenges = view.findViewById(R.id.current_challenges_recview);
         challenges.setAdapter(challengeAdapter);
-        challenges.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        challenges.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
     }
@@ -168,6 +168,11 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
                 Toast.makeText(getContext(),
                         "Get Challenges was Successful",
                         Toast.LENGTH_SHORT).show();
+
+//                Toast.makeText(getContext(),
+//                        String.format("%s %s", challenge_list.get(0).getChallenge().getTitle(),challenge_list.get(1).getChallenge().getTitle()),
+//                        Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
