@@ -11,14 +11,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
 import com.example.gofit.data.model.requests.ExerciseOrMealType;
 import com.example.gofit.data.model.responses.defaultResponseList;
+import com.example.gofit.recyclerViews.Challenges.ChallengeRecViewAdapter;
 import com.example.gofit.recyclerViews.ExerciseRecViewAdapter;
 import com.example.gofit.recyclerViews.RecommendExerciseAdapter;
 import com.example.gofit.recyclerViews.RecommendNutritionAdapter;
@@ -33,9 +36,12 @@ import retrofit2.Response;
 
 public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.OnNoteListener{
 
-    private RecyclerView exercise, nutrition;
+    private RecyclerView exercise, nutrition, challenges;
     private ArrayList<Exercise_Item> exercise_list = new ArrayList<>();
     private ArrayList<Nutrition_Item> nutrition_list = new ArrayList<>();
+    private ArrayList<ChallengeRecordDto> challenge_list = new ArrayList<>();
+
+
 
     private SharedPreferences sp;
     private String userGoal;
@@ -111,9 +117,11 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
         }
 
-        //exercisesCall();
+        challengesCall();
         mealsByTypeCall(mealType);
         exercisesByTypeCall(exerciseType);
+
+
 
         //wait for 1 second for the async call to get the exercises from backend
         try {
@@ -135,6 +143,42 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         nutrition = view.findViewById(R.id.rec_nutrition_recview);
         nutrition.setAdapter(nutritionAdapter);
         nutrition.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        ChallengeRecViewAdapter challengeAdapter = new ChallengeRecViewAdapter(getContext(), challenge_list, this::onNoteClick3);
+        challengeAdapter.setChallenges(challenge_list);
+
+        challenges = view.findViewById(R.id.current_challenges_recview);
+        challenges.setAdapter(challengeAdapter);
+        challenges.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+
+    }
+
+    private void challengesCall() {
+        String token = sp.getString("token", "");
+
+        MainApplication.apiManager.getChallengeRecords(token, new Callback<defaultResponseList<ChallengeRecordDto>>() {
+            @Override
+            public void onResponse(Call<defaultResponseList<ChallengeRecordDto>> call, Response<defaultResponseList<ChallengeRecordDto>> response) {
+                defaultResponseList<ChallengeRecordDto> chalRecordsResponse = response.body();
+
+                challenge_list = new ArrayList<>();
+                challenge_list.addAll(chalRecordsResponse.getData());
+
+                Toast.makeText(getContext(),
+                        "Get Challenges was Successful",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponseList<ChallengeRecordDto>> call, Throwable t) {
+                Toast.makeText(getContext(),
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+                Log.d("ChallengesCallTag", t.getMessage());
+            }
+        });
+
     }
 
     private void mealsByTypeCall(String recMealType) {
@@ -230,5 +274,12 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         intent.putExtra("ex_type", exercise_list.get(position).getItem_type());
         startActivity(intent);
         Toast.makeText(getContext(), exercise_list.get(position).getItem_name() + " has been pressed.", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onNoteClick3(int position){
+        Intent intent = new Intent(getContext(), ChallengeActivity.class);
+        intent.putExtra("chal_title", challenge_list.get(position).getChallenge().getTitle());
+        intent.putExtra("chal_description", challenge_list.get(position).getChallenge().getDesc());
+        startActivity(intent);
     }
 }

@@ -1,20 +1,44 @@
 package com.example.gofit.data.model.requests.Challenges;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.time.LocalDateTime;
 
 public class ChallengeRecordDto {
+
+    @SerializedName("creatorEmail")
+    @Expose
     private String creatorEmail;
-    private ChallengeDto challenge;
+    @SerializedName("challenge")
+    @Expose
+    private ChallengeDtoInRecord challenge;
+    @SerializedName("dateAccepted")
+    @Expose
     private LocalDateTime dateAccepted;
+    @SerializedName("dateStarted")
+    @Expose
     private LocalDateTime dateStarted;
+    @SerializedName("dateEnd")
+    @Expose
     private LocalDateTime dateEnd;
+    @SerializedName("dateLastCompleted")
+    @Expose
     private LocalDateTime dateLastCompleted;
+    @SerializedName("isComplete")
+    @Expose
     private boolean isComplete;
+    @SerializedName("streak")
+    @Expose
     private int streak;
+    @SerializedName("totalDaysCompleted")
+    @Expose
     private int totalDaysCompleted;
+    @SerializedName("score")
+    @Expose
     private int score;
 
-    public ChallengeRecordDto(String creatorEmail, ChallengeDto challenge, LocalDateTime dateAccepted, LocalDateTime dateStarted, LocalDateTime dateEnd, LocalDateTime dateLastCompleted, boolean isComplete, int streak, int totalDaysCompleted, int score) {
+    public ChallengeRecordDto(String creatorEmail, ChallengeDtoInRecord challenge, LocalDateTime dateAccepted, LocalDateTime dateStarted, LocalDateTime dateEnd, LocalDateTime dateLastCompleted, boolean isComplete, int streak, int totalDaysCompleted, int score) {
         this.creatorEmail = creatorEmail;
         this.challenge = challenge;
         this.dateAccepted = dateAccepted;
@@ -35,11 +59,11 @@ public class ChallengeRecordDto {
         this.creatorEmail = creatorEmail;
     }
 
-    public ChallengeDto getChallenge() {
+    public ChallengeDtoInRecord getChallenge() {
         return challenge;
     }
 
-    public void setChallenge(ChallengeDto challenge) {
+    public void setChallenge(ChallengeDtoInRecord challenge) {
         this.challenge = challenge;
     }
 
