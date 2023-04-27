@@ -41,7 +41,8 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:layout_toStartOf="@id/friends_button"
-            android:src="@drawable/baseline_stars_24" />
+            />
+        <!-- android:src="@drawable/baseline_stars_24"-->
 
 
 
