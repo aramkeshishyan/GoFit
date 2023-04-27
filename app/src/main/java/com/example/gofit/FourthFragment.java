@@ -43,7 +43,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.Serializable;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -104,6 +104,8 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
         work_out_names = new ArrayList<>();
 
 
+
+
         userFriendsCall();
         // if the array has been saved, than load else it will it create an empty array //
         load_array();
@@ -134,13 +136,6 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
             public void onClick(View v) {
                 add_custum_work_outs();
                 saveArray_state();
-
-
-//                try {
-//                    Notifcations();
-//                } catch (PendingIntent.CanceledException e) {
-//                    throw new RuntimeException(e);
-//                }
 
             }
         });
@@ -261,7 +256,7 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
     }
 
 
-    // same situatio over here //
+
     private void add_custum_work_outs() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -311,78 +306,23 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
         builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    chalCreatorEmail = sp.getString("email", "");
+                    chalTitle = edtTitle.getText().toString().trim();
+                    chalDescription = edtDesciption.getText().toString().trim();
 
-                builder.setCancelable(true);
-                builder.setTitle("Create a Challenge");
-                builder.setMessage("Enter Attributes");
+                    chalExercisesIds.add(Integer.parseInt(edtEx1.getText().toString().trim()));
+                    chalExercisesIds.add(Integer.parseInt(edtEx2.getText().toString().trim()));
+                    chalExercisesIds.add(Integer.parseInt(edtEx3.getText().toString().trim()));
 
-                EditText edtTitle = new EditText(getActivity());
-                EditText edtDesciption = new EditText(getActivity());
-                EditText edtEx1 = new EditText(getActivity());
-                EditText edtEx2 = new EditText(getActivity());
-                EditText edtEx3 = new EditText(getActivity());
-                EditText edtDuration = new EditText(getActivity());
-                EditText edtReps = new EditText(getActivity());
-                EditText edtSets = new EditText(getActivity());
+                    chalDuration = Integer.parseInt(edtDuration.getText().toString().trim());
+                    chalReps = Integer.parseInt(edtReps.getText().toString().trim());
+                    chalSets = Integer.parseInt(edtSets.getText().toString().trim());
 
-                LinearLayout lp = new LinearLayout(getActivity().getBaseContext());
-                lp.setOrientation(LinearLayout.VERTICAL);
-                lp.addView(edtTitle);
-                lp.addView(edtDesciption);
-                lp.addView(edtEx1);
-                lp.addView(edtEx2);
-                lp.addView(edtEx3);
-                lp.addView(edtDuration);
-                lp.addView(edtReps);
-                lp.addView(edtSets);
-
-                edtTitle.setHint("Title");
-                edtDesciption.setHint("Description");
-                edtEx1.setHint("First Exercise Id");
-                edtEx2.setHint("Second Exercise Id");
-                edtEx3.setHint("Third Exercise Id");
-                edtDuration.setHint("Challenge Duration");
-                edtReps.setHint("Repetitions amount");
-                edtSets.setHint("Sets amount");
-
-                builder.setView(lp);
-
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
+                    createChallengeCall();
+                }
                 });
 
-                builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        chalCreatorEmail = sp.getString("email", "");
-                        chalTitle = edtTitle.getText().toString().trim();
-                        chalDescription = edtDesciption.getText().toString().trim();
-
-                        chalExercisesIds.add(Integer.parseInt(edtEx1.getText().toString().trim()));
-                        chalExercisesIds.add(Integer.parseInt(edtEx2.getText().toString().trim()));
-                        chalExercisesIds.add(Integer.parseInt(edtEx3.getText().toString().trim()));
-
-                        chalDuration = Integer.parseInt(edtDuration.getText().toString().trim());
-                        chalReps = Integer.parseInt(edtReps.getText().toString().trim());
-                        chalSets = Integer.parseInt(edtSets.getText().toString().trim());
-
-                        createChallengeCall();
-
-
-
-                    }
-                });
-
-                builder.show();
-
-            }
-        });
-
-        builder.show();
+        builder.show() ;
 
     }
 
@@ -483,6 +423,7 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
 
         sharedPreferences = getActivity().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
 
         Gson gson = new Gson();
 

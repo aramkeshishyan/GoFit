@@ -53,14 +53,9 @@ public class second_custom_adapter extends RecyclerView.Adapter<second_custom_ad
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-       // fake test, so I be able to push At the moment //
-       holder.custom_challenges.setText("fake");
-        holder.custom_descriptions.setText("fake");
 
-        // ??? Im not sure what causing the error here      ///
-        //holder.custom_descriptions.setText(challenges.get(position).getChallenge().desc);
-       // holder.custom_challenges.setText(challenges.get(position).getChallenge().title);
-
+       holder.custom_challenges.setText(challenges.get(position).getTitle());
+       holder.custom_descriptions.setText(challenges.get(position).getDesc());
 
     }
 
