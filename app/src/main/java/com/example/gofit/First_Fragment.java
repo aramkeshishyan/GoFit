@@ -300,7 +300,10 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         intent.putExtra("chal_title", challenge_list.get(position).getTitle());
         intent.putExtra("chal_description", challenge_list.get(position).getDesc());
 
-        //Bundle args = new Bundle();
+        Bundle args = new Bundle();
+        ArrayList<Exercise_Item> exercise_list = challenge_list.get(position).getExerciseList();
+        args.putSerializable("chal_exerciselist", exercise_list);
+        intent.putExtras(args);
         //args.putSerializable("ARRAYLIST", (Serializable) challenge_list);
         //intent.putExtra("BUNDLE", args);
 

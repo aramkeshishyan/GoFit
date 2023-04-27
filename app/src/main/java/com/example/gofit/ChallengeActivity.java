@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.gofit.recyclerViews.Challenges.Challenge_ExerciseRV_Adapter;
 import com.example.gofit.recyclerViews.ExerciseRecViewAdapter;
 
 import org.w3c.dom.Text;
@@ -19,7 +21,7 @@ public class ChallengeActivity extends AppCompatActivity {
     private ImageButton backButton;
 
     private RecyclerView exercise;
-    //private ArrayList<Exercise_Item> challengeExercisesList = new ArrayList<>();
+    private ArrayList<Exercise_Item> challengeExercisesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +39,10 @@ public class ChallengeActivity extends AppCompatActivity {
         {
             String title = getIntent().getStringExtra("chal_title");
             String description = getIntent().getStringExtra("chal_description");
-
+            challengeExercisesList = (ArrayList<Exercise_Item>) getIntent().getExtras().getSerializable("chal_exerciselist");
             //Bundle args = getIntent().getBundleExtra("BUNDLE");
             //ArrayList<Exercise_Item> challengeExercisesList = (ArrayList<Exercise_Item>) args.getSerializable("ARRAYLIST");
-            ArrayList<Exercise_Item> challengeExercisesList = new ArrayList<>();
+            //ArrayList<Exercise_Item> challengeExercisesList = new ArrayList<>();
 
             String durationDays = getIntent().getStringExtra("chal_durationDays");
             String repetitions = getIntent().getStringExtra("chal_repetitions");
@@ -65,17 +67,17 @@ public class ChallengeActivity extends AppCompatActivity {
         mTitle.setText(title);
 
         TextView mDurationDays = findViewById(R.id.ch_daysRemaining);
-        mDurationDays.setText(durationDays);
+        mDurationDays.setText("Duration: " + durationDays + " days");
 
         TextView mDescription = findViewById(R.id.ch_description);
         mDescription.setText("Description: " + description);
 
-        //ExerciseRecViewAdapter exerciseAdapter = new ExerciseRecViewAdapter(this, challengeExercisesList, this::onNoteClick);
-        //exerciseAdapter.setExercises(challengeExercisesList);
+        Challenge_ExerciseRV_Adapter exerciseAdapter = new Challenge_ExerciseRV_Adapter(this, challengeExercisesList, this::onNoteClick);
+        exerciseAdapter.setExercise_List(challengeExercisesList);
 
-        //exercise = findViewById(R.id.ch_exercise_RecView);
-        //exercise.setAdapter(exerciseAdapter);
-        //exercise.setLayoutManager(new LinearLayoutManager(this));
+        exercise = findViewById(R.id.ch_exercise_RecView);
+        exercise.setAdapter(exerciseAdapter);
+        exercise.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
 
         TextView mRepetitions = findViewById(R.id.ch_repetitions);
@@ -107,6 +109,15 @@ public class ChallengeActivity extends AppCompatActivity {
 
     }
 
-    private void onNoteClick(int i) {
+    private void onNoteClick(int position) {
+        Intent intent = new Intent(this, ExerciseActivity.class);
+        intent.putExtra("ex_id", challengeExercisesList.get(position).getItem_id());
+        intent.putExtra("ex_title", challengeExercisesList.get(position).getItem_name());
+        intent.putExtra("ex_group", challengeExercisesList.get(position).getItem_mGroup());
+        intent.putExtra("ex_level", challengeExercisesList.get(position).getItem_level());
+        intent.putExtra("ex_description", challengeExercisesList.get(position).getItem_description());
+        intent.putExtra("ex_imageUrl", challengeExercisesList.get(position).getItem_image());
+        intent.putExtra("ex_type", challengeExercisesList.get(position).getItem_type());
+        startActivity(intent);
     }
 }
