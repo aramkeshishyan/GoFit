@@ -33,13 +33,11 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView register, forgotPassword;
+    private TextView register;
     private EditText editTextEmail, editTextPassword;
     private Button login;
-
     private ProgressBar progressBar;
     private SharedPreferences sp;
-    private String jsonText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        forgotPassword = (TextView) findViewById(R.id.forgotPassword);
-        forgotPassword.setOnClickListener(this);
-
         sp = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
 
 
@@ -78,10 +73,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.login:
                 userLogin();
                 break;
-            case R.id.forgotPassword:
-                startActivity(new Intent(this, ForgotPassword.class));
-                break;
-
         }
 
     }
