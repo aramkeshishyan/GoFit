@@ -101,15 +101,15 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
         View fourth_view = inflater.inflate(R.layout.fragment_fourth, container, false);
         sp = getActivity().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         sharedPreferences = getActivity().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-        work_out_names = new ArrayList<>();
-
-
+       work_out_names = new ArrayList<>();
 
 
         userFriendsCall();
         // if the array has been saved, than load else it will it create an empty array //
-        load_array();
+
         challenge_call();
+
+        load_array();
 
 
         visble_container = (RelativeLayout) fourth_view.findViewById(R.id.visible_container);
