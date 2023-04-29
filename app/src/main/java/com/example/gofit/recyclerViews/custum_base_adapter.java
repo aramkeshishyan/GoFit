@@ -35,7 +35,7 @@ public class custum_base_adapter extends RecyclerView.Adapter<custum_base_adapte
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context) ;
-        View inflate = inflater.inflate(R.layout.row_template_1, parent, false) ;
+        View inflate = inflater.inflate(R.layout.challenge_page_template, parent, false) ;
 
         return new myViewHolder(inflate, mOnNoteListener) ;
 

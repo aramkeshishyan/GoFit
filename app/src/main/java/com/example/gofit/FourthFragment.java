@@ -66,6 +66,9 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
     private int chalDuration;
     private int chalReps;
     private int chalSets;
+///////////////////////////////////////////////////////////////////
+
+
 
 
     private final String CHANNEL_ID = "MYCHANNEL_ID_CHALLENEGE";
@@ -80,8 +83,16 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
     private RecyclerView continer1;
     private FloatingActionButton add;
     private custum_base_adapter adapter;
+
+    // 5/1/2023 adapter2 will be removed(including this comment), not need for this feature//
+
+
+    // UI elements attributes   //
+
     private second_custom_adapter adapter2;
-    private RecyclerView container_2;
+
+    private RecyclerView challenge_r;   // challenge_r will be short for challenge recylerview container    //
+
     private RelativeLayout visble_container;
     private SharedPreferences sharedPreferences;
     private static final String PREFS = "PREFS";
@@ -103,7 +114,7 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
         sharedPreferences = getActivity().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
        work_out_names = new ArrayList<>();
 
-
+        // api calls        //
         userFriendsCall();
         // if the array has been saved, than load else it will it create an empty array //
 
@@ -111,6 +122,7 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
 
         load_array();
 
+        //define the UI ELEMENTS        ///
 
         visble_container = (RelativeLayout) fourth_view.findViewById(R.id.visible_container);
 
@@ -118,7 +130,7 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
         all = (Button) fourth_view.findViewById(R.id.all_button);
         custom = (Button) fourth_view.findViewById(R.id.custom_button);
 
-        container_2 = (RecyclerView) fourth_view.findViewById(R.id.recyler_view_2);
+        challenge_r = (RecyclerView) fourth_view.findViewById(R.id.recyler_view_2);
 
         //add_challenges(); this sholuld be comment, removed or a combination   //
 
@@ -129,7 +141,14 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
         adapter = new custum_base_adapter(fourth_view.getContext(), work_out_names, this);
         continer1.setLayoutManager(new LinearLayoutManager(fourth_view.getContext()));
         continer1.setAdapter(adapter);
-
+    /*
+        *
+        * add custom function will allow user the create their own challenge and get added
+        * in their challenge recycler
+        * after will updated the recycler view and displayed it to  the user
+        * Return a void
+        *
+     */
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,8 +159,17 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
             }
         });
 
-        container_2.setLayoutManager(new LinearLayoutManager(fourth_view.getContext()));
-        container_2.setAdapter(adapter2);
+        challenge_r.setLayoutManager(new LinearLayoutManager(fourth_view.getContext()));
+        challenge_r.setAdapter(adapter2);
+
+        /*
+        * the remove listener will wait for the user the click on the remove button
+        * and remove Challenge object from the Challenge array list and notify the
+        * recyler that item has been removed and modified the recycler
+        * than update recycler view
+        *
+        *
+         */
 
         adapter2.setOnRemoveItemLister(new removeItemListner() {
             @Override
@@ -178,12 +206,12 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
 
 
                         Toast.makeText(getContext(), "john: " + message.getText().toString(), Toast.LENGTH_SHORT).show();
-    /////////////API ON WORK HERE /////////////////////
+                /////////////API ON WORK HERE /////////////////////
                         //customs_description.remove(postion);
                        // custum_work_outs.remove(postion);
                         adapter2.notifyItemRemoved(postion);
 
-                        isComplete = true;
+                       // isComplete = true;
 
                         dialog.dismiss();
 
@@ -344,7 +372,7 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
                 /////reset the UI data  /////////
 
                 adapter2.setChallengesList(custom_challenges);
-                container_2.setAdapter(adapter2);
+                challenge_r.setAdapter(adapter2);
 
                 ////////////////////////////////
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.StackView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,7 +45,7 @@ public class second_custom_adapter extends RecyclerView.Adapter<second_custom_ad
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(contex) ;
-        View inflater_ = inflater.inflate(R.layout.second_row_template, parent, false) ;
+        View inflater_ = inflater.inflate(R.layout.challenge_page_template, parent, false) ;
 
         return new myViewHolder(inflater_, listener) ;
     }
