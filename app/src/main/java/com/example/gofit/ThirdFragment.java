@@ -134,9 +134,9 @@ public class ThirdFragment extends Fragment implements NutritionRecViewAdapter.O
                     nutritionList = new ArrayList<>();
                     nutritionList.addAll(responseMeals.getData());
 
-                    Toast.makeText(getContext(),
-                            "Get Meals was Successful",
-                            Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(),
+//                            "Get Meals was Successful",
+//                            Toast.LENGTH_SHORT).show();
 
                 }
                 else{

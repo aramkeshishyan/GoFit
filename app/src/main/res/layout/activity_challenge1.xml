@@ -199,15 +199,21 @@
         android:id="@+id/ch_complete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="complete challenge"
+        app:layout_constraintStart_toEndOf="@id/ch_send_friend"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/creator" />
 
-
-
+    <Button
+        android:id="@+id/ch_send_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Challenge Friends"
+        app:layout_constraintEnd_toStartOf="@+id/ch_complete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/creator" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

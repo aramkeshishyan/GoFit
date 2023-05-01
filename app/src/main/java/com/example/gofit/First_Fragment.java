@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,6 +42,7 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
     private ArrayList<Exercise_Item> exercise_list = new ArrayList<>();
     private ArrayList<Nutrition_Item> nutrition_list = new ArrayList<>();
     private ArrayList<ChallengeRecordDto> challenge_list = new ArrayList<>();
+    private ArrayList<Friend> friendsList = new ArrayList<>();
 
 
 
@@ -118,6 +120,7 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
         }
 
+        userFriendsCall();
         challengesCall();
         mealsByTypeCall(mealType);
         exercisesByTypeCall(exerciseType);
@@ -155,6 +158,38 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
     }
 
+    private void userFriendsCall() {
+        String token = sp.getString("token", "");
+        MainApplication.apiManager.getFriends(token, new Callback<defaultResponseList<Friend>>() {
+            @Override
+            public void onResponse(Call<defaultResponseList<Friend>> call, Response<defaultResponseList<Friend>> response) {
+                defaultResponseList<Friend> responseFriends = response.body();
+
+                if (response.isSuccessful() && responseFriends != null) {
+                    ArrayList<Friend> tempList = new ArrayList<>();
+                    tempList.addAll(responseFriends.getData());
+
+                    friendsList = new ArrayList<>(tempList);
+
+                }
+                else {
+                    Toast.makeText(getContext(),
+                            String.format("Response is %s", String.valueOf(response.code()))
+                            , Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponseList<Friend>> call, Throwable t) {
+                Toast.makeText(getContext(),
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+                Log.d("myTag", t.getMessage());
+
+            }
+        });
+    }
+
     private void challengesCall() {
         String token = sp.getString("token", "");
 
@@ -168,9 +203,6 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
                     if (chalRecordsResponse.getData() != null) {
                         challenge_list.addAll(chalRecordsResponse.getData());
 
-                        Toast.makeText(getContext(),
-                                "Get Challenges was Successful",
-                                Toast.LENGTH_SHORT).show();
                     }
                     else {
                         Toast.makeText(getContext(),
@@ -178,14 +210,6 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
-
-                Toast.makeText(getContext(),
-                        "Get Challenges was Successful",
-                        Toast.LENGTH_SHORT).show();
-
-//                Toast.makeText(getContext(),
-//                        String.format("%s %s", challenge_list.get(0).getChallenge().getTitle(),challenge_list.get(1).getChallenge().getTitle()),
-//                        Toast.LENGTH_SHORT).show();
 
             }
 
@@ -211,9 +235,9 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
                     nutrition_list = new ArrayList<>();
                     nutrition_list.addAll(responseMeals.getData());
 
-                    Toast.makeText(getContext(),
-                            "Get Meals was Successful",
-                            Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(),
+//                            "Get Meals was Successful",
+//                            Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Toast.makeText(getContext(),
@@ -245,9 +269,9 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
                     exercise_list = new ArrayList<>();
                     exercise_list.addAll(responseExercises.getData());
 
-                    Toast.makeText(getContext(),
-                            "Get Exercises was Successful",
-                            Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(),
+//                            "Get Exercises was Successful",
+//                            Toast.LENGTH_SHORT).show();
 
                 }
                 else {
@@ -308,6 +332,11 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         //args.putSerializable("ARRAYLIST", (Serializable) challenge_list);
         //intent.putExtra("BUNDLE", args);
 
+        //SEND FRIENDS LIST TO A CHALLENGE ITEM PAGE
+        Bundle friendArgs = new Bundle();
+        friendArgs.putSerializable("friends_list", friendsList);
+        intent.putExtras(friendArgs);
+
         intent.putExtra("chal_durationDays", challenge_list.get(position).getDurationDays());
         intent.putExtra("chal_repetitions", challenge_list.get(position).getReps());
         intent.putExtra("chal_sets", challenge_list.get(position).getSets());
@@ -320,9 +349,6 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         intent.putExtra("chal_streak", challenge_list.get(position).getStreak());
         intent.putExtra("chal_total_days_completed", challenge_list.get(position).getTotalDaysCompleted());
         intent.putExtra("chal_score", challenge_list.get(position).getScore());
-
-
-
 
 
         startActivity(intent);

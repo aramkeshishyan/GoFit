@@ -157,7 +157,7 @@ public interface IUsersApi {
     Call<defaultResponse<ChallengeDto>> getChallengeInfoById(@Header("Authorization") String token, @Body ObjectId challengeId);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    @POST("/Challenge/sendRequest/")
+    @POST("/Challenge/sendRequest")
     Call<defaultResponse<String>> sendChallengeRequest(@Header("Authorization") String token, @Body SendChallengeDto sendRequest);
 
     //This returns a challengeRequestDto but you can ignore this data.

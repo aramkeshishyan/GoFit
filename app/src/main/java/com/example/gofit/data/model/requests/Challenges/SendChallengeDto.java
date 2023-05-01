@@ -4,8 +4,9 @@ public class SendChallengeDto {
     private int challengeId;
     private String friendEmail;
 
-    public SendChallengeDto(int challengeId) {
+    public SendChallengeDto(int challengeId, String friendEmail) {
         this.challengeId = challengeId;
+        this.friendEmail = friendEmail;
     }
 
     public int getChallengeId() {

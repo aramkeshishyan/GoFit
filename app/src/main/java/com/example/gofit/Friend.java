@@ -3,7 +3,9 @@ package com.example.gofit;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Friend {
+import java.io.Serializable;
+
+public class Friend implements Serializable {
 
     @SerializedName("fullName")
     @Expose
