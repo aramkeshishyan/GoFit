@@ -120,7 +120,8 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
 
         challenge_call();
 
-        load_array();
+        custom_challenges = new ArrayList<>( );
+
 
         //define the UI ELEMENTS        ///
 
@@ -154,7 +155,6 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
             @Override
             public void onClick(View v) {
                 add_custum_work_outs();
-                saveArray_state();
 
             }
         });
@@ -434,45 +434,9 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
 
     //save the state of the  arrayList  //
 
-    public void saveArray_state() {
-        sharedPreferences = getActivity().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-
-        String Json = gson.toJson(custom_challenges);
-
-
-        editor.putString(text, Json);
-
-        editor.apply();
-    }
-
-    private void load_array() {
-
-        sharedPreferences = getActivity().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-
-        Gson gson = new Gson();
-
-        String Json = sharedPreferences.getString(text, "");
-        String Json2 = sharedPreferences.getString(text, "");
-
-
-        Type type = new TypeToken<ArrayList<String>>() {
-        }.getType();
-
-        custom_challenges = gson.fromJson(Json, type);
 
 
 
-        if (custom_challenges  == null) {
-
-            custom_challenges = new ArrayList<ChallengeRecordDto>() ;
-        }
-
-
-    }
 
 
 

@@ -68,6 +68,8 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         userGoal = sp.getString("goal","");
         userBodyType = sp.getString("bodyType", "");
 
+
+
         //Greet user with Hello + their first name
         TextView hello_greeting = (TextView) view.findViewById(R.id.hello_greeting);
         String fullName = sp.getString("fullName","");

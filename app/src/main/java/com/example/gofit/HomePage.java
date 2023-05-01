@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -54,7 +57,6 @@ public class HomePage extends AppCompatActivity implements NavigationBarView.OnI
 
         friends_button = (ImageView) findViewById(R.id.friends_button);
         friends_button.setOnClickListener(this);
-
 
 
 
