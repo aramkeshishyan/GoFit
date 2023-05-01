@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.gofit.Nutrition_Item;
 import com.example.gofit.R;
 import com.squareup.picasso.Picasso;
@@ -39,7 +40,8 @@ public class RecommendNutritionAdapter extends RecyclerView.Adapter<RecommendNut
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Nutrition_Item nutrition_list = nutritionArrayList.get(position);
         holder.item_name.setText(nutrition_list.getItem_name());
-        Picasso.get().load(nutrition_list.getItem_image()).into(holder.item_image);
+        //Picasso.get().load(nutrition_list.getItem_image()).into(holder.item_image);
+        Glide.with(nutrition_context).asBitmap().load(nutrition_list.getItem_image()).centerCrop().into(holder.item_image);
     }
 
     @Override

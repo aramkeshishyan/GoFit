@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.gofit.Exercise_Item;
 import com.example.gofit.R;
 import com.squareup.picasso.Picasso;
@@ -46,6 +47,7 @@ public class Challenge_ExerciseRV_Adapter extends RecyclerView.Adapter<Challenge
         holder.exercise_lvl.setText(exercise.getItem_level());
         holder.type.setText(exercise.getItem_type());
         Picasso.get().load(exercise.getItem_image()).into(holder.image_url);
+        Glide.with(exercise_context).asBitmap().load(exercise.getItem_image()).centerCrop().into(holder.image_url);
     }
 
     @Override

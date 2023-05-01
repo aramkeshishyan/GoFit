@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.gofit.Exercise_Item;
 import com.example.gofit.R;
 import com.squareup.picasso.Picasso;
@@ -43,7 +44,8 @@ public class ExerciseRecViewAdapter extends RecyclerView.Adapter<ExerciseRecView
         holder.item_name.setText(exercise.getItem_name());
         holder.item_group.setText(exercise.getItem_mGroup());
         holder.item_type.setText(exercise.getItem_type());
-        Picasso.get().load(exercise.getItem_image()).into(holder.item_image);
+        //Picasso.get().load(exercise.getItem_image()).into(holder.item_image);
+        Glide.with(exercise_context).asBitmap().load(exercise.getItem_image()).centerCrop().into(holder.item_image);
 
     }
 
