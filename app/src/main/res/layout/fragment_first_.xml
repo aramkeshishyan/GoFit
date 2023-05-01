@@ -126,7 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rec_nutrition_recview"
             android:fontFamily="@font/poppinsbold"
-            android:text="Current Challenges"
+            android:text="Accepted Challenges"
             android:textSize="25dp"
             android:layout_marginLeft="15dp" />
 

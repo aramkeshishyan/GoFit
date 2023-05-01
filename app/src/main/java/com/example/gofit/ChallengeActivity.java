@@ -4,11 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
+import com.example.gofit.data.model.requests.ObjectId;
+import com.example.gofit.data.model.requests.UserStats;
+import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.recyclerViews.Challenges.Challenge_ExerciseRV_Adapter;
 import com.example.gofit.recyclerViews.ExerciseRecViewAdapter;
 
@@ -16,27 +26,44 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class ChallengeActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ChallengeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageButton backButton;
 
     private RecyclerView exercise;
     private ArrayList<Exercise_Item> challengeExercisesList = new ArrayList<>();
 
+    private int challengeId;
+    private SharedPreferences sp;
+    private Button completeBtn;
+
+    private String splitString[];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenge1);
 
+        sp = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+
         getIncomingIntent();
         backButton = findViewById(R.id.chal_backButton);
         backButton.setOnClickListener(view -> ChallengeActivity.super.finish());
+
+        completeBtn = findViewById(R.id.ch_complete);
+        completeBtn.setOnClickListener(this);
+
 
     }
     private void getIncomingIntent() {
 
         if(getIntent().hasExtra("chal_title") && getIntent().hasExtra("chal_description"))
         {
+            challengeId = getIntent().getIntExtra("chal_id",0);
             String title = getIntent().getStringExtra("chal_title");
             String description = getIntent().getStringExtra("chal_description");
             challengeExercisesList = (ArrayList<Exercise_Item>) getIntent().getExtras().getSerializable("chal_exerciselist");
@@ -44,29 +71,54 @@ public class ChallengeActivity extends AppCompatActivity {
             //ArrayList<Exercise_Item> challengeExercisesList = (ArrayList<Exercise_Item>) args.getSerializable("ARRAYLIST");
             //ArrayList<Exercise_Item> challengeExercisesList = new ArrayList<>();
 
-            String durationDays = getIntent().getStringExtra("chal_durationDays");
-            String repetitions = getIntent().getStringExtra("chal_repetitions");
-            String sets = getIntent().getStringExtra("chal_sets");
+            String durationDays = Integer.toString(getIntent().getIntExtra("chal_durationDays",0));
+            String repetitions = Integer.toString(getIntent().getIntExtra("chal_repetitions",0));
+            String sets = Integer.toString(getIntent().getIntExtra("chal_sets",0));
             String creator = getIntent().getStringExtra("chal_creator");
             String dateAccepted = getIntent().getStringExtra("chal_date_accepted");
             String dateStarted = getIntent().getStringExtra("chal_date_started");
             String dateEnd = getIntent().getStringExtra("chal_date_end");
             String dateLastCompleted = getIntent().getStringExtra("chal_date_last_completed");
-            String completed = getIntent().getStringExtra("chal_complete");
-            String streak = getIntent().getStringExtra("chal_streak");
-            String score = getIntent().getStringExtra("chal_score");
+            String completed = Boolean.toString(getIntent().getBooleanExtra("chal_complete",false));
+            String streak = Integer.toString(getIntent().getIntExtra("chal_streak",0));
+            String totalDaysCompleted = Integer.toString(getIntent().getIntExtra("chal_total_days_completed",0));
+            String score = Integer.toString(getIntent().getIntExtra("chal_score", 0));
 
-            setupItems(title, description, challengeExercisesList, durationDays, repetitions, sets, creator, dateAccepted, dateStarted, dateEnd, dateLastCompleted, completed, streak, score);
+
+            //Get rid of Times in dates
+            splitString = dateAccepted.split("T", 2);
+            dateAccepted = splitString[0];
+
+            splitString = dateStarted.split("T", 2);
+            dateStarted = splitString[0];
+
+            splitString = dateEnd.split("T", 2);
+            dateEnd = splitString[0];
+
+            splitString = dateLastCompleted.split("T", 2);
+            dateLastCompleted = splitString[0];
+
+
+
+
+            setupItems(title, description, challengeExercisesList, durationDays, repetitions, sets, creator, dateAccepted, dateStarted, dateEnd, dateLastCompleted, completed, streak, totalDaysCompleted, score);
         }
 
 
     }
 
-    private void setupItems(String title, String description, ArrayList<Exercise_Item> challengeExercisesList, String durationDays, String repetitions, String sets, String creator, String dateAccepted, String dateStarted, String dateEnd, String dateLastCompleted, String completed, String streak, String score) {
+    private void setupItems(String title, String description, ArrayList<Exercise_Item> challengeExercisesList, String durationDays, String repetitions, String sets, String creator, String dateAccepted, String dateStarted, String dateEnd, String dateLastCompleted, String completed, String streak, String totalDaysCompleted, String score) {
+
+        Toast.makeText(ChallengeActivity.this, String.format("Complete Status %s", completed), Toast.LENGTH_SHORT).show();
+
+
         TextView mTitle = findViewById(R.id.ch_title);
         mTitle.setText(title);
 
         TextView mDurationDays = findViewById(R.id.ch_daysRemaining);
+        if(durationDays == null){
+            durationDays = "N/A";
+        }
         mDurationDays.setText("Duration: " + durationDays + " days");
 
         TextView mDescription = findViewById(R.id.ch_description);
@@ -89,22 +141,59 @@ public class ChallengeActivity extends AppCompatActivity {
         //TextView mCreator = findViewById()
 
         TextView mDateAccepted = findViewById(R.id.ch_date_accepted);
+        if(dateAccepted == null){
+            dateAccepted = "N/A";
+        }
         mDateAccepted.setText("Date Accepted: " + dateAccepted);
 
         TextView mDateStarted = findViewById(R.id.ch_date_started);
+        if(dateStarted == null){
+            dateStarted = "N/A";
+        }
         mDateStarted.setText("Date Started: " + dateStarted);
 
         TextView mDateEnd = findViewById(R.id.ch_date_ended);
+        if(dateEnd == null){
+            dateEnd = "N/A";
+        }
         mDateEnd.setText("Date End: " + dateEnd);
 
         TextView mDateLastCompleted = findViewById(R.id.ch_date_last_completed);
+        if(dateLastCompleted == null){
+            dateLastCompleted = "N/A";
+        }
         mDateLastCompleted.setText("Date Last Completed: " + dateLastCompleted);
 
         TextView mStreak = findViewById(R.id.ch_streak);
+        if(streak == null){
+            streak = "0";
+        }
         mStreak.setText("Streak: " + streak);
 
+        TextView mTotalDaysCompleted = findViewById(R.id.ch_total_days_completed);
+        if(totalDaysCompleted == null){
+            totalDaysCompleted = "0";
+        }
+        mTotalDaysCompleted.setText("Completed " + totalDaysCompleted + "/" + durationDays +" Days!" );
+
         TextView mScore = findViewById(R.id.ch_score);
+        if(score == null){
+            score = "0";
+        }
         mScore.setText("Score: " + score);
+
+        TextView mCompleted = findViewById(R.id.ch_isComplete);
+        if(completed == "true"){
+            mCompleted.setText("Challenge Completed!");
+            mCompleted.setTextColor(Color.parseColor("#00FF00"));
+        }
+        else{
+            mCompleted.setText("Challenge Still Active!");
+            mCompleted.setTextColor(Color.parseColor("#00FF00"));
+        }
+
+        TextView mCreator = findViewById(R.id.creator);
+        mCreator.setText("Created By: " + creator);
 
 
     }
@@ -120,4 +209,47 @@ public class ChallengeActivity extends AppCompatActivity {
         intent.putExtra("ex_type", challengeExercisesList.get(position).getItem_type());
         startActivity(intent);
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.ch_complete:
+                completeChallengeCall();
+                //Toast.makeText(ChallengeActivity.this, Integer.toString(challengeId) , Toast.LENGTH_LONG).show();
+                break;
+        }
+
+    }
+
+    private void completeChallengeCall() {
+        String token = sp.getString("token", "");
+
+        ObjectId challengeIdObj = new ObjectId(challengeId);
+        //Toast.makeText(ChallengeActivity.this, Integer.toString(challengeIdObj.getId()) , Toast.LENGTH_LONG).show();
+
+        MainApplication.apiManager.completeChallenge(token, challengeIdObj, new Callback<defaultResponse<ChallengeRecordDto>>() {
+            @Override
+            public void onResponse(Call<defaultResponse<ChallengeRecordDto>> call, Response<defaultResponse<ChallengeRecordDto>> response) {
+                defaultResponse<ChallengeRecordDto> responseChallengeComplete = response.body();
+
+                if (response.isSuccessful() && responseChallengeComplete != null)
+                {
+                    Toast.makeText(ChallengeActivity.this, responseChallengeComplete.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ChallengeActivity.this, String.format("Challenge %d Completed!", challengeId), Toast.LENGTH_SHORT).show();
+                    closePageAfterComplete();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponse<ChallengeRecordDto>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void closePageAfterComplete() {
+        super.finish();
+    }
+
 }

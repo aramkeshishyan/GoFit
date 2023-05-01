@@ -297,6 +297,7 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
     public void onNoteClick3(int position){
         Intent intent = new Intent(getContext(), ChallengeActivity.class);
+        intent.putExtra("chal_id", challenge_list.get(position).getChallengeId());
         intent.putExtra("chal_title", challenge_list.get(position).getTitle());
         intent.putExtra("chal_description", challenge_list.get(position).getDesc());
 
@@ -317,6 +318,7 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         intent.putExtra("chal_date_last_completed", challenge_list.get(position).getDateLastCompleted());
         intent.putExtra("chal_complete", challenge_list.get(position).isComplete());
         intent.putExtra("chal_streak", challenge_list.get(position).getStreak());
+        intent.putExtra("chal_total_days_completed", challenge_list.get(position).getTotalDaysCompleted());
         intent.putExtra("chal_score", challenge_list.get(position).getScore());
 
 

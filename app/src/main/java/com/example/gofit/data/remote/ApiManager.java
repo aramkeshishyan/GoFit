@@ -44,12 +44,12 @@ public class ApiManager {
     private ApiManager(){
         Retrofit retrofit = new Retrofit.Builder()
                 //.baseUrl("http://10.0.2.2:5254/")
-
+                .baseUrl("http://137.184.190.228/")
 
                 // Build.config will hide private information like server address or api keys
                 // which  is store in the local.properties //
 
-                .baseUrl(BuildConfig.SERVER_ADDRESS)
+                //.baseUrl(BuildConfig.SERVER_ADDRESS)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
