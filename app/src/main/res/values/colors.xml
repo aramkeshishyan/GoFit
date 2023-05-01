@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#e8e4e4</color>
+    <color name="drak_gray"> #5A5A5A </color>
     <color name="container_color">#c5c9c6</color>
     <color name="primary">#1B023B</color>
     <color name="secondary">#FF03DAC5</color>
