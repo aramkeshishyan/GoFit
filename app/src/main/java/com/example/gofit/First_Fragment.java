@@ -1,12 +1,22 @@
 package com.example.gofit;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,15 +46,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.OnNoteListener{
+public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.OnNoteListener, SensorEventListener {
+    private TextView step_count;
+    private SensorManager sensorManager;
+    private Sensor stepCounterSensor;
+    private SharedPreferences sharedPreferences;
 
+    private int previousStepCount = 0;
+    private int stepCount;
     private RecyclerView exercise, nutrition, challenges;
     private ArrayList<Exercise_Item> exercise_list = new ArrayList<>();
     private ArrayList<Nutrition_Item> nutrition_list = new ArrayList<>();
     private ArrayList<ChallengeRecordDto> challenge_list = new ArrayList<>();
     private ArrayList<Friend> friendsList = new ArrayList<>();
-
-
 
     private SharedPreferences sp;
     private String userGoal;
@@ -157,7 +171,14 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         challenges.setAdapter(challengeAdapter);
         challenges.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
+        step_count = view.findViewById(R.id.step_taken_txt);
+        // Get the sensor manager and step counter sensor
+        sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        if (stepCounterSensor == null) {
+            Log.d("StepCounterFragment", "Device does not have step counter sensor");
+        }
+        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
     }
 
     private void userFriendsCall() {
@@ -354,5 +375,71 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
 
         startActivity(intent);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
+            stepCount = (int) sensorEvent.values[0];
+            step_count.setText("Step Count: " + stepCount);
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+        //Does nothing
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        stepCount = 0;
+        if (stepCounterSensor != null) {
+            //Asks for Permission if it does not have it
+            if (ContextCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.ACTIVITY_RECOGNITION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACTIVITY_RECOGNITION},
+                        1);
+            } else {
+                //Registers Listener
+                sensorManager.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_UI);
+                Log.d("StepCounterFragment", "Step counter sensor registered");
+                // Get the initial step count
+
+                previousStepCount = sharedPreferences.getInt("stepCount", 0);
+                stepCount += previousStepCount;
+                step_count.setText("Step Count: " + stepCount);
+            }
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //Sets Listener after getting permission
+                sensorManager.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_UI);
+                Log.d("StepCounterFragment", "Step counter sensor registered");
+                previousStepCount = sharedPreferences.getInt("stepCount", 0);
+                stepCount += previousStepCount;
+                step_count.setText("Step Count: " + stepCount);
+            } else {
+                //You did not give permission
+                Log.d("StepCounterFragment", "Activity recognition permission denied");
+            }
+        }
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (stepCounterSensor != null) {
+            sensorManager.unregisterListener(this);
+            Log.d("StepCounterFragment", "Step counter sensor unregistered");
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            //stepcount - previousStepCount
+            editor.putInt("stepCount", stepCount);
+            editor.apply();
+        }
     }
 }

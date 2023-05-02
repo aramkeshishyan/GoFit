@@ -3,49 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:background="@color/white"
     android:scrollbars="none"
     tools:context=".MainActivity">
 
 
     <RelativeLayout
+        android:id="@+id/main_container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_container">
+        android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/button_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:id="@+id/button_container"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/all_button"
-                android:clickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/rounded_button"
-                android:backgroundTint="@color/button_background"
+                android:backgroundTint="@color/purple_700"
+                android:clickable="true"
                 android:text="All"
-                android:textColor="#212121"
+                android:textColor="@color/white"
                 tools:ignore="TouchTargetSizeCheck,TextContrastCheck">
 
             </androidx.appcompat.widget.AppCompatButton>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/custom_button"
-                android:clickable="true"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/rounded_button"
-                android:backgroundTint="@color/button_background"
+                android:backgroundTint="@color/purple_700"
+                android:clickable="true"
                 android:text="Create"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 tools:ignore="TouchTargetSizeCheck">
 
             </androidx.appcompat.widget.AppCompatButton>
@@ -53,33 +54,46 @@
 
         </LinearLayout>
 
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_container"
+            app:dividerColor="@color/gray" />
         <!-- created a continer to make protion of the views invisible-->
 
         <RelativeLayout
+            android:id="@+id/visible_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/visible_container"
-            android:layout_below="@id/button_container"
-            android:layout_marginTop="20dp">
+            android:layout_below="@id/button_container">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/month_title"
-                android:textSize="30sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/poppinsbold"
+                android:text="Your Created Challenges"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                android:text="Your Created Challenges">
+                android:textSize="24sp">
 
             </TextView>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/month_title"
+                app:dividerColor="@color/gray" />
+
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyler_month_challenge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/month_title"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="1dp">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -89,50 +103,71 @@
         <!-- end of the tag here -->
 
 
-
-        <TextView
+        <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create a Challenge"
+            android:layout_above="@+id/my_own_challenge_text"
+            app:dividerColor="@color/gray" />
+
+        <TextView
             android:id="@+id/my_own_challenge_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/visible_container"
-            android:textSize="25sp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Create a Challenge"
             android:textColor="@color/black"
-            android:layout_marginTop="20dp">
+            android:textSize="24dp">
 
         </TextView>
 
-
-        <RelativeLayout
+        <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/container_color"
+            android:layout_above="@+id/container"
+            app:dividerColor="@color/gray" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/container"
+            app:dividerColor="@color/gray" />
+
+        <RelativeLayout
             android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
             android:layout_below="@+id/my_own_challenge_text">
 
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floating_button1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/floating_button1"
-                android:backgroundTint="@color/button_background"
-                app:fabSize="mini"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:contentDescription="createbutton"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
-                android:layout_alignParentEnd="true"
-
+                app:fabSize="auto"
                 app:srcCompat="@drawable/ic_baseline_add_24">
 
             </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
             <TextView
+                android:id="@+id/create_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="32dp"
+                android:fontFamily="@font/poppinsmedium"
                 android:text="Create New"
-                android:id="@+id/create_text"
-                android:textSize="20sp"
                 android:textColor="@color/black"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp">
+                android:textSize="20sp">
 
             </TextView>
 
@@ -140,29 +175,37 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/recently_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/recently_title"
-            android:textSize="30sp"
             android:layout_below="@+id/container"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/poppinsbold"
             android:text="Recently Created"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/black">
+            android:textColor="@color/black"
+            android:textSize="24dp">
 
         </TextView>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/recently_title"
+            app:dividerColor="@color/gray" />
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyler_view_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/recently_title"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="1dp">
 
         </androidx.recyclerview.widget.RecyclerView>
 
 
     </RelativeLayout>
-
 
 
 </ScrollView>
