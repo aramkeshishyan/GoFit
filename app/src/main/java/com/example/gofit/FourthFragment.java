@@ -103,6 +103,7 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
     private Button all;
 
     private Button custom;
+    private Button requests;
     private SharedPreferences sp ;
 
     @Override
@@ -130,6 +131,7 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
 
         all = (Button) fourth_view.findViewById(R.id.all_button);
         custom = (Button) fourth_view.findViewById(R.id.custom_button);
+        requests = (Button) fourth_view.findViewById(R.id.requests_button);
 
         challenge_r = (RecyclerView) fourth_view.findViewById(R.id.recyler_view_2);
 
@@ -150,6 +152,13 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
         * Return a void
         *
      */
+
+        requests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ChallengeRequestsPage.class));
+            }
+        });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
