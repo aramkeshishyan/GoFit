@@ -1,7 +1,14 @@
 package com.example.gofit.data.model.requests.Challenges;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class SendChallengeDto {
+    @SerializedName("challengeId")
+    @Expose
     private int challengeId;
+    @SerializedName("friendUserEmail")
+    @Expose
     private String friendEmail;
 
     public SendChallengeDto(int challengeId, String friendEmail) {

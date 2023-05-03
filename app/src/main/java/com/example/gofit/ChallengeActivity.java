@@ -320,7 +320,7 @@ public class ChallengeActivity extends AppCompatActivity implements View.OnClick
         //Toast.makeText(ChallengeActivity.this, Integer.toString(challengeIdObj.getId()) , Toast.LENGTH_LONG).show();
 
         SendChallengeDto sendChallengeDto = new SendChallengeDto(challengeId, friendsList.get(position).getEmail());
-        Toast.makeText(ChallengeActivity.this, String.format("/%s/%s/", sendChallengeDto.getChallengeId(), sendChallengeDto.getFriendEmail() ), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(ChallengeActivity.this, String.format("<%s><%s>", sendChallengeDto.getChallengeId(), sendChallengeDto.getFriendEmail() ), Toast.LENGTH_SHORT).show();
         sendChallengeToFriendCall(sendChallengeDto);
     }
 
