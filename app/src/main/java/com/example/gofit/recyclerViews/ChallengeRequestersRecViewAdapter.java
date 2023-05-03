@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.gofit.ChallengeRequestRecyclerViewInterface;
 import com.example.gofit.R;
 import com.example.gofit.data.model.requests.Challenges.ChallengeRequestDto;
 
@@ -22,13 +23,15 @@ import java.util.ArrayList;
 
 public class ChallengeRequestersRecViewAdapter extends RecyclerView.Adapter<ChallengeRequestersRecViewAdapter.ViewHolder>  {
 
+    private final ChallengeRequestRecyclerViewInterface recyclerViewInterface;
     private ArrayList<ChallengeRequestDto> challenges = new ArrayList();
     private OnChallengeRequestActionListener requestActionListener;
     private Context context;
 
-    public ChallengeRequestersRecViewAdapter(Context context, ChallengeRequestersRecViewAdapter.OnChallengeRequestActionListener listener) {
+    public ChallengeRequestersRecViewAdapter(Context context, ChallengeRequestersRecViewAdapter.OnChallengeRequestActionListener listener, ChallengeRequestRecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         requestActionListener = listener;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     public void setChallengers(ArrayList<ChallengeRequestDto> challenges) {
@@ -103,6 +106,20 @@ public class ChallengeRequestersRecViewAdapter extends RecyclerView.Adapter<Chal
 
         holder.challengeListDenyBtn.setOnClickListener(view ->
                 requestActionListener.onChallengeRequestDenied(challengeRequest));
+
+        holder.challengeListItemParent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(recyclerViewInterface != null)
+                {
+                    int pos = holder.getAdapterPosition();
+
+                    if(pos != RecyclerView.NO_POSITION){
+                        recyclerViewInterface.onChallengeRequestItemClick(pos);
+                    }
+                }
+            }
+        });
 
     }
 
