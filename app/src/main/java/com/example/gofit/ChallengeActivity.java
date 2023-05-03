@@ -106,17 +106,20 @@ public class ChallengeActivity extends AppCompatActivity implements View.OnClick
             splitString = dateAccepted.split("T", 2);
             dateAccepted = splitString[0];
 
-            splitString = dateStarted.split("T", 2);
-            dateStarted = splitString[0];
+            if (dateStarted != null) {
+                splitString = dateStarted.split("T", 2);
+                dateStarted = splitString[0];
+            }
 
-            splitString = dateEnd.split("T", 2);
-            dateEnd = splitString[0];
+            if(dateEnd !=null){
+                splitString = dateEnd.split("T", 2);
+                dateEnd = splitString[0];
+            }
 
-            splitString = dateLastCompleted.split("T", 2);
-            dateLastCompleted = splitString[0];
-
-
-
+            if (dateLastCompleted != null) {
+                splitString = dateLastCompleted.split("T", 2);
+                dateLastCompleted = splitString[0];
+            }
 
             setupItems(title, description, challengeExercisesList, durationDays, repetitions, sets, creator, dateAccepted, dateStarted, dateEnd, dateLastCompleted, completed, streak, totalDaysCompleted, score);
         }
