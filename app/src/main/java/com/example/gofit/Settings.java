@@ -11,7 +11,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import com.example.gofit.R;
 
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,10 +69,6 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         sp = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
 
     }
-
-    // handle the Update Survey button
-
-
 
     // Handle the result from the Gallery or Camera app
     @Override
