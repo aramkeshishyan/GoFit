@@ -16,7 +16,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class second_custom_adapter extends RecyclerView.Adapter<second_custom_adapter.myViewHolder> {
+public class display_new_challenge_adapter extends RecyclerView.Adapter<display_new_challenge_adapter.myViewHolder> {
+
 
     private ArrayList<ChallengeRecordDto> challenges ;
 
@@ -25,7 +26,7 @@ public class second_custom_adapter extends RecyclerView.Adapter<second_custom_ad
    private removeItemListner listener ;
    private Context contex;
 
-   public second_custom_adapter(Context context, ArrayList<ChallengeRecordDto> challenges) {
+   public display_new_challenge_adapter(Context context, ArrayList<ChallengeRecordDto> challenges) {
        this.contex = context ;
        this.challenges = challenges ;
 

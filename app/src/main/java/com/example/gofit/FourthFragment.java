@@ -38,13 +38,10 @@ import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.recyclerViews.FriendsRecViewAdapter;
 import com.example.gofit.recyclerViews.custum_base_adapter;
-import com.example.gofit.recyclerViews.second_custom_adapter;
+import com.example.gofit.recyclerViews.display_new_challenge_adapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -89,7 +86,7 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
 
     // UI elements attributes   //
 
-    private second_custom_adapter adapter2;
+    private display_new_challenge_adapter adapter2;
 
     private RecyclerView challenge_r;   // challenge_r will be short for challenge recylerview container    //
 
@@ -140,7 +137,7 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
         continer1 = (RecyclerView) fourth_view.findViewById(R.id.recyler_month_challenge);
 
         add = (FloatingActionButton) fourth_view.findViewById(R.id.floating_button1);
-        adapter2 = new second_custom_adapter(fourth_view.getContext(), custom_challenges);
+        adapter2 = new display_new_challenge_adapter(fourth_view.getContext(), custom_challenges);
         adapter = new custum_base_adapter(fourth_view.getContext(), work_out_names, this);
         continer1.setLayoutManager(new LinearLayoutManager(fourth_view.getContext()));
         continer1.setAdapter(adapter);
