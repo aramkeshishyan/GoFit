@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 
@@ -32,6 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
+import com.example.gofit.data.model.requests.Challenges.ChallengeRequestDto;
 import com.example.gofit.data.model.requests.Challenges.CreateChallengeDto;
 import com.example.gofit.data.model.requests.Challenges.ChallengeDto;
 import com.example.gofit.data.model.responses.defaultResponse;
@@ -117,6 +119,10 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
         // if the array has been saved, than load else it will it create an empty array //
 
         challenge_call();
+
+
+        //used in this fragment too to turn requests btn red when having any requests
+        challengeRequestsCall();
 
         custom_challenges = new ArrayList<>( );
 
@@ -443,10 +449,36 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
 
 
 
+    private void challengeRequestsCall() {
 
+        String token = sp.getString("token", "");
 
+        MainApplication.apiManager.getUserChallengeRequests(token, new Callback<defaultResponseList<ChallengeRequestDto>>() {
+            @Override
+            public void onResponse(Call<defaultResponseList<ChallengeRequestDto>> call, Response<defaultResponseList<ChallengeRequestDto>> response) {
+                defaultResponseList<ChallengeRequestDto> requestersList = response.body();
 
+                if(response.isSuccessful() && requestersList.getData() != null)
+                {
+                    ((Button)requests).setTextColor(Color.parseColor("#db0d0d"));
+                }
+                else
+                {
+                    requests.setTextColor(Color.parseColor("#FFFFFF"));
 
+                }
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponseList<ChallengeRequestDto>> call, Throwable t) {
+                Toast.makeText(getActivity(),
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
 
 
 

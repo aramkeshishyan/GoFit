@@ -155,6 +155,23 @@ public class ChallengeRequestsPage extends AppCompatActivity implements View.OnC
     @Override
     public void onChallengeRequestItemClick(int position) {
         Intent intent = new Intent(ChallengeRequestsPage.this, ChallengeRequestDetailsPage.class);
+
+        intent.putExtra("chal_request_id", requestersArray.get(position).getRequestId());
+        intent.putExtra("chal_id", requestersArray.get(position).getChallenge().getChallengeId());
+        intent.putExtra("chal_creator_email", requestersArray.get(position).getChallenge().getCreatorEmail());
+        intent.putExtra("chal_title", requestersArray.get(position).getChallenge().getTitle());
+        intent.putExtra("chal_desc", requestersArray.get(position).getChallenge().getDesc());
+
+        Bundle exerciseArgs = new Bundle();
+        exerciseArgs.putSerializable("chal_exerciselist", requestersArray.get(position).getChallenge().getExerciseList());
+        intent.putExtras(exerciseArgs);
+
+        intent.putExtra("chal_duration", requestersArray.get(position).getChallenge().getDurationDays());
+        intent.putExtra("chal_reps", requestersArray.get(position).getChallenge().getReps());
+        intent.putExtra("chal_sets", requestersArray.get(position).getChallenge().getSets());
+        intent.putExtra("chal_creator_name", requestersArray.get(position).getCreatorName());
+        intent.putExtra("chal_creator_photo", requestersArray.get(position).getCreatorPhotoURL());
+
         startActivity(intent);
 
     }

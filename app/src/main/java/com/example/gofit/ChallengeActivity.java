@@ -296,7 +296,7 @@ public class ChallengeActivity extends AppCompatActivity implements View.OnClick
 
         builder.setView(lp);
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.cancel();
