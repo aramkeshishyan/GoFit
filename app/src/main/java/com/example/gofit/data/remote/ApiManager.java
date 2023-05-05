@@ -217,8 +217,8 @@ public class ApiManager {
         emptyDataResponse.enqueue(callback);
     }
 
-    public void acceptChallengeRequest(String token, ObjectId requestId, Callback<defaultResponse<ChallengeRequestDto>> callback) {
-        Call<defaultResponse<ChallengeRequestDto>> challengeRequestInfo = service.acceptChallengeRequest("Bearer " + token, requestId);
+    public void acceptChallengeRequest(String token, ObjectId requestId, Callback<defaultResponse<ChallengeRecordDto>> callback) {
+        Call<defaultResponse<ChallengeRecordDto>> challengeRequestInfo = service.acceptChallengeRequest("Bearer " + token, requestId);
         challengeRequestInfo.enqueue(callback);
     }
 

@@ -59,6 +59,9 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
     private ArrayList<Nutrition_Item> nutrition_list = new ArrayList<>();
     private ArrayList<ChallengeRecordDto> challenge_list = new ArrayList<>();
     private ArrayList<Friend> friendsList = new ArrayList<>();
+    private ChallengeRecViewAdapter challengeAdapter ;
+    private RecommendNutritionAdapter nutritionAdapter;
+    private RecommendExerciseAdapter exerciseAdapter ;
 
     private SharedPreferences sp;
     private String userGoal;
@@ -136,6 +139,30 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
         }
 
+        exerciseAdapter = new RecommendExerciseAdapter(getContext(), exercise_list, this::onNoteClick);
+        exerciseAdapter.setExercises(exercise_list);
+
+        exercise = view.findViewById(R.id.rec_exercise_recview);
+        exercise.setAdapter(exerciseAdapter);
+        exercise.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        nutritionAdapter = new RecommendNutritionAdapter(getContext(), nutrition_list, this::onNoteClick2);
+        nutritionAdapter.setNutritionArrayList(nutrition_list);
+
+        nutrition = view.findViewById(R.id.rec_nutrition_recview);
+        nutrition.setAdapter(nutritionAdapter);
+        nutrition.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        challengeAdapter = new ChallengeRecViewAdapter(getContext(), challenge_list, this::onNoteClick3);
+        challengeAdapter.setChallenges(challenge_list);
+
+        challenges = view.findViewById(R.id.current_challenges_recview);
+        challenges.setAdapter(challengeAdapter);
+        challenges.setLayoutManager(new LinearLayoutManager(getContext()));
+        challenge_list = new ArrayList<>() ;
+        nutrition_list = new ArrayList<>();
+        exercise_list = new ArrayList<>();
+
         userFriendsCall();
         challengesCall();
         mealsByTypeCall(mealType);
@@ -150,26 +177,7 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
             throw new RuntimeException(e);
         }
 
-        RecommendExerciseAdapter exerciseAdapter = new RecommendExerciseAdapter(getContext(), exercise_list, this::onNoteClick);
-        exerciseAdapter.setExercises(exercise_list);
 
-        exercise = view.findViewById(R.id.rec_exercise_recview);
-        exercise.setAdapter(exerciseAdapter);
-        exercise.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
-        RecommendNutritionAdapter nutritionAdapter = new RecommendNutritionAdapter(getContext(), nutrition_list, this::onNoteClick2);
-        nutritionAdapter.setNutritionArrayList(nutrition_list);
-
-        nutrition = view.findViewById(R.id.rec_nutrition_recview);
-        nutrition.setAdapter(nutritionAdapter);
-        nutrition.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
-        ChallengeRecViewAdapter challengeAdapter = new ChallengeRecViewAdapter(getContext(), challenge_list, this::onNoteClick3);
-        challengeAdapter.setChallenges(challenge_list);
-
-        challenges = view.findViewById(R.id.current_challenges_recview);
-        challenges.setAdapter(challengeAdapter);
-        challenges.setLayoutManager(new LinearLayoutManager(getContext()));
 
         step_count = view.findViewById(R.id.step_taken_txt);
         // Get the sensor manager and step counter sensor
@@ -221,10 +229,12 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
             public void onResponse(Call<defaultResponseList<ChallengeRecordDto>> call, Response<defaultResponseList<ChallengeRecordDto>> response) {
                 defaultResponseList<ChallengeRecordDto> chalRecordsResponse = response.body();
 
-                challenge_list = new ArrayList<>();
+
                 if (response.isSuccessful() && chalRecordsResponse != null) {
                     if (chalRecordsResponse.getData() != null) {
                         challenge_list.addAll(chalRecordsResponse.getData());
+                        challengeAdapter.setChallenges(challenge_list);
+                        challenges.setAdapter(challengeAdapter);
 
                     }
                     else {
@@ -255,8 +265,9 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
                 defaultResponseList<Nutrition_Item> responseMeals = response.body();
 
                 if(response.isSuccessful() && responseMeals != null){
-                    nutrition_list = new ArrayList<>();
                     nutrition_list.addAll(responseMeals.getData());
+                    nutritionAdapter.setNutritionArrayList(nutrition_list);
+                    nutrition.setAdapter(nutritionAdapter);
 
 //                    Toast.makeText(getContext(),
 //                            "Get Meals was Successful",
@@ -289,8 +300,10 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
                 defaultResponseList<Exercise_Item> responseExercises = response.body();
 
                 if (response.isSuccessful() && responseExercises != null) {
-                    exercise_list = new ArrayList<>();
+
                     exercise_list.addAll(responseExercises.getData());
+                    exerciseAdapter.setExercises(exercise_list);
+                    exercise.setAdapter(exerciseAdapter);
 
 //                    Toast.makeText(getContext(),
 //                            "Get Exercises was Successful",

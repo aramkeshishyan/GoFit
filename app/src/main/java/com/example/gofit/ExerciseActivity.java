@@ -47,19 +47,19 @@ public class ExerciseActivity extends AppCompatActivity {
         mTitle.setText(title);
 
         TextView mGroup = findViewById(R.id.ex_muscleGroup);
-        mGroup.setText("Muscle Group: " + group);
+        mGroup.setText("Group\n" + group);
 
         TextView mLevel = findViewById(R.id.ex_level);
-        mLevel.setText("Exercise Level: " + level);
+        mLevel.setText("Level\n" + level);
 
         TextView mDescription = findViewById(R.id.ex_description);
-        mDescription.setText("Description: " + description);
+        mDescription.setText("Description\n\t" + description);
 
         ImageView mImage = findViewById(R.id.ex_image);
         Picasso.get().load(imageUrl).into(mImage);
 
         TextView mType = findViewById(R.id.ex_type);
-        mType.setText("Exercise Type: " + type);
+        mType.setText("Type\n" + type);
 
     }
 }

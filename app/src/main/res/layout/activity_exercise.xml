@@ -1,76 +1,113 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ExerciseActivity"
-    android:weightSum="100">
-    <ImageButton
-        android:id="@+id/ex_backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:minWidth="48dp"
-        android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
-        android:background="?android:selectableItemBackground"
-        android:contentDescription="@string/back" />
-    <ImageView
-        android:id="@+id/ex_image"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="60"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_launcher_background"/>
-    <TextView
-        android:id="@+id/ex_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:text="Title"
-        android:fontFamily="@font/poppinsbold"
+        android:layout_height="match_parent">
 
-        android:textSize="30dp"/>
-    <TextView
-        android:id="@+id/ex_muscleGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Muscle Group: "
-        android:fontFamily="@font/poppinsmedium"
-        android:textSize="20dp"/>
-    <TextView
-        android:id="@+id/ex_level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Exercise Level: "
-        android:fontFamily="@font/poppinsmedium"
-        android:textSize="20dp"/>
+        <ImageView
+            android:id="@+id/ex_image"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/ic_launcher_background">
 
-    <TextView
-        android:id="@+id/ex_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Exercise Type: "
-        android:fontFamily="@font/poppinsmedium"
-        android:textSize="20dp"/>
+        </ImageView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="50dp"
+            android:layout_margin="5dp"
+            >
+            <ImageButton
+                android:id="@+id/ex_backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:contentDescription="@string/back"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:src="@drawable/ic_baseline_arrow_back_ios_new_24" />
+        </androidx.cardview.widget.CardView>
 
 
-    <TextView
-        android:id="@+id/ex_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Description: "
-        android:fontFamily="@font/poppinsmedium"
-        android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/ex_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ex_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppinsbold"
+            android:gravity="center_horizontal"
+            android:text="Title"
+            android:textColor="@color/black"
+            android:textSize="30dp" />
 
-</LinearLayout>
+
+
+        <TableRow
+            android:id="@+id/table_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ex_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/ex_muscleGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsbold"
+                android:gravity="center_horizontal"
+                android:text="Group"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/ex_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsbold"
+                android:layout_marginHorizontal="36dp"
+                android:gravity="center_horizontal"
+                android:text=" Level"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/ex_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsbold"
+                android:gravity="center_horizontal"
+                android:text="Type "
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+        </TableRow>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/table_row"
+            app:dividerColor="@color/gray"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="18dp"/>
+        <TextView
+            android:id="@+id/ex_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/table_row"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:text="Description"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+    </RelativeLayout>
+
+</ScrollView>
