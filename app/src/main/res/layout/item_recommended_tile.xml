@@ -10,7 +10,6 @@
         android:id="@+id/item_rec_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_background"/>
 
     <androidx.cardview.widget.CardView
@@ -32,7 +31,7 @@
             android:text="Item Name"
             android:fontFamily="@font/poppinsmedium"
             android:textColor="@color/white"
-            android:textSize="16dp">
+            android:textSize="16sp">
         </TextView>
     </androidx.cardview.widget.CardView>
 

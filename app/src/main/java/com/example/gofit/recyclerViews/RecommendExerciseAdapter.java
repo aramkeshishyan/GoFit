@@ -41,7 +41,7 @@ public class RecommendExerciseAdapter extends RecyclerView.Adapter<RecommendExer
         Exercise_Item exercise = exerciseArrayList.get(position);
         holder.item_name.setText(exercise.getItem_name());
         //Picasso.get().load(exercise.getItem_image()).into(holder.item_image);
-        Glide.with(exercise_context).asBitmap().load(exercise.getItem_image()).centerCrop().into(holder.item_image);
+        Glide.with(exercise_context).asBitmap().load(exercise.getItem_image()).into(holder.item_image);
     }
 
     @Override
