@@ -163,7 +163,7 @@ public interface IUsersApi {
     //This returns a challengeRequestDto but you can ignore this data.
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("/Challenge/acceptRequest/")
-    Call<defaultResponse<ChallengeRequestDto>> acceptChallengeRequest(@Header("Authorization") String token, @Body ObjectId requestId);
+    Call<defaultResponse<ChallengeRecordDto>> acceptChallengeRequest(@Header("Authorization") String token, @Body ObjectId requestId);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("/Challenge/denyRequest/")

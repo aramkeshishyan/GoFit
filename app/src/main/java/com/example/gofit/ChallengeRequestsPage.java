@@ -13,8 +13,11 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.gofit.data.model.requests.Challenges.ChallengeDto;
+import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
 import com.example.gofit.data.model.requests.Challenges.ChallengeRequestDto;
+import com.example.gofit.data.model.requests.ObjectId;
 import com.example.gofit.data.model.requests.RequestersInfo;
+import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.recyclerViews.ChallengeRequestersRecViewAdapter;
 import com.example.gofit.recyclerViews.RequestersRecViewAdapter;
@@ -100,11 +103,52 @@ public class ChallengeRequestsPage extends AppCompatActivity implements View.OnC
 
     @Override
     public void onChallengeRequestAccepted(ChallengeRequestDto request) {
+        SharedPreferences sp = context.getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        String token = sp.getString("token", "");
+        ObjectId challengeIdObject = new ObjectId(request.getRequestId());
+
+//        Toast.makeText(ChallengeRequestsPage.this,
+//                String.format("%d", request.getRequestId())
+//                , Toast.LENGTH_LONG).show();
+
+        MainApplication.apiManager.acceptChallengeRequest(token, challengeIdObject, new Callback<defaultResponse<ChallengeRecordDto>>() {
+            @Override
+            public void onResponse(Call<defaultResponse<ChallengeRecordDto>> call, Response<defaultResponse<ChallengeRecordDto>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponse<ChallengeRecordDto>> call, Throwable t) {
+
+            }
+        });
+
+        requestersArray.remove(request);            //remove request after accepting
+        requestsAdapter.notifyDataSetChanged();     //Update adapter to reflect request removal
+
 
     }
 
     @Override
     public void onChallengeRequestDenied(ChallengeRequestDto request) {
+        SharedPreferences sp = context.getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        String token = sp.getString("token", "");
+        ObjectId challengeIdObject = new ObjectId(request.getRequestId());
+
+        MainApplication.apiManager.denyChallengeRequest(token, challengeIdObject, new Callback<defaultResponse<String>>() {
+            @Override
+            public void onResponse(Call<defaultResponse<String>> call, Response<defaultResponse<String>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponse<String>> call, Throwable t) {
+
+            }
+        });
+
+        requestersArray.remove(request);
+        requestsAdapter.notifyDataSetChanged();
 
     }
 
