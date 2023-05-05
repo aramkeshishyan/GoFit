@@ -48,6 +48,7 @@ import retrofit2.Response;
 
 public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.OnNoteListener, SensorEventListener {
     private TextView step_count;
+    private TextView calories_burned;
     private SensorManager sensorManager;
     private Sensor stepCounterSensor;
     private SharedPreferences sharedPreferences;
@@ -178,15 +179,18 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         }
 
 
-
+        calories_burned = view.findViewById(R.id.calories_burned);
         step_count = view.findViewById(R.id.step_taken_txt);
         // Get the sensor manager and step counter sensor
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         if (stepCounterSensor == null) {
             Log.d("StepCounterFragment", "Device does not have step counter sensor");
+            step_count.setText("Steps Taken: 0");
         }
         sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+
+        calculateCalsBurned();
     }
 
     private void userFriendsCall() {
@@ -388,6 +392,13 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
 
         startActivity(intent);
+    }
+
+
+    public void calculateCalsBurned() {
+        double calsBurned = stepCount * 0.04;   //average cals burned per step = 0.04
+
+        calories_burned.setText("Calories burned: " + calsBurned);
     }
 
     @Override
