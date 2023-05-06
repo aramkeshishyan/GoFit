@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
     app:cardElevation="10dp"
-    app:cardBackgroundColor="@color/gray"
+    app:cardBackgroundColor="@color/sweet_corn"
     android:layout_margin="10dp"
     android:id="@+id/rv_parent"
     >
