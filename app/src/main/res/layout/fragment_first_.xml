@@ -60,10 +60,21 @@
                     android:textSize="20dp" />
 
                 <TextView
-                    android:id="@+id/calories_taken"
+                    android:id="@+id/reccomended_calories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/calories_burned"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="Calories Rec: "
+                    android:textColor="@color/white"
+                    android:textSize="20dp"/>
+
+                <TextView
+                    android:id="@+id/calories_taken"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/reccomended_calories"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/poppinsmedium"
                     android:text="Calories Taken: "

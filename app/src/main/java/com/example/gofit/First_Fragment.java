@@ -49,6 +49,7 @@ import retrofit2.Response;
 public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.OnNoteListener, SensorEventListener {
     private TextView step_count;
     private TextView calories_burned;
+    private TextView calories_recommended;
     private SensorManager sensorManager;
     private Sensor stepCounterSensor;
     private SharedPreferences sharedPreferences;
@@ -86,6 +87,8 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         userGoal = sp.getString("goal","");
         userBodyType = sp.getString("bodyType", "");
 
+        calories_recommended = view.findViewById(R.id.reccomended_calories);
+        calories_recommended.setText("Calories Rec: " + Integer.toString(sp.getInt("recCalories",0)));
 
 
         //Greet user with Hello + their first name
@@ -94,6 +97,64 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         String firstName = fullName.split(" ")[0];  //split first/last name and get first name
         hello_greeting.setText("Hello " + firstName);
 
+        determineExerciseRecommendations();
+        determineMealReccomendations();
+
+        exerciseAdapter = new RecommendExerciseAdapter(getContext(), exercise_list, this::onNoteClick);
+        exerciseAdapter.setExercises(exercise_list);
+
+        exercise = view.findViewById(R.id.rec_exercise_recview);
+        exercise.setAdapter(exerciseAdapter);
+        exercise.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        nutritionAdapter = new RecommendNutritionAdapter(getContext(), nutrition_list, this::onNoteClick2);
+        nutritionAdapter.setNutritionArrayList(nutrition_list);
+
+        nutrition = view.findViewById(R.id.rec_nutrition_recview);
+        nutrition.setAdapter(nutritionAdapter);
+        nutrition.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        challengeAdapter = new ChallengeRecViewAdapter(getContext(), challenge_list, this::onNoteClick3);
+        challengeAdapter.setChallenges(challenge_list);
+
+        challenges = view.findViewById(R.id.current_challenges_recview);
+        challenges.setAdapter(challengeAdapter);
+        challenges.setLayoutManager(new LinearLayoutManager(getContext()));
+        challenge_list = new ArrayList<>() ;
+        nutrition_list = new ArrayList<>();
+        exercise_list = new ArrayList<>();
+
+        userFriendsCall();
+        challengesCall();
+        mealsByTypeCall(mealType);
+        exercisesByTypeCall(exerciseType);
+
+
+        //wait for 1 second for the async call to get the exercises from backend
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        calories_burned = view.findViewById(R.id.calories_burned);
+        step_count = view.findViewById(R.id.step_taken_txt);
+        // Get the sensor manager and step counter sensor
+        sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        if (stepCounterSensor == null) {
+            Log.d("StepCounterFragment", "Device does not have step counter sensor");
+            step_count.setText("Steps Taken: 0");
+        }
+        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+
+        calculateCalsBurned();
+    }
+
+
+    private void determineExerciseRecommendations()
+    {
         //Decide what Exercises to recommend
         if(Objects.equals(userGoal, "Gain Weight")) {
             exerciseType = "Strength";
@@ -101,7 +162,9 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         else{
             exerciseType = "Cardio";
         }
+    }
 
+    private void determineMealReccomendations(){
         //Decide what Meals to recommend
         if(Objects.equals(userBodyType, "Ectomorph"))
         {
@@ -140,57 +203,6 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
         }
 
-        exerciseAdapter = new RecommendExerciseAdapter(getContext(), exercise_list, this::onNoteClick);
-        exerciseAdapter.setExercises(exercise_list);
-
-        exercise = view.findViewById(R.id.rec_exercise_recview);
-        exercise.setAdapter(exerciseAdapter);
-        exercise.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
-        nutritionAdapter = new RecommendNutritionAdapter(getContext(), nutrition_list, this::onNoteClick2);
-        nutritionAdapter.setNutritionArrayList(nutrition_list);
-
-        nutrition = view.findViewById(R.id.rec_nutrition_recview);
-        nutrition.setAdapter(nutritionAdapter);
-        nutrition.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
-        challengeAdapter = new ChallengeRecViewAdapter(getContext(), challenge_list, this::onNoteClick3);
-        challengeAdapter.setChallenges(challenge_list);
-
-        challenges = view.findViewById(R.id.current_challenges_recview);
-        challenges.setAdapter(challengeAdapter);
-        challenges.setLayoutManager(new LinearLayoutManager(getContext()));
-        challenge_list = new ArrayList<>() ;
-        nutrition_list = new ArrayList<>();
-        exercise_list = new ArrayList<>();
-
-        userFriendsCall();
-        challengesCall();
-        mealsByTypeCall(mealType);
-        exercisesByTypeCall(exerciseType);
-
-
-
-        //wait for 1 second for the async call to get the exercises from backend
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        calories_burned = view.findViewById(R.id.calories_burned);
-        step_count = view.findViewById(R.id.step_taken_txt);
-        // Get the sensor manager and step counter sensor
-        sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        if (stepCounterSensor == null) {
-            Log.d("StepCounterFragment", "Device does not have step counter sensor");
-            step_count.setText("Steps Taken: 0");
-        }
-        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-
-        calculateCalsBurned();
     }
 
     private void userFriendsCall() {

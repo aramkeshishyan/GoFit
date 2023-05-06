@@ -45,7 +45,7 @@
         android:id="@+id/friendRequestListDenyBtn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="1dp"
         android:text="@string/deny"/>
 
 </LinearLayout>

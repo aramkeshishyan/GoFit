@@ -2,7 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
+    android:background="@drawable/settings_background">
 
     <!-- Back button -->
     <ImageButton
@@ -53,25 +57,116 @@
 
     <!-- User's Name -->
     <TextView
-        android:id="@+id/nameText"
+        android:id="@+id/user_full_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your Name"
-        android:textColor="#59C010"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_below="@id/profilePicture"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
 
+    <TextView
+        android:id="@+id/user_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_below="@id/user_full_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"/>
+
     <!-- Change Name Button -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/user_info_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="15dp"
+        app:cardCornerRadius="15dp"
+        app:cardMaxElevation="15dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+
+            <TextView
+                android:id="@+id/user_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsmedium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/user_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_gender"
+                android:fontFamily="@font/poppinsmedium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/user_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_age"
+                android:fontFamily="@font/poppinsmedium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/user_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_height"
+                android:fontFamily="@font/poppinsmedium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/user_body_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_weight"
+                android:fontFamily="@font/poppinsmedium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/user_activity_lvl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_body_type"
+                android:fontFamily="@font/poppinsmedium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/user_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_activity_lvl"
+                android:fontFamily="@font/poppinsmedium"
+                android:textSize="20sp" />
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/changeNameButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Change Name"
-        android:layout_below="@id/nameText"
+        android:layout_below="@id/user_info_card"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
 

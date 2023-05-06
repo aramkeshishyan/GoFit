@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.InputType;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.gofit.data.model.requests.UserUpdatePasswordDto;
 import com.example.gofit.data.model.responses.defaultResponse;
 
@@ -32,7 +33,7 @@ import retrofit2.Response;
 
 public class Settings extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView nameText;
+    private TextView fullNameTxtV, emailTxtV, genderTxtV, ageTxtV, heightTxtV, weightTxtV, bodyTypeTxtV, activityLvlTxtV, goalTxtV;
     private ImageButton backButton;
     private ImageView profilePicture;
     private Button uploadButton;
@@ -42,6 +43,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     private String userEmail;
     private String currentPassword;
     private String newPassword;
+    private String userImage;
 
     private SharedPreferences sp ;
 
@@ -50,15 +52,42 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        sp = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+
         backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(this);
-
-        profilePicture = findViewById(R.id.profilePicture);
 
         uploadButton = findViewById(R.id.uploadButton);
         uploadButton.setOnClickListener(this);
 
-        nameText = findViewById(R.id.nameText);
+        fullNameTxtV = findViewById(R.id.user_full_name);
+        emailTxtV = findViewById(R.id.user_email);
+        genderTxtV = findViewById(R.id.user_gender);
+        ageTxtV = findViewById(R.id.user_age);
+        heightTxtV = findViewById(R.id.user_height);
+        weightTxtV = findViewById(R.id.user_weight);
+        bodyTypeTxtV = findViewById(R.id.user_body_type);
+        activityLvlTxtV = findViewById(R.id.user_activity_lvl);
+        goalTxtV = findViewById(R.id.user_goal);
+
+
+        fullNameTxtV.setText(sp.getString("fullName",""));
+        emailTxtV.setText(sp.getString("email",""));
+        genderTxtV.setText("Gender: " + sp.getString("gender",""));
+        ageTxtV.setText("Age: " + Integer.toString(sp.getInt("age", 0)));
+        heightTxtV.setText("Height: " + Float.toString(sp.getFloat("height",0)));
+        weightTxtV.setText("Weight: " + Float.toString(sp.getFloat("weight",0)));
+        bodyTypeTxtV.setText("Body Type: " + sp.getString("bodyType",""));
+        activityLvlTxtV.setText("Activity Lvl: " + sp.getString("activityLvl",""));
+        goalTxtV.setText("Goal: " + sp.getString("goal",""));
+
+        userImage = sp.getString("photoUrl","");
+        profilePicture = findViewById(R.id.profilePicture);
+        if (userImage.isEmpty()) {
+            userImage = "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
+        }
+        Glide.with(this).asBitmap().load(userImage).centerCrop().into(profilePicture);
+
 
         changeNameButton = findViewById(R.id.changeNameButton);
         changeNameButton.setOnClickListener(this);
@@ -66,7 +95,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         changePasswordBtn = findViewById(R.id.changePasswordButton);
         changePasswordBtn.setOnClickListener(this);
 
-        sp = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+
 
     }
 
@@ -294,7 +323,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
                     public void onClick(DialogInterface dialog, int which) {
                         String newName = input.getText().toString();
                         // Update the text of the TextView with the new name
-                        nameText.setText(newName);
+                        fullNameTxtV.setText(newName);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
