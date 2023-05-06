@@ -56,22 +56,22 @@ public class ChallengeDetails extends AppCompatActivity implements Challenge_Exe
         mTitle.setText(title);
 
         TextView mDuration = findViewById(R.id.Challenge_duration);
-        mDuration.setText("Challenge Duration: " + String.valueOf(duration) + " days");
+        mDuration.setText(String.valueOf(duration) + " Days");
 
         TextView mReps = findViewById(R.id.Challenge_reps);
-        mReps.setText("# of Repititions: " + String.valueOf(reps));
+        mReps.setText(String.valueOf(reps));
 
         TextView mSets = findViewById(R.id.Challenge_sets);
-        mSets.setText("# of Sets: " + String.valueOf(sets));
+        mSets.setText(String.valueOf(sets));
 
         TextView mId = findViewById(R.id.Challenge_id);
-        mId.setText("Challenge ID: " + String.valueOf(id));
+        mId.setText(String.valueOf(id));
 
         TextView mEmail = findViewById(R.id.Challenge_email);
-        mEmail.setText("Challenger's email: \n" + email);
+        mEmail.setText(email);
 
         TextView mDescription = findViewById(R.id.Challenge_description);
-        mDescription.setText("Challenge Description: \n" + description);
+        mDescription.setText(description);
 
         exercise_adapter = new Challenge_ExerciseRV_Adapter(this, exercise_list, this);
         exercise_adapter.setExercise_List(exercise_list);
