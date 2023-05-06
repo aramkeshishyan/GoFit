@@ -8,7 +8,7 @@
     tools:context=".UserProfile"
     android:backgroundTint="#80FFFFFF"
     android:backgroundTintMode="src_over"
-    android:background="@drawable/profile_background"
+    android:background="@drawable/purple_background"
     android:scrollbars="none">
 
     <!-- ScrollView used so that entire activity is scrollable;
@@ -93,6 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="30sp"
                 android:paddingTop="5dp"
@@ -159,6 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/friends"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_alignBaseline="@+id/friendsViewAllBtn"/>
@@ -199,6 +201,7 @@
                 android:id="@+id/statisticsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="@string/statistics"
                 android:textSize="20sp"
                 android:textStyle="bold" />

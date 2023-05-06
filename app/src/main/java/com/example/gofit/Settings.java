@@ -73,13 +73,13 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 
         fullNameTxtV.setText(sp.getString("fullName",""));
         emailTxtV.setText(sp.getString("email",""));
-        genderTxtV.setText("Gender: " + sp.getString("gender",""));
-        ageTxtV.setText("Age: " + Integer.toString(sp.getInt("age", 0)));
-        heightTxtV.setText("Height: " + Float.toString(sp.getFloat("height",0)));
-        weightTxtV.setText("Weight: " + Float.toString(sp.getFloat("weight",0)));
-        bodyTypeTxtV.setText("Body Type: " + sp.getString("bodyType",""));
-        activityLvlTxtV.setText("Activity Lvl: " + sp.getString("activityLvl",""));
-        goalTxtV.setText("Goal: " + sp.getString("goal",""));
+        genderTxtV.setText(sp.getString("gender",""));
+        ageTxtV.setText(Integer.toString(sp.getInt("age", 0)));
+        heightTxtV.setText(Float.toString(sp.getFloat("height",0)));
+        weightTxtV.setText(Float.toString(sp.getFloat("weight",0)));
+        bodyTypeTxtV.setText(sp.getString("bodyType",""));
+        activityLvlTxtV.setText(sp.getString("activityLvl",""));
+        goalTxtV.setText(sp.getString("goal",""));
 
         userImage = sp.getString("photoUrl","");
         profilePicture = findViewById(R.id.profilePicture);

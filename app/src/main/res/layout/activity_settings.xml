@@ -1,186 +1,378 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:backgroundTint="#80FFFFFF"
     android:backgroundTintMode="src_over"
-    android:background="@drawable/settings_background">
+    android:background="@drawable/purple_background">
 
-    <!-- Back button -->
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@null"
-        android:src="@drawable/back_btn" />
 
-    <!-- Title -->
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"/>
-
-    <!-- Profile Picture -->
-    <ImageView
-        android:id="@+id/profilePicture"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/profile_icon"
-        android:layout_centerHorizontal="true"/>
-
-    <!-- Upload button -->
-    <Button
-        android:id="@+id/uploadButton"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:layout_alignEnd="@id/profilePicture"
-        android:layout_alignBottom="@id/profilePicture"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/upload_button"
-        android:text="Upload"
-        android:textSize="10dp"
-        android:textColor="#F0F1F6"
-        android:textStyle="bold" />
-
-    <!-- User's Name -->
-    <TextView
-        android:id="@+id/user_full_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your Name"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_below="@id/profilePicture"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
-
-    <TextView
-        android:id="@+id/user_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_below="@id/user_full_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"/>
-
-    <!-- Change Name Button -->
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/user_info_card"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/user_email"
-        android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginBottom="15dp"
-        app:cardCornerRadius="15dp"
-        app:cardMaxElevation="15dp">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+
+        <!-- Back button -->
+        <ImageButton
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@null"
+            android:src="@drawable/back_btn" />
 
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_centerHorizontal="true"/>
 
-            <TextView
-                android:id="@+id/user_gender"
-                android:layout_width="wrap_content"
+        <!-- Profile Picture -->
+        <ImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/profile_icon"
+            android:layout_centerHorizontal="true"/>
+
+        <!-- Upload button -->
+        <Button
+            android:id="@+id/uploadButton"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignEnd="@id/profilePicture"
+            android:layout_alignBottom="@id/profilePicture"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/upload_button"
+            android:text="Upload"
+            android:textSize="10dp"
+            android:textColor="#F0F1F6"
+            android:textStyle="bold" />
+
+        <!-- User's Name -->
+        <TextView
+            android:id="@+id/user_full_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Name"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_below="@id/profilePicture"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_full_name"
+            android:src="@drawable/baseline_email_24"
+            android:layout_toStartOf="@+id/user_email"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="3dp"/>
+
+        <TextView
+            android:id="@+id/user_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textStyle="normal"
+            android:textSize="18sp"
+            android:textColor="#5C5A5A"
+            android:layout_below="@id/user_full_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"/>
+
+        <!-- Change Name Button -->
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/user_info_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_email"
+            android:layout_centerHorizontal="true"
+            app:cardElevation="10dp"
+            app:cardUseCompatPadding="true"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="15dp"
+            app:cardCornerRadius="15dp"
+            app:cardMaxElevation="15dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsmedium"
-                android:textSize="20sp" />
+                android:layout_margin="10dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/user_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/user_gender"
-                android:fontFamily="@font/poppinsmedium"
-                android:textSize="20sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/user_height"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/user_age"
-                android:fontFamily="@font/poppinsmedium"
-                android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/user_gender_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#5917e1"
+                        android:text="Gender:"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/user_weight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/user_height"
-                android:fontFamily="@font/poppinsmedium"
-                android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/user_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Change"
+                        android:textAlignment="viewEnd"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="20sp"
+                        android:textColor="#5b5b5b"/>
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/user_body_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/user_weight"
-                android:fontFamily="@font/poppinsmedium"
-                android:textSize="20sp" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:alpha="0.5"
+                    android:background="#585858" />
 
-            <TextView
-                android:id="@+id/user_activity_lvl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/user_body_type"
-                android:fontFamily="@font/poppinsmedium"
-                android:textSize="20sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/user_goal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/user_activity_lvl"
-                android:fontFamily="@font/poppinsmedium"
-                android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/user_age_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#5917e1"
+                        android:text="Age:"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/user_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Change"
+                        android:textAlignment="viewEnd"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="20sp"
+                        android:textColor="#5b5b5b"/>
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:alpha="0.5"
+                    android:background="#585858" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/user_height_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#5917e1"
+                        android:text="Height:"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/user_height"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Change"
+                        android:textAlignment="viewEnd"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="20sp"
+                        android:textColor="#5b5b5b"/>
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:alpha="0.5"
+                    android:background="#585858" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/user_weight_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#5917e1"
+                        android:text="Weight:"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/user_weight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Change"
+                        android:textAlignment="viewEnd"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="20sp"
+                        android:textColor="#5b5b5b"/>
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:alpha="0.5"
+                    android:background="#585858" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/user_body_type_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#5917e1"
+                        android:text="Body Type:"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/user_body_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Change"
+                        android:textAlignment="viewEnd"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="20sp"
+                        android:textColor="#5b5b5b"/>
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:alpha="0.5"
+                    android:background="#585858" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/user_activity_lvl_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#5917e1"
+                        android:text="Activity Lvl:"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/user_activity_lvl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Change"
+                        android:textAlignment="viewEnd"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="20sp"
+                        android:textColor="#5b5b5b"/>
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:alpha="0.5"
+                    android:background="#585858" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/user_goal_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#5917e1"
+                        android:text="Goal:"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/user_goal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Change"
+                        android:textAlignment="viewEnd"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="20sp"
+                        android:textColor="#5b5b5b"/>
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:alpha="0.5"
+                    android:background="#585858" />
 
 
-        </RelativeLayout>
+            </LinearLayout>
 
+        </androidx.cardview.widget.CardView>
 
-    </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/update_survey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update Info"
+            android:layout_below="@id/user_info_card"
+            android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/update_survey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update Info"
-        android:layout_below="@id/user_info_card"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        <!-- Change Password Button -->
 
-    <!-- Change Password Button -->
+        <Button
+            android:id="@+id/changePasswordButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Password"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_below="@id/update_survey"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"/>
+    </RelativeLayout>
 
-    <Button
-        android:id="@+id/changePasswordButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change Password"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:layout_below="@id/update_survey"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
-
-</RelativeLayout>
+</ScrollView>

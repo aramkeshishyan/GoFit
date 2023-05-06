@@ -8,7 +8,7 @@
     tools:context=".HomePage"
     android:backgroundTint="#80FFFFFF"
     android:backgroundTintMode="src_over"
-    android:background="@drawable/main_background">
+    android:background="@drawable/purple_background">
 
     <RelativeLayout
         android:id="@+id/layout_topNavProfile"
