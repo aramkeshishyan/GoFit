@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -24,10 +25,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Survey2 extends AppCompatActivity implements View.OnClickListener {
+public class UpdateSurvey2 extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnContinue;
 
+    private ImageButton backBtn;
     private String bodyType;
     private String activityLvl;
     private String goal;
@@ -52,14 +54,16 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
 
     private UpdateSurvey updatedUserSurvey;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_survey2);
+        setContentView(R.layout.activity_update_survey2);
 
         btnContinue = (Button) findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener(this);
+
+        backBtn = findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(this);
 
         bodyType = getIntent().getStringExtra("bodyType");
         activityLvl = getIntent().getStringExtra("activityLvl");
@@ -72,21 +76,21 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
         ageET = findViewById(R.id.ageEditText);
 
         sp = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
-
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()){
+    public void onClick(View view) {
+        switch (view.getId()){
             case R.id.btnContinue:
-                setSurveyAnswers();
+                updateSurveyAnswers();
+                break;
+            case R.id.backBtn:
+                super.finish();
                 break;
         }
-
     }
 
-    public void setSurveyAnswers(){
-
+    private void updateSurveyAnswers() {
         SharedPreferences.Editor spEditor = sp.edit();
 
         radioId = radioGroupSex.getCheckedRadioButtonId();
@@ -100,10 +104,6 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
         spEditor.putString("goal", goal);
 
         spEditor.putString("gender", radioButton.getText().toString());
-        //spEditor.putString("height", heightET.getText().toString());
-        //spEditor.putString("weight", weightET.getText().toString());
-        //spEditor.putString("age", ageET.getText().toString());
-
         spEditor.putFloat("height", Float.valueOf(heightET.getText().toString()));
         spEditor.putFloat("weight", Float.valueOf(weightET.getText().toString()));
         spEditor.putInt("age", Integer.valueOf(ageET.getText().toString()));
@@ -120,7 +120,7 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
 
         pushUserInfo();
 
-        startActivity(new Intent(Survey2.this, HomePage.class));
+        //startActivity(new Intent(UpdateSurvey2.this, Settings.class));
     }
 
     private void pushUserInfo() {
@@ -146,13 +146,13 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
                     spEditor.putString("goal", userInfoResponse.getData().getGoal());
                     spEditor.apply();
 
-                    Toast.makeText(Survey2.this,
+                    Toast.makeText(UpdateSurvey2.this,
                             String.format("User Data Posted Successfully"),
                             Toast.LENGTH_LONG).show();
 
 
                 } else {
-                    Toast.makeText(Survey2.this,
+                    Toast.makeText(UpdateSurvey2.this,
                             String.format("Response is %s", String.valueOf(response.code()))
                             , Toast.LENGTH_LONG).show();
                 }
@@ -160,18 +160,18 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onFailure(Call<defaultResponse<UserInfo>> call, Throwable t) {
-                Toast.makeText(Survey2.this,
+                Toast.makeText(UpdateSurvey2.this,
                         "Error: " + t.getMessage()
                         , Toast.LENGTH_LONG).show();
                 Log.d("myTag", t.getMessage());
             }
         });
 
+        startActivity(new Intent(UpdateSurvey2.this, Settings.class));
 
     }
 
     private void makeCalculations() {
-
         //calculate BMR
         if(Objects.equals(gender, "Male"))
         {
@@ -209,8 +209,5 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
         {
             recCalories = baseCalories + 500;
         }
-
     }
-
-
 }

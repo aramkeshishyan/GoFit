@@ -19,6 +19,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".UpdateSurvey2"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateSurvey1"
+            android:exported="false" />
+        <activity
             android:name=".ChallengeRequestDetailsPage"
             android:exported="false" />
         <activity

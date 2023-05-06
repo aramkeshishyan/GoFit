@@ -89,7 +89,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         Glide.with(this).asBitmap().load(userImage).centerCrop().into(profilePicture);
 
 
-        changeNameButton = findViewById(R.id.changeNameButton);
+        changeNameButton = findViewById(R.id.update_survey);
         changeNameButton.setOnClickListener(this);
 
         changePasswordBtn = findViewById(R.id.changePasswordButton);
@@ -307,32 +307,34 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
                 changePassword();
                 break;
             case R.id.backButton:
-                super.finish();
+                startActivity(new Intent(Settings.this, UserProfile.class));
                 break;
-            case R.id.changeNameButton:
+            case R.id.update_survey:
+                startActivity(new Intent(Settings.this, UpdateSurvey1.class));
+                break;
                 // Show a dialog to get the new name from the user
-                AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
-                builder.setTitle("Enter Your Name");
-
-                final EditText input = new EditText(Settings.this);
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
-
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String newName = input.getText().toString();
-                        // Update the text of the TextView with the new name
-                        fullNameTxtV.setText(newName);
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
+//                builder.setTitle("Enter Your Name");
+//
+//                final EditText input = new EditText(Settings.this);
+//                input.setInputType(InputType.TYPE_CLASS_TEXT);
+//                builder.setView(input);
+//
+//                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        String newName = input.getText().toString();
+//                        // Update the text of the TextView with the new name
+//                        fullNameTxtV.setText(newName);
+//                    }
+//                });
+//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.cancel();
+//                    }
+//                });
+//                builder.show();
         }
     }
 }
