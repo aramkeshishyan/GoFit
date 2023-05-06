@@ -307,7 +307,8 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
                 changePassword();
                 break;
             case R.id.backButton:
-                startActivity(new Intent(Settings.this, UserProfile.class));
+                super.finish();
+                //startActivity(new Intent(Settings.this, UserProfile.class));
                 break;
             case R.id.update_survey:
                 startActivity(new Intent(Settings.this, UpdateSurvey1.class));
