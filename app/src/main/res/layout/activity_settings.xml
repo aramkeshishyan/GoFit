@@ -102,13 +102,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/user_email"
-            android:layout_centerHorizontal="true"
-            app:cardElevation="10dp"
-            app:cardUseCompatPadding="true"
             android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="0dp"
             android:layout_marginBottom="15dp"
             app:cardCornerRadius="15dp"
-            app:cardMaxElevation="15dp">
+            app:cardElevation="10dp"
+            app:cardMaxElevation="15dp"
+            app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -125,9 +125,9 @@
                         android:id="@+id/user_gender_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#5917e1"
-                        android:text="Gender:"
                         android:fontFamily="@font/poppinsmedium"
+                        android:text="Gender:"
+                        android:textColor="#5917e1"
                         android:textSize="20sp" />
 
                     <TextView
@@ -135,11 +135,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppinsmedium"
                         android:text="Change"
                         android:textAlignment="viewEnd"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:textSize="20sp"
-                        android:textColor="#5b5b5b"/>
+                        android:textColor="#5b5b5b"
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -158,9 +158,9 @@
                         android:id="@+id/user_age_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#5917e1"
-                        android:text="Age:"
                         android:fontFamily="@font/poppinsmedium"
+                        android:text="Age:"
+                        android:textColor="#5917e1"
                         android:textSize="20sp" />
 
                     <TextView
@@ -168,11 +168,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppinsmedium"
                         android:text="Change"
                         android:textAlignment="viewEnd"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:textSize="20sp"
-                        android:textColor="#5b5b5b"/>
+                        android:textColor="#5b5b5b"
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -191,9 +191,9 @@
                         android:id="@+id/user_height_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#5917e1"
-                        android:text="Height:"
                         android:fontFamily="@font/poppinsmedium"
+                        android:text="Height:"
+                        android:textColor="#5917e1"
                         android:textSize="20sp" />
 
                     <TextView
@@ -201,11 +201,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppinsmedium"
                         android:text="Change"
                         android:textAlignment="viewEnd"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:textSize="20sp"
-                        android:textColor="#5b5b5b"/>
+                        android:textColor="#5b5b5b"
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -224,9 +224,9 @@
                         android:id="@+id/user_weight_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#5917e1"
-                        android:text="Weight:"
                         android:fontFamily="@font/poppinsmedium"
+                        android:text="Weight:"
+                        android:textColor="#5917e1"
                         android:textSize="20sp" />
 
                     <TextView
@@ -234,11 +234,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppinsmedium"
                         android:text="Change"
                         android:textAlignment="viewEnd"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:textSize="20sp"
-                        android:textColor="#5b5b5b"/>
+                        android:textColor="#5b5b5b"
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -257,9 +257,9 @@
                         android:id="@+id/user_body_type_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#5917e1"
-                        android:text="Body Type:"
                         android:fontFamily="@font/poppinsmedium"
+                        android:text="Body Type:"
+                        android:textColor="#5917e1"
                         android:textSize="20sp" />
 
                     <TextView
@@ -267,11 +267,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppinsmedium"
                         android:text="Change"
                         android:textAlignment="viewEnd"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:textSize="20sp"
-                        android:textColor="#5b5b5b"/>
+                        android:textColor="#5b5b5b"
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -290,9 +290,9 @@
                         android:id="@+id/user_activity_lvl_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#5917e1"
-                        android:text="Activity Lvl:"
                         android:fontFamily="@font/poppinsmedium"
+                        android:text="Activity Lvl:"
+                        android:textColor="#5917e1"
                         android:textSize="20sp" />
 
                     <TextView
@@ -300,11 +300,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppinsmedium"
                         android:text="Change"
                         android:textAlignment="viewEnd"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:textSize="20sp"
-                        android:textColor="#5b5b5b"/>
+                        android:textColor="#5b5b5b"
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -323,9 +323,9 @@
                         android:id="@+id/user_goal_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#5917e1"
-                        android:text="Goal:"
                         android:fontFamily="@font/poppinsmedium"
+                        android:text="Goal:"
+                        android:textColor="#5917e1"
                         android:textSize="20sp" />
 
                     <TextView
@@ -333,11 +333,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppinsmedium"
                         android:text="Change"
                         android:textAlignment="viewEnd"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:textSize="20sp"
-                        android:textColor="#5b5b5b"/>
+                        android:textColor="#5b5b5b"
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView

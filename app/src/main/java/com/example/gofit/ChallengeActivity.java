@@ -139,10 +139,10 @@ public class ChallengeActivity extends AppCompatActivity implements View.OnClick
         if(durationDays == null){
             durationDays = "N/A";
         }
-        mDurationDays.setText("Duration: " + durationDays + " days");
+        mDurationDays.setText(durationDays + " Days");
 
         TextView mDescription = findViewById(R.id.ch_description);
-        mDescription.setText("Description: " + description);
+        mDescription.setText(description);
 
         Challenge_ExerciseRV_Adapter exerciseAdapter = new Challenge_ExerciseRV_Adapter(this, challengeExercisesList, this::onNoteClick);
         exerciseAdapter.setExercise_List(challengeExercisesList);
@@ -153,10 +153,10 @@ public class ChallengeActivity extends AppCompatActivity implements View.OnClick
 
 
         TextView mRepetitions = findViewById(R.id.ch_repetitions);
-        mRepetitions.setText("Repetitions: " + repetitions);
+        mRepetitions.setText(repetitions);
 
         TextView mSets = findViewById(R.id.ch_sets);
-        mSets.setText("Sets: " + sets);
+        mSets.setText(sets);
 
         //TextView mCreator = findViewById()
 
@@ -164,43 +164,43 @@ public class ChallengeActivity extends AppCompatActivity implements View.OnClick
         if(dateAccepted == null){
             dateAccepted = "N/A";
         }
-        mDateAccepted.setText("Date Accepted: " + dateAccepted);
+        mDateAccepted.setText(dateAccepted);
 
         TextView mDateStarted = findViewById(R.id.ch_date_started);
         if(dateStarted == null){
             dateStarted = "N/A";
         }
-        mDateStarted.setText("Date Started: " + dateStarted);
+        mDateStarted.setText(dateStarted);
 
         TextView mDateEnd = findViewById(R.id.ch_date_ended);
         if(dateEnd == null){
             dateEnd = "N/A";
         }
-        mDateEnd.setText("Date End: " + dateEnd);
+        mDateEnd.setText(dateEnd);
 
         TextView mDateLastCompleted = findViewById(R.id.ch_date_last_completed);
         if(dateLastCompleted == null){
             dateLastCompleted = "N/A";
         }
-        mDateLastCompleted.setText("Date Last Completed: " + dateLastCompleted);
+        mDateLastCompleted.setText(dateLastCompleted);
 
         TextView mStreak = findViewById(R.id.ch_streak);
         if(streak == null){
             streak = "0";
         }
-        mStreak.setText("Streak: " + streak);
+        mStreak.setText(streak);
 
         TextView mTotalDaysCompleted = findViewById(R.id.ch_total_days_completed);
         if(totalDaysCompleted == null){
             totalDaysCompleted = "0";
         }
-        mTotalDaysCompleted.setText("Completed " + totalDaysCompleted + "/" + durationDays +" Days!" );
+        mTotalDaysCompleted.setText(totalDaysCompleted + "/" + durationDays);
 
         TextView mScore = findViewById(R.id.ch_score);
         if(score == null){
             score = "0";
         }
-        mScore.setText("Score: " + score);
+        mScore.setText(score);
 
         TextView mCompleted = findViewById(R.id.ch_isComplete);
         if(completed == "true"){
@@ -213,7 +213,7 @@ public class ChallengeActivity extends AppCompatActivity implements View.OnClick
         }
 
         TextView mCreator = findViewById(R.id.creator);
-        mCreator.setText("Created By: " + creator);
+        mCreator.setText(creator);
 
 
     }
