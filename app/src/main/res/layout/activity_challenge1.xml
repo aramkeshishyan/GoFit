@@ -40,11 +40,42 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/descRelLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/RelativeLayout1">
+
+            <TextView
+                android:id="@+id/ch_description_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="Description"
+                android:layout_centerHorizontal="true"
+                android:textColor="#5917e1"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/ch_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/ch_description_text"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="Change"
+                android:textColor="#5b5b5b"
+                android:textSize="20sp" />
+
+
+        </RelativeLayout>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/chal_info1_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/RelativeLayout1"
+            android:layout_below="@+id/descRelLayout"
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="5dp"
@@ -81,30 +112,6 @@
                         android:fontFamily="@font/poppinsmedium"
                         android:text="Change"
                         android:textAlignment="viewEnd"
-                        android:textColor="#5b5b5b"
-                        android:textSize="20sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/ch_description_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:text="Description: "
-                        android:textColor="#5917e1"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/ch_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:text="Change"
                         android:textColor="#5b5b5b"
                         android:textSize="20sp" />
                 </LinearLayout>

@@ -68,10 +68,10 @@ public class ChallengeRequestDetailsPage extends AppCompatActivity implements Vi
         if(chalDuration == null) {
             chalDuration = "N/A";
         }
-        mDuration.setText("Duration: " + chalDuration + " days");
+        mDuration.setText(chalDuration + " Days");
 
         TextView mDesc = findViewById(R.id.ch_description);
-        mDesc.setText("Description: " + chalDesc);
+        mDesc.setText(chalDesc);
 
         Challenge_ExerciseRV_Adapter exerciseAdapter = new Challenge_ExerciseRV_Adapter(this, challengeExercisesList, this::onNoteClick);
         exerciseAdapter.setExercise_List(challengeExercisesList);
@@ -81,10 +81,10 @@ public class ChallengeRequestDetailsPage extends AppCompatActivity implements Vi
         exerciseRcV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         TextView mReps = findViewById(R.id.ch_repetitions);
-        mReps.setText("Repetitions: " + chalReps);
+        mReps.setText(chalReps);
 
         TextView mSets = findViewById(R.id.ch_sets);
-        mSets.setText("Sets: " + chalSets);
+        mSets.setText(chalSets);
 
         ImageView mCreatorPhoto = findViewById(R.id.ch_creator_profileImgV);
         if (chalCreatorPhoto.isEmpty()) {
