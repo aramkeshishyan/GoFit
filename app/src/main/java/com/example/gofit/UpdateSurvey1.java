@@ -16,11 +16,6 @@ public class UpdateSurvey1 extends AppCompatActivity implements View.OnClickList
 
     private Button btnContinue;
     private ImageButton btnBack;
-
-    private String bodyType;
-    private String activityLvl;
-    private String goal;
-
     private RadioGroup radioGroupBodyType, radioGroupActivity, radioGroupGoal;
     private RadioButton radioButton;
     private int radioId;
@@ -37,7 +32,7 @@ public class UpdateSurvey1 extends AppCompatActivity implements View.OnClickList
         radioGroupActivity = findViewById(R.id.radioGroupActivity);
         radioGroupGoal = findViewById(R.id.radioGroupGoal);
 
-        btnContinue = (Button) findViewById(R.id.btnContinue);
+        btnContinue = findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener(this);
 
         btnBack = findViewById(R.id.backBtn);
@@ -50,9 +45,11 @@ public class UpdateSurvey1 extends AppCompatActivity implements View.OnClickList
         switch (view.getId()) {
             case R.id.btnContinue:
                 updateFirstSurveyAnswers();
+                super.finish();
                 break;
             case R.id.backBtn:
                 super.finish();
+                break;
         }
 
     }

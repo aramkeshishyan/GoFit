@@ -10,16 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 public class Survey1 extends AppCompatActivity implements View.OnClickListener{
 
     private Button btnContinue;
-
-    private String bodyType;
-    private String activityLvl;
-    private String goal;
-
     private RadioGroup radioGroupBodyType, radioGroupActivity, radioGroupGoal;
     private RadioButton radioButton;
     private int radioId;
@@ -35,7 +29,7 @@ public class Survey1 extends AppCompatActivity implements View.OnClickListener{
         radioGroupActivity = findViewById(R.id.radioGroupActivity);
         radioGroupGoal = findViewById(R.id.radioGroupGoal);
 
-        btnContinue = (Button) findViewById(R.id.btnContinue);
+        btnContinue = findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener(this);
 
         sp = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
@@ -44,17 +38,15 @@ public class Survey1 extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btnContinue:
-                firstSurveyAnswers();
-                break;
+        if (v.getId() == R.id.btnContinue) {
+            firstSurveyAnswers();
+            super.finish();
         }
     }
 
 
     private void firstSurveyAnswers()
     {
-//        SharedPreferences.Editor spEditor = sp.edit();
 
         Intent i = new Intent(Survey1.this, Survey2.class);
 
@@ -74,9 +66,6 @@ public class Survey1 extends AppCompatActivity implements View.OnClickListener{
         radioId = radioGroupGoal.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
 
-//        Toast.makeText(Survey1.this,
-//                String.format("%s", radioButton.getText()),
-//                Toast.LENGTH_SHORT).show();
 
         i.putExtra("goal", radioButton.getText().toString());
 

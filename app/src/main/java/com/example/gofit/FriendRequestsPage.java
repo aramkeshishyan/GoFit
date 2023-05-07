@@ -50,11 +50,8 @@ public class FriendRequestsPage extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnBackFriendRequests:
-                super.finish();
-//                startActivity(new Intent(this, FriendsListPage.class));
-                break;
+        if (view.getId() == R.id.btnBackFriendRequests) {
+            super.finish();
         }
     }
 
@@ -65,27 +62,13 @@ public class FriendRequestsPage extends AppCompatActivity implements View.OnClic
             public void onResponse(Call<defaultResponseList<RequestersInfo>> call, Response<defaultResponseList<RequestersInfo>> response) {
                 defaultResponseList<RequestersInfo> requestersList = response.body();
 
-                if(requestersList.getData() == null)
-                {
-                    Toast.makeText(FriendRequestsPage.this,
-                            "No requests",
-                            Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                if(requestersList.getData() != null) {
                     requestersArray.addAll(requestersList.getData());
                     requestsAdapter.setFriends(requestersArray);
 
                     requestersRecyclerView = findViewById(R.id.requestersPageRecView);
                     requestersRecyclerView.setAdapter(requestsAdapter);
                     requestersRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-
-                    /*for(int i = 0; i < requestersArray.size(); i++)
-                    {
-                        Toast.makeText(FriendsListPage.this,
-                                String.format("Requester %d is %s", i, requestersArray.get(i).getFullName())
-                                , Toast.LENGTH_LONG).show();
-                    }*/
                 }
 
             }
@@ -111,7 +94,7 @@ public class FriendRequestsPage extends AppCompatActivity implements View.OnClic
         MainApplication.apiManager.acceptFriend(token, acceptedUser, new Callback<defaultResponseList<Friend>>() {
             @Override
             public void onResponse(Call<defaultResponseList<Friend>> call, Response<defaultResponseList<Friend>> response) {
-                defaultResponseList<Friend> responseFriends = response.body();
+
             }
 
             @Override
@@ -133,7 +116,7 @@ public class FriendRequestsPage extends AppCompatActivity implements View.OnClic
         MainApplication.apiManager.denyFriend(token, deniedUser, new Callback<defaultResponse<String>>() {
             @Override
             public void onResponse(Call<defaultResponse<String>> call, Response<defaultResponse<String>> response) {
-                defaultResponse<String> denyResponse = response.body();
+
             }
 
             @Override

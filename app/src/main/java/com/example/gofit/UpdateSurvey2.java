@@ -3,7 +3,6 @@ package com.example.gofit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,7 +58,7 @@ public class UpdateSurvey2 extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_survey2);
 
-        btnContinue = (Button) findViewById(R.id.btnContinue);
+        btnContinue = findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener(this);
 
         backBtn = findViewById(R.id.backBtn);
@@ -83,6 +82,7 @@ public class UpdateSurvey2 extends AppCompatActivity implements View.OnClickList
         switch (view.getId()){
             case R.id.btnContinue:
                 updateSurveyAnswers();
+                super.finish();
                 break;
             case R.id.backBtn:
                 super.finish();
@@ -95,9 +95,6 @@ public class UpdateSurvey2 extends AppCompatActivity implements View.OnClickList
 
         radioId = radioGroupSex.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
-
-//        Toast.makeText(Survey2.this, String.format("%s", heightET.getText().toString()),
-//               Toast.LENGTH_SHORT).show();
 
         spEditor.putString("bodyType", bodyType);
         spEditor.putString("activityLvl", activityLvl);
@@ -119,8 +116,6 @@ public class UpdateSurvey2 extends AppCompatActivity implements View.OnClickList
         updatedUserSurvey = new UpdateSurvey(baseCalories, recCalories, age, weight, height, gender, activityLvl, bodyType, goal);
 
         pushUserInfo();
-
-        //startActivity(new Intent(UpdateSurvey2.this, Settings.class));
     }
 
     private void pushUserInfo() {
@@ -166,8 +161,6 @@ public class UpdateSurvey2 extends AppCompatActivity implements View.OnClickList
                 Log.d("myTag", t.getMessage());
             }
         });
-
-        startActivity(new Intent(UpdateSurvey2.this, Settings.class));
 
     }
 

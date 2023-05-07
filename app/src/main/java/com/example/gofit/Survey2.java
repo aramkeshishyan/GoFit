@@ -58,7 +58,7 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey2);
 
-        btnContinue = (Button) findViewById(R.id.btnContinue);
+        btnContinue = findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener(this);
 
         bodyType = getIntent().getStringExtra("bodyType");
@@ -77,12 +77,10 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btnContinue:
-                setSurveyAnswers();
-                break;
+        if (v.getId() == R.id.btnContinue) {
+            setSurveyAnswers();
+            super.finish();
         }
-
     }
 
     public void setSurveyAnswers(){
@@ -92,17 +90,12 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
         radioId = radioGroupSex.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
 
-//        Toast.makeText(Survey2.this, String.format("%s", heightET.getText().toString()),
-//               Toast.LENGTH_SHORT).show();
 
         spEditor.putString("bodyType", bodyType);
         spEditor.putString("activityLvl", activityLvl);
         spEditor.putString("goal", goal);
 
         spEditor.putString("gender", radioButton.getText().toString());
-        //spEditor.putString("height", heightET.getText().toString());
-        //spEditor.putString("weight", weightET.getText().toString());
-        //spEditor.putString("age", ageET.getText().toString());
 
         spEditor.putFloat("height", Float.valueOf(heightET.getText().toString()));
         spEditor.putFloat("weight", Float.valueOf(weightET.getText().toString()));
@@ -146,9 +139,9 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
                     spEditor.putString("goal", userInfoResponse.getData().getGoal());
                     spEditor.apply();
 
-                    Toast.makeText(Survey2.this,
-                            String.format("User Data Posted Successfully"),
-                            Toast.LENGTH_LONG).show();
+//                    Toast.makeText(Survey2.this,
+//                            String.format("User Data Posted Successfully"),
+//                            Toast.LENGTH_LONG).show();
 
 
                 } else {

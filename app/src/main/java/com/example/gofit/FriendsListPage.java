@@ -137,9 +137,9 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
 
                    friendsList = new ArrayList<>(tempList);
 
-                    Toast.makeText(FriendsListPage.this,
-                            "Get Friends was Successful",
-                            Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(FriendsListPage.this,
+//                            "Get Friends was Successful",
+//                            Toast.LENGTH_SHORT).show();
 
                     friendsAdapter.setFriends(friendsList);
 
@@ -223,7 +223,7 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
         }
 
         if (filteredFriendsList.isEmpty()) {
-//            Toast.makeText(this, "No friends found.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Friend's list is empty.", Toast.LENGTH_SHORT).show();
         } else {
             FriendsRecViewAdapter newFriendsAdapter = new FriendsRecViewAdapter(this,this);
             newFriendsAdapter.setFriends(filteredFriendsList);
@@ -238,7 +238,6 @@ public class FriendsListPage extends AppCompatActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.btnBackFriendsList:
                 super.finish();
-//                startActivity(new Intent(this, HomePage.class));
                 break;
             case R.id.btnAddFriend:
                 addFriendCall();

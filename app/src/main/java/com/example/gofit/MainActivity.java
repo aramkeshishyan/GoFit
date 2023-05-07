@@ -44,17 +44,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        register = (TextView) findViewById(R.id.register);
+        register = findViewById(R.id.register);
         register.setOnClickListener(this);
 
-        login = (Button) findViewById(R.id.login);
+        login = findViewById(R.id.login);
         login.setOnClickListener(this);
 
-        editTextEmail = (EditText) findViewById(R.id.email);
-        editTextPassword = (EditText) findViewById(R.id.password);
+        editTextEmail = findViewById(R.id.email);
+        editTextPassword = findViewById(R.id.password);
 
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
         sp = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
 
@@ -117,11 +117,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tokenResponse responseToken = response.body();
 
 
-                if (response.isSuccessful() && responseToken.getSuccess() == "true") {
+                if (response.isSuccessful() && responseToken.getSuccess().equals("true")) {
 
-                    Toast.makeText(MainActivity.this,
-                            String.format("Login was Successful"),
-                            Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
 
                     //storing the token in shared preferences
@@ -161,9 +158,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 defaultResponse<UserInfo> responseDefault = response.body();
 
                 if (response.isSuccessful() && responseDefault != null) {
-                    Toast.makeText(MainActivity.this,
-                            "Getting user info was Successful",
-                            Toast.LENGTH_SHORT).show();
 
                     spEditor.putString("fullName", responseDefault.getData().getFullName());
                     spEditor.putString("email", responseDefault.getData().getEmail());

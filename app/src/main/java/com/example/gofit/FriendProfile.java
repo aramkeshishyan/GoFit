@@ -122,7 +122,7 @@ public class FriendProfile extends AppCompatActivity implements View.OnClickList
                     }
                     else {
                         stepsNumTxtV.setText(String.valueOf(0));
-                        distanceNumTxtV.setText(0.0 + " km");
+                        distanceNumTxtV.setText("0.0 km");
                         challengesNumTxtV.setText(String.valueOf(0));
                         totalPointsNumTxtView.setText(String.valueOf(0));
                     }
@@ -152,7 +152,6 @@ public class FriendProfile extends AppCompatActivity implements View.OnClickList
         MainApplication.apiManager.deleteFriend(token, userDeleted, new Callback<defaultResponse<String>>() {
             @Override
             public void onResponse(Call<defaultResponse<String>> call, Response<defaultResponse<String>> response) {
-                Toast.makeText(FriendProfile.this, String.format("%s Removed", friendName), Toast.LENGTH_SHORT).show();
                 closeProfileAfterDelete();
             }
 

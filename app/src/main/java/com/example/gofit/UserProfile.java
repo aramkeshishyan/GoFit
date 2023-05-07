@@ -22,7 +22,6 @@ import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.recyclerViews.FriendRecyclerViewInterface;
 import com.example.gofit.recyclerViews.FriendsRecViewAdapter;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -64,7 +63,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn = findViewById(R.id.backBtn);
         backBtn.setOnClickListener(this);
 
         settingsBtn = findViewById(R.id.settingsBtn);
@@ -75,7 +74,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         friendsViewAllBtn.setOnClickListener(this);
 
         //logout button functionality
-        logout = (ImageButton) findViewById(R.id.logOutBtn);
+        logout = findViewById(R.id.logOutBtn);
         logout.setOnClickListener(this);
 
         sp = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
@@ -156,27 +155,12 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 if (response.isSuccessful() && responseFriends != null) {
                     friendsList.addAll(responseFriends.getData());
 
-                    //jsonText = gson.toJson(friendsList);
-                    //sp.edit().putString("FriendsList", jsonText);
-                    //sp.edit().apply();
-
-                    Toast.makeText(UserProfile.this,
-                            "Get Friends was Successful",
-                            Toast.LENGTH_SHORT).show();
-
                     adapter.setFriends(friendsList);
 
                     friendsRecView = findViewById(R.id.friendsRecyclerView);
                     friendsRecView.setAdapter(adapter);
                     friendsRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)); //lists data horizontally
 
-//                    for(int i = 0; i < friendsList.size(); i++)
-//                    {
-//                        Toast.makeText(UserProfile.this,
-//                                String.format("%s", friendsList.get(i).getImageURL())
-//                                , Toast.LENGTH_LONG).show();
-//
-//                    }
                 }
                 else {
                     Toast.makeText(UserProfile.this,
@@ -215,7 +199,6 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.backBtn:
-                //startActivity(new Intent(UserProfile.this, HomePage.class));
                 super.finish();
                 break;
             case R.id.logOutBtn:
@@ -239,30 +222,3 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         }
     }
 }
-
-
-
-
-
-//    //get users fullname to display under the avatar//////////////
-//    final TextView fullNameTextView = (TextView) findViewById(R.id.userFullName);
-//
-//        dbReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-//@Override
-//public void onDataChange(@NonNull DataSnapshot snapshot) {
-//        //Creating a User.java object
-//        User userProfile = snapshot.getValue(User.class);
-//
-//        if(userProfile != null){
-//        String fullName = userProfile.fullName;
-//        fullNameTextView.setText(fullName);
-//        }
-//        }
-//
-//@Override
-//public void onCancelled(@NonNull DatabaseError error) {
-//        Toast.makeText(UserProfile.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
-//
-//        }
-//        });
-////////////////////////////////////////////////////////////
