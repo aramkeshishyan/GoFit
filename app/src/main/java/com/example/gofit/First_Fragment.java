@@ -31,6 +31,8 @@ import android.widget.Toast;
 
 import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
 import com.example.gofit.data.model.requests.ExerciseOrMealType;
+import com.example.gofit.data.model.requests.Steps;
+import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.recyclerViews.Challenges.ChallengeRecViewAdapter;
 import com.example.gofit.recyclerViews.ExerciseRecViewAdapter;
@@ -89,7 +91,6 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
         calories_recommended = view.findViewById(R.id.reccomended_calories);
         calories_recommended.setText("Calories Rec: " + Integer.toString(sp.getInt("recCalories",0)));
-
 
         //Greet user with Hello + their first name
         TextView hello_greeting = (TextView) view.findViewById(R.id.hello_greeting);
@@ -474,8 +475,33 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
             Log.d("StepCounterFragment", "Step counter sensor unregistered");
             SharedPreferences.Editor editor = sharedPreferences.edit();
             //stepcount - previousStepCount
+
+
             editor.putInt("stepCount", stepCount);
             editor.apply();
         }
+    }
+
+    private void updateStepsCall(int steps){
+        String token = sp.getString("token", "");
+        Steps stepsUp = new Steps(steps);
+
+        MainApplication.apiManager.updateSteps(token, stepsUp, new Callback<defaultResponse<String>>() {
+            @Override
+            public void onResponse(Call<defaultResponse<String>> call, Response<defaultResponse<String>> response) {
+
+                Toast.makeText(getContext(),
+                        String.format("Response is %s", response.body().getMessage())
+                        , Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponse<String>> call, Throwable t) {
+                Toast.makeText(getContext(),
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 }

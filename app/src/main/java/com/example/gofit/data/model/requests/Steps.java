@@ -1,6 +1,12 @@
 package com.example.gofit.data.model.requests;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Steps {
+
+    @SerializedName("statNum")
+    @Expose
     private int stepCount;
 
     public Steps(int stepCount) {
