@@ -474,8 +474,10 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
             sensorManager.unregisterListener(this);
             Log.d("StepCounterFragment", "Step counter sensor unregistered");
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            //stepcount - previousStepCount
 
+            int addStepsToDatabase = stepCount - previousStepCount;
+
+            updateStepsCall(addStepsToDatabase);
 
             editor.putInt("stepCount", stepCount);
             editor.apply();
