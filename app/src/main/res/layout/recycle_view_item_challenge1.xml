@@ -35,5 +35,30 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center | end"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⭐"
+            android:textSize="25sp"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/poppinsbold"/>
+
+        <TextView
+            android:id="@+id/challengeScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppinsbold"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
 
 </androidx.cardview.widget.CardView>

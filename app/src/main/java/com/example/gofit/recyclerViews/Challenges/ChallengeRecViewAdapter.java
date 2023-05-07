@@ -40,6 +40,7 @@ public class ChallengeRecViewAdapter extends RecyclerView.Adapter<ChallengeRecVi
         ChallengeRecordDto challenge = challengeArrayList.get(position);
         holder.item_name.setText(challenge.getTitle());
         holder.item_description.setText(challenge.getDesc());
+        holder.challengeScore.setText(String.valueOf(challenge.getScore()));
     }
 
     @Override
@@ -53,6 +54,7 @@ public class ChallengeRecViewAdapter extends RecyclerView.Adapter<ChallengeRecVi
     public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
         private TextView item_name;
         private TextView item_description;
+        private TextView challengeScore;
         OnNoteListener onNoteListener;
 
         public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener){
@@ -60,6 +62,7 @@ public class ChallengeRecViewAdapter extends RecyclerView.Adapter<ChallengeRecVi
 
             item_name = itemView.findViewById(R.id.rv_name);
             item_description = itemView.findViewById(R.id.rv_description);
+            challengeScore = itemView.findViewById(R.id.challengeScore);
 
             this.onNoteListener = onNoteListener;
 
