@@ -90,7 +90,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/poppinsbold"
-                android:text="Your Created Challenges"
+                android:text="Created By You"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="24sp">

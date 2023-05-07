@@ -55,7 +55,6 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
     private ArrayList<ChallengeDto> work_out_names;
 
 
-
     //////Challenge Attributes////
 
     private String chalCreatorEmail;
@@ -68,13 +67,11 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
 ///////////////////////////////////////////////////////////////////
 
 
-
-
     private final String CHANNEL_ID = "MYCHANNEL_ID_CHALLENEGE";
 
     private ArrayList<ChallengeRecordDto> custom_challenges ;
 
-    ArrayList<Friend> friendsList = new ArrayList<>();
+    private ArrayList<Friend> friendsList = new ArrayList<>();
 
     private boolean isComplete = false;         // this is to check if weather or not the boolean is complete or not  ///
 
@@ -490,11 +487,14 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
                 defaultResponseList<Friend> responseFriends = response.body();
 
                 if (response.isSuccessful() && responseFriends != null) {
-                    friendsList.addAll(responseFriends.getData());
+                    ArrayList<Friend> tempList = new ArrayList<>();
+                    tempList.addAll(responseFriends.getData());
 
-                    Toast.makeText(getActivity(),
-                            "Get Friends was Successful",
-                            Toast.LENGTH_SHORT).show();
+                    friendsList = new ArrayList<>(tempList);
+
+//                    Toast.makeText(getActivity(),
+//                            "Get Friends was Successful",
+//                            Toast.LENGTH_SHORT).show();
 
 
                 } else {
@@ -531,6 +531,13 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
         ArrayList<Exercise_Item> exercise_list = work_out_names.get(position).getExerciseList() ;
         bundle.putSerializable("exercise_list", exercise_list);
         intent.putExtras(bundle);
+
+        //SEND FRIENDS LIST TO A CHALLENGE ITEM PAGE
+        Bundle friendArgs = new Bundle();
+        friendArgs.putSerializable("friends_list", friendsList);
+        intent.putExtras(friendArgs);
+
+
         startActivity(intent);
     }
 }

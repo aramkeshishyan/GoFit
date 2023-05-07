@@ -471,17 +471,6 @@
             android:layout_below="@+id/ch_isComplete"
             android:layout_centerHorizontal="true"/>
 
-        <Button
-            android:id="@+id/ch_send_friend"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:text="Challenge Friends"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_below="@+id/ch_complete"
-            android:layout_centerHorizontal="true"/>
-
-
     </RelativeLayout>
 
 
