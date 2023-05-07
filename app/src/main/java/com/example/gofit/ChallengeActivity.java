@@ -259,7 +259,9 @@ public class ChallengeActivity extends AppCompatActivity implements View.OnClick
                 if (response.isSuccessful() && responseChallengeComplete != null)
                 {
                     Toast.makeText(ChallengeActivity.this, responseChallengeComplete.getMessage(), Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(ChallengeActivity.this, String.format("Challenge %d Completed!", challengeId), Toast.LENGTH_SHORT).show();
+
+                    updateUserStatsCall();
+
                     closePageAfterComplete();
                 }
             }
@@ -272,6 +274,29 @@ public class ChallengeActivity extends AppCompatActivity implements View.OnClick
 
             }
         });
+    }
+
+    private void updateUserStatsCall(){
+
+        String token = sp.getString("token", "");
+
+        MainApplication.apiManager.updateChallengeStats(token, new Callback<defaultResponse<String>>() {
+            @Override
+            public void onResponse(Call<defaultResponse<String>> call, Response<defaultResponse<String>> response) {
+                defaultResponse<String> updateResponse = response.body();
+
+                Toast.makeText(ChallengeActivity.this, updateResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponse<String>> call, Throwable t) {
+                Toast.makeText(ChallengeActivity.this,
+                        "Error: " + t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
 //    private void challengeFriendDialogue() {
