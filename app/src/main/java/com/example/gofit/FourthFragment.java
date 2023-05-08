@@ -270,7 +270,7 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
             public void onResponse(Call<defaultResponseList<ChallengeDto>> call, Response<defaultResponseList<ChallengeDto>> response) {
                 defaultResponseList<ChallengeDto> challengeResponse = response.body();
 
-                Toast.makeText(getContext(), "Challenge was sucessful: " + response.code(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Challenge was sucessful: " + response.code(), Toast.LENGTH_SHORT).show();
 
                 if (response.isSuccessful() && challengeResponse != null) {
                     if (challengeResponse.getData() != null) {

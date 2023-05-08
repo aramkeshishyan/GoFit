@@ -113,7 +113,7 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
 
         pushUserInfo();
 
-        startActivity(new Intent(Survey2.this, HomePage.class));
+
     }
 
     private void pushUserInfo() {
@@ -138,6 +138,8 @@ public class Survey2 extends AppCompatActivity implements View.OnClickListener {
                     spEditor.putString("bodyType", userInfoResponse.getData().getBodyType());
                     spEditor.putString("goal", userInfoResponse.getData().getGoal());
                     spEditor.apply();
+
+                    startActivity(new Intent(Survey2.this, HomePage.class));
 
 //                    Toast.makeText(Survey2.this,
 //                            String.format("User Data Posted Successfully"),

@@ -257,9 +257,9 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
                     }
                     else {
-                        Toast.makeText(getContext(),
-                                "No challenges yet.",
-                                Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(),
+//                                "No challenges yet.",
+//                                Toast.LENGTH_SHORT).show();
                     }
                 }
 
