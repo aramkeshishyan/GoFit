@@ -59,11 +59,11 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
         exercisesCall();
 
         //wait for 1 second for the async call to get the exercises from backend
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            TimeUnit.SECONDS.sleep(1);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
 
         exerciseList2 = exerciseList;
         exerciseAdapter = new ExerciseRecViewAdapter(getContext(),exerciseList, this);
@@ -89,6 +89,7 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
                     exerciseAdapter.setExercises(exerciseList);
                     exercisesRecyclerView.setAdapter(exerciseAdapter);
                     exerciseList2 = exerciseList;
+                    exerciseAdapter.notifyDataSetChanged();
 
                 }
                 else {
@@ -143,7 +144,10 @@ public class SecondFragment extends Fragment implements ExerciseRecViewAdapter.O
                 if (response.isSuccessful() && responseExercises != null) {
                     exerciseList = new ArrayList<>();
                     exerciseList.addAll(responseExercises.getData());
-
+                    exerciseAdapter.setExercises(exerciseList);
+                    exercisesRecyclerView.setAdapter(exerciseAdapter);
+                    exerciseAdapter.notifyDataSetChanged();
+                    exerciseList2.addAll(exerciseList);
 //                    Toast.makeText(getContext(),
 //                            "Get Exercises was Successful",
 //                            Toast.LENGTH_SHORT).show();

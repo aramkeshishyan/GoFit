@@ -432,7 +432,6 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
     @Override
     public void onResume() {
         super.onResume();
-        stepCount = 0;
         if (stepCounterSensor != null) {
             //Asks for Permission if it does not have it
             if (ContextCompat.checkSelfPermission(getActivity(),
@@ -446,7 +445,9 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
                 sensorManager.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_UI);
                 Log.d("StepCounterFragment", "Step counter sensor registered");
                 // Get the initial step count
-
+                int addStepsToDatabase = stepCount - previousStepCount;
+                updateStepsCall(addStepsToDatabase);
+                stepCount = 0;
                 previousStepCount = sharedPreferences.getInt("stepCount", 0);
                 stepCount += previousStepCount;
                 step_count.setText("Step Count: " + stepCount);
@@ -476,11 +477,6 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
             sensorManager.unregisterListener(this);
             Log.d("StepCounterFragment", "Step counter sensor unregistered");
             SharedPreferences.Editor editor = sharedPreferences.edit();
-
-            int addStepsToDatabase = stepCount - previousStepCount;
-
-            updateStepsCall(addStepsToDatabase);
-
             editor.putInt("stepCount", stepCount);
             editor.apply();
         }
