@@ -7,7 +7,7 @@
     tools:context=".MainActivity"
     android:backgroundTint="#80FFFFFF"
     android:backgroundTintMode="src_over"
-    android:background="@drawable/purple_background">
+    android:background="@drawable/background_1">
 
 
     <TextView

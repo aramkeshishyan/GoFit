@@ -8,7 +8,7 @@
     tools:context=".UserProfile"
     android:backgroundTint="#80FFFFFF"
     android:backgroundTintMode="src_over"
-    android:background="@drawable/purple_background"
+    android:background="@drawable/background_1"
     android:scrollbars="none">
 
     <!-- ScrollView used so that entire activity is scrollable;
