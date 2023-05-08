@@ -25,6 +25,12 @@
             android:name=".UpdateSurvey1"
             android:exported="false" />
         <activity
+            android:name=".ChallengeSelectExercise"
+            android:exported="false" />
+        <activity
+            android:name=".ChallengeCreationPage"
+            android:exported="false" />
+        <activity
             android:name=".ChallengeRequestDetailsPage"
             android:exported="false" />
         <activity

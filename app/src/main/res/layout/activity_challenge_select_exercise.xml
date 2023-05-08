@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChallengeSelectExercise">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/cl_tablerow">
+            <ImageButton
+                android:id="@+id/cl_backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:contentDescription="@string/back"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:src="@drawable/ic_baseline_arrow_back_ios_new_24" />
+            <TextView
+                android:id="@+id/cl_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Exercise"
+                android:fontFamily="@font/poppinsbold"
+                android:textColor="@color/black"
+                android:textSize="24dp"
+                android:gravity="center_horizontal"
+                android:layout_marginRight="48dp"
+                android:layout_gravity="bottom"
+                />
+        </TableRow>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cl_recview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/cl_tablerow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <Button
+        android:id="@+id/cl_addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Exercises"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="10dp"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

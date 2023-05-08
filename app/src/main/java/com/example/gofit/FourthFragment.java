@@ -163,8 +163,8 @@ public class FourthFragment extends Fragment implements custum_base_adapter.OnNo
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add_custum_work_outs();
-
+                //add_custum_work_outs();
+                startActivity(new Intent(getContext(), ChallengeCreationPage.class));
             }
         });
 
