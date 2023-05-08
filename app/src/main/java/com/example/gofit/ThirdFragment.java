@@ -54,11 +54,11 @@ public class ThirdFragment extends Fragment implements NutritionRecViewAdapter.O
         mealsCall();
 
         //wait for 1 second for the async call to get the exercises from backend
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            TimeUnit.SECONDS.sleep(1);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
 
         nutritionList2 = nutritionList;
         nutritionAdapter = new NutritionRecViewAdapter(getContext(),nutritionList, this);
@@ -68,6 +68,8 @@ public class ThirdFragment extends Fragment implements NutritionRecViewAdapter.O
         nutrition_RecView.setAdapter(nutritionAdapter);
         nutrition_RecView.setLayoutManager(new LinearLayoutManager(getContext()));
         nutrition_RecView.setHasFixedSize(true);
+
+        nutritionAdapter.notifyDataSetChanged();
 
         nutrition_spinner = view.findViewById(R.id.nutrition_spinner);
         nutrition_spinner.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, nutrition_categories));
@@ -133,6 +135,11 @@ public class ThirdFragment extends Fragment implements NutritionRecViewAdapter.O
                 if(response.isSuccessful() && responseMeals != null){
                     nutritionList = new ArrayList<>();
                     nutritionList.addAll(responseMeals.getData());
+
+                    nutritionAdapter.setNutritionArrayList(nutritionList);
+                    nutrition_RecView.setAdapter(nutritionAdapter);
+                    nutritionAdapter.notifyDataSetChanged();
+                    nutritionList2.addAll(nutritionList);
 
 //                    Toast.makeText(getContext(),
 //                            "Get Meals was Successful",

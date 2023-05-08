@@ -134,11 +134,11 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
 
         //wait for 1 second for the async call to get the exercises from backend
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            TimeUnit.SECONDS.sleep(1);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
 
 
         calories_burned = view.findViewById(R.id.calories_burned);
