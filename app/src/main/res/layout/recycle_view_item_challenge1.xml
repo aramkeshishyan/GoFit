@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
     app:cardElevation="10dp"
-    app:cardBackgroundColor="@color/sweet_corn"
+    app:cardBackgroundColor="#912AAD"
     android:layout_margin="10dp"
     android:id="@+id/rv_parent"
     >
@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/rv_name"
             android:text="Item Name"
+            android:textColor="@color/white"
             android:fontFamily="@font/poppinsbold"
             android:textSize="25dp"
             android:layout_marginTop="7dp"/>
@@ -29,6 +30,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/rv_description"
             android:text="Description"
+            android:textColor="@color/white"
             android:fontFamily="@font/poppinsmedium"
             android:textSize="16dp"
             android:layout_below="@+id/rv_name"/>
@@ -47,6 +49,7 @@
             android:layout_height="wrap_content"
             android:text="⭐"
             android:textSize="25sp"
+            android:textColor="@color/white"
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/poppinsbold"/>
 
@@ -55,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:fontFamily="@font/poppinsbold"
             android:layout_gravity="center_horizontal"/>

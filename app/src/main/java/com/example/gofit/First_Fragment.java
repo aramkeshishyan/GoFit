@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.example.gofit.data.model.requests.Challenges.ChallengeRecordDto;
 import com.example.gofit.data.model.requests.ExerciseOrMealType;
 import com.example.gofit.data.model.requests.Steps;
+import com.example.gofit.data.model.requests.UserStats;
 import com.example.gofit.data.model.responses.defaultResponse;
 import com.example.gofit.data.model.responses.defaultResponseList;
 import com.example.gofit.recyclerViews.Challenges.ChallengeRecViewAdapter;
@@ -90,7 +91,7 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         userBodyType = sp.getString("bodyType", "");
 
         calories_recommended = view.findViewById(R.id.reccomended_calories);
-        calories_recommended.setText("Calories Rec: " + Integer.toString(sp.getInt("recCalories",0)));
+        calories_recommended.setText(Integer.toString(sp.getInt("recCalories",0)));
 
         //Greet user with Hello + their first name
         TextView hello_greeting = (TextView) view.findViewById(R.id.hello_greeting);
@@ -125,6 +126,7 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         nutrition_list = new ArrayList<>();
         exercise_list = new ArrayList<>();
 
+        userStatsCall();
         userFriendsCall();
         challengesCall();
         mealsByTypeCall(mealType);
@@ -140,13 +142,13 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
 
         calories_burned = view.findViewById(R.id.calories_burned);
-        step_count = view.findViewById(R.id.step_taken_txt);
+        step_count = view.findViewById(R.id.step_taken);
         // Get the sensor manager and step counter sensor
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         if (stepCounterSensor == null) {
             Log.d("StepCounterFragment", "Device does not have step counter sensor");
-            step_count.setText("Steps Taken: 0");
+            step_count.setText("0");
         }
         sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
 
@@ -411,14 +413,14 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
     public void calculateCalsBurned() {
         double calsBurned = stepCount * 0.04;   //average cals burned per step = 0.04
 
-        calories_burned.setText("Calories burned: " + calsBurned);
+        calories_burned.setText(Double.toString(calsBurned));
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
             stepCount = (int) sensorEvent.values[0];
-            step_count.setText("Step Count: " + stepCount);
+            step_count.setText(Integer.toString(stepCount));
         }
     }
 
@@ -460,7 +462,7 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
                 Log.d("StepCounterFragment", "Step counter sensor registered");
                 previousStepCount = sharedPreferences.getInt("stepCount", 0);
                 stepCount += previousStepCount;
-                step_count.setText("Step Count: " + stepCount);
+                step_count.setText(Integer.toString(stepCount));
             } else {
                 //You did not give permission
                 Log.d("StepCounterFragment", "Activity recognition permission denied");
@@ -505,5 +507,26 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
             }
         });
+    }
+
+
+    private void userStatsCall(){
+        String token = sp.getString("token", "");
+        MainApplication.apiManager.getUserStats(token, new Callback<defaultResponse<UserStats>>() {
+            @Override
+            public void onResponse(Call<defaultResponse<UserStats>> call, Response<defaultResponse<UserStats>> response) {
+                defaultResponse<UserStats> responseUserStats = response.body();
+
+
+            }
+
+            @Override
+            public void onFailure(Call<defaultResponse<UserStats>> call, Throwable t) {
+                Toast.makeText(getContext(),
+                        "Error: ", Toast.LENGTH_LONG).show();
+                Log.d("userStatsCallTag", t.getMessage());
+            }
+        });
+
     }
 }
