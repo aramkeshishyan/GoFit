@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:backgroundTint="#80FFFFFF"
     android:backgroundTintMode="src_over"
-    android:background="@drawable/purple_background">
+    android:background="@drawable/background_1">
 
 
     <RelativeLayout
@@ -36,7 +36,8 @@
             android:textColor="#000000"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:padding="5dp"/>
 
         <!-- Profile Picture -->
         <ImageView
@@ -372,7 +373,7 @@
             android:textStyle="bold"
             android:layout_below="@id/update_survey"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"/>
+            android:layout_margin="20dp"/>
     </RelativeLayout>
 
 </ScrollView>
