@@ -411,8 +411,9 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
 
     public void calculateCalsBurned() {
         double calsBurned = stepCount * 0.04;   //average cals burned per step = 0.04
-
-        calories_burned.setText(Double.toString(calsBurned));
+        String formattedCalsBurned = String.format("%.2f", calsBurned);
+        calories_burned.setText(formattedCalsBurned);
+        //calories_burned.setText(Double.toString(calsBurned));
     }
 
     @Override
