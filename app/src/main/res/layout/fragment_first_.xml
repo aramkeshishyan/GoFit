@@ -18,6 +18,7 @@
             android:fontFamily="@font/poppinsbold"
             android:text="Hello John"
             android:textSize="40dp"
+            android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
@@ -150,6 +151,7 @@
             android:layout_below="@+id/daily_activity_card"
             android:layout_marginLeft="15dp"
             android:fontFamily="@font/poppinsbold"
+            android:textColor="@color/black"
             android:text="Recommended Exercises"
             android:textSize="25dp" />
 
@@ -165,7 +167,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rec_exercise_recview"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsbold"
+            android:textColor="@color/black"
             android:text="Recommended Meals"
             android:textSize="25dp" />
 
@@ -182,6 +186,8 @@
             android:layout_below="@+id/rec_nutrition_recview"
             android:fontFamily="@font/poppinsbold"
             android:text="Accepted Challenges"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
             android:textSize="25dp"
             android:layout_marginLeft="15dp" />
 

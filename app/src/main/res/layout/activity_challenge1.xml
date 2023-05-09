@@ -5,6 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChallengeActivity"
+    android:background="@drawable/background_5"
+
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
     android:scrollbars="none">
 
     <RelativeLayout

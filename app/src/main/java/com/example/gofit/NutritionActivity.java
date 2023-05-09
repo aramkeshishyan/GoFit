@@ -58,13 +58,13 @@ public class NutritionActivity extends AppCompatActivity {
         nCalories.setText("Calories\n" + calories);
 
         TextView nProteins = findViewById(R.id.nt_proteins);
-        nProteins.setText("Proteins\n" + proteins);
+        nProteins.setText("Proteins\n" + proteins + "g");
 
         TextView nCarbs = findViewById(R.id.nt_carbs);
-        nCarbs.setText("Carbs\n" + carbs);
+        nCarbs.setText("Carbs\n" + carbs + "g");
 
         TextView nFats = findViewById(R.id.nt_fats);
-        nFats.setText("Fats\n" + fats);
+        nFats.setText("Fats\n" + fats + "g");
 
         ImageView nImage = findViewById(R.id.nt_image);
         Picasso.get().load(image).into(nImage);

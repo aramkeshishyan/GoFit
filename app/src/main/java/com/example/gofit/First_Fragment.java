@@ -152,7 +152,6 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         }
         sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
 
-        calculateCalsBurned();
     }
 
 
@@ -421,6 +420,7 @@ public class First_Fragment extends Fragment implements ExerciseRecViewAdapter.O
         if (sensorEvent.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
             stepCount = (int) sensorEvent.values[0];
             step_count.setText(Integer.toString(stepCount));
+            calculateCalsBurned();
         }
     }
 
