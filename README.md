@@ -1,12 +1,22 @@
 # GoFit
-A fitness app for everyone
 
-For people interested in maintaining a healthy lifestyle who need a helping tool to monitor their activities easily, boost motivation and engagement,  GoFit is a mobile fitness application that is meant to improve user performance. Unlike other fitness applications, our product creates a unique user experience that challenges the user and allows them to challenge other users. 
+GoFit is an Android fitness application that combines health tracking tools, collaboration, and recommendations to help guide and motivate people to maintain a healthy lifestyle.
 
-### Project Requirements
+#### Features
+- [x] Create and manage user accounts
+- [x] Collect and display user statistics (following short questionnaire)
+- [x] Monitor and log daily progress
+- [x] Add and manage friends
+- [x] Create and participate in challenges
+- [x] View and filter a database of exercises
 
-GoFit project requirements to be edited:
-* requirement 1
-* requrement 2
-* requirement 3
-    * sub requirement
+#### Tools Utilized
+- `Android Studio` for the front-end
+- `ASP.NET Core` for the back-end REST API
+- `DigitalOcean` to host the back-end
+- `MySQL` database with Amazon RDS
+
+#### Status
+
+Project has been completed, but the server is no longer being hosted.
+
